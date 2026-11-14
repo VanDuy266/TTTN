@@ -2307,3 +2307,6 @@ select {
     padding-top: 18px;
   }
 }
+
+/* Transparent logo inherits the sidebar background without a separate image plate. */
+.dad-logo { background: transparent; border-radius: 0; }

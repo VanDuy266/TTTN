@@ -68,4 +68,4 @@ Giao diện hiện dùng Times New Roman (serif tương đương khi máy không
 
 Giao diện dùng tên chức năng tiếng Việt: So sánh dự đoán, Đánh giá mô hình, Nhận xét và cải tiến, Dữ liệu và phương pháp. Bảng kết quả hiển thị số người tìm trúng trên tổng số người dùng, tỷ lệ tìm trúng, điểm thứ hạng và độ phủ; khoảng tin cậy nằm trong phần chi tiết. Tên thuật toán chuẩn và tên sản phẩm trong dữ liệu gốc được giữ nguyên.
 
-Nhận diện hiện tại sử dụng logo DAD ánh kim bạc trên nền xanh đậm (`web/static/dad-logo-metallic.png`), thanh điều hướng xanh đậm và điểm nhấn vàng. Nội dung giữ Times New Roman; các chức năng và nhãn đánh giá sử dụng tiếng Việt.
+Nhận diện hiện tại sử dụng logo DAD ánh kim bạc nền trong suốt trên thanh điều hướng xanh đậm (`web/static/dad-logo-transparent.png`), thanh điều hướng xanh đậm và điểm nhấn vàng. Nội dung giữ Times New Roman; các chức năng và nhãn đánh giá sử dụng tiếng Việt.
