@@ -54,7 +54,7 @@
               d="M9 3h6m-5 0v6L4 19a1.4 1.4 0 0 0 1.2 2h13.6a1.4 1.4 0 0 0 1.2-2L14 9V3M7.5 15h9"
             />
             <path d="m10 17 1 1m3-6h.01" /></svg
-          >Chạy đối chiếu<span class="nav-count">H1–H3</span></a
+          >So sánh dự đoán<span class="nav-count">H1–H3</span></a
         ><a href="#results" data-nav="results"
           ><svg
             class="nav-icon"
@@ -67,7 +67,7 @@
             aria-hidden="true"
           >
             <path d="M4 3v17h17M8 16v-5m5 5V6m5 10V9" /></svg
-          >Kết quả toàn tập</a
+          >Đánh giá mô hình</a
         ><a href="#discussion" data-nav="discussion"
           ><svg
             class="nav-icon"
@@ -81,7 +81,7 @@
           >
             <path d="M21 11a8 8 0 0 1-8 8H7l-4 3v-7a8 8 0 1 1 18-4Z" />
             <path d="M8 9h8m-8 4h5" /></svg
-          >Hạn chế & hướng đi</a
+          >Nhận xét và cải tiến</a
         ><a href="#method" data-nav="method"
           ><svg
             class="nav-icon"
@@ -95,7 +95,7 @@
           >
             <rect x="5" y="4" width="14" height="18" rx="2" />
             <path d="M9 2h6v4H9zM9 11l2 2 4-4m-6 9h6" /></svg
-          >Quy trình & tái lập</a
+          >Dữ liệu và phương pháp</a
         >
       </nav>
       <div class="sidebar-bottom">
@@ -106,7 +106,9 @@
           H1 · Tuần tự & thời gian<br />H2 · Đồ thị & nội dung<br />H3 · Tích
           hợp H1–H2
         </p>
-        <div class="run-chip">RUN <code id="run-id">đang tải…</code></div>
+        <div class="run-chip">
+          Mã thử nghiệm <code id="run-id">đang tải…</code>
+        </div>
         <small>Nhóm DAD · Thực tập tốt nghiệp<br />Duy · Ân · Đạt</small>
       </div>
     </aside>
@@ -148,8 +150,10 @@
       </main>
       <footer class="footer">
         <span>DAD / THỰC TẬP TỐT NGHIỆP</span
-        ><span>Thực nghiệm offline · Không suy ra hiệu quả kinh doanh</span
-        ><a href="/api/docs" target="_blank" rel="noopener">API ↗</a>
+        ><span>Thực nghiệm trên dữ liệu Amazon All Beauty</span
+        ><a href="/api/export/metrics.csv" target="_blank" rel="noopener"
+          >Tải bảng kết quả</a
+        >
       </footer>
     </div>
     <div id="toast" role="status" aria-live="polite"></div>

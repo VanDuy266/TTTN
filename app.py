@@ -117,20 +117,26 @@ def training(request:Request):
     return {'run_id':lab(request).manifest['run_id'],'rows':[dict(r,epoch=int(r['epoch']),loss=float(r['loss']),val_ndcg=float(r['val_ndcg'])) for r in rows]}
 
 @app.get('/api/export/metrics.csv')
-def export_metrics():return Response((DATA/'metrics.csv').read_bytes(),media_type='text/csv',headers={'Content-Disposition':'attachment; filename="research_metrics.csv"'})
+def export_metrics(request:Request):
+    data=lab(request);output=io.StringIO();writer=csv.writer(output)
+    writer.writerow(['Mô hình','Phạm vi đánh giá','Nhóm sản phẩm','Số người dùng','Số người tìm trúng','Recall@10','NDCG@10','Coverage@10','Cận dưới NDCG 95%','Cận trên NDCG 95%'])
+    groups={'all':'Tất cả','warm':'Đã có trong tập huấn luyện','cold':'Chưa có trong tập huấn luyện'}
+    for row in data.metrics:
+        writer.writerow([data.models[row['model']]['name'],'Toàn bộ danh mục' if row['protocol']=='full_catalog' else '100 sản phẩm ứng viên',groups[row['cohort']],row['users'],row['hits10'],row['recall10'],row['ndcg10'],row['coverage10'],row['ndcg_ci_low'],row['ndcg_ci_high']])
+    return Response(('\ufeff'+output.getvalue()).encode('utf-8'),media_type='text/csv',headers={'Content-Disposition':'attachment; filename="ket_qua_thuc_nghiem.csv"'})
 
 @app.get('/api/export/report.md',response_class=PlainTextResponse)
 def report(request:Request,protocol:Literal['full_catalog','sampled100']='full_catalog',cohort:Literal['all','warm','cold']='all'):
     data=lab(request);manifest=data.manifest
     rows=[r for r in data.metrics if r['protocol']==protocol and r['cohort']==cohort]
-    lines=['# Nhóm DAD — Kết quả thực nghiệm hệ thống gợi ý','',f"Run ID: {manifest['run_id']}",f"Giao thức: {manifest['protocols'][protocol]}",f'Nhóm: {cohort}; K = 10','',
-           '| Mô hình | Users | Recall@10 | NDCG@10 | Coverage@10 |','|---|---:|---:|---:|---:|']
+    lines=['# Nhóm DAD — Kết quả thực nghiệm hệ thống gợi ý','',f"Run ID: {manifest['run_id']}",f"Giao thức: {manifest['protocols'][protocol]}",f'Nhóm sản phẩm: '+{'all':'Tất cả','warm':'Đã có trong tập huấn luyện','cold':'Chưa có trong tập huấn luyện'}[cohort]+'; 10 kết quả đầu','',
+           '| Mô hình | Số người dùng | Recall@10 | NDCG@10 | Coverage@10 |','|---|---:|---:|---:|---:|']
     for r in rows:lines.append(f"| {data.models[r['model']]['name']} | {r['users']} | {r['recall10']:.6f} | {r['ndcg10']:.6f} | {r['coverage10']:.6f} |")
     lines+=['','## Phạm vi và hạn chế','',manifest['execution_note'],
-            'H1 gồm M1/M2/M3; H2 dùng LightGCN + tiêu đề TF-IDF/SVD, chưa phải MiniLM trong slide. H3 là mở rộng ngoài hai hướng gốc.',
-            'Train, epoch và trọng số được chọn bằng validation. Chỉ xem test để báo cáo; không chọn lại mô hình theo hồ sơ dự đoán đẹp.',
-            'Timestamp chưa xác minh đơn vị; lịch sử strictly trước cutoff. Catalog được giả định sẵn trước target. Split theo user, graph transductive; chưa thay thế split thời gian toàn cục.',
-            'Một seed huấn luyện; CI bootstrap người dùng chưa phản ánh biến thiên giữa các seed. Chưa có bằng chứng tăng hiệu quả kinh doanh.',
-            'Full catalog cho phép mua lại với mọi mô hình. Không so trực tiếp với số full catalog cũ có lọc lịch sử.',
-            '',f"Input SHA256: {json.dumps(manifest['audit']['input_sha256'],ensure_ascii=False)}"]
+            'H1 gồm M1/M2/M3; H2 sử dụng LightGCN và TF-IDF/SVD, chưa sử dụng MiniLM. H3 là mô hình tích hợp được nhóm bổ sung.',
+            'Các mô hình được học từ tập huấn luyện. Số vòng học và trọng số kết hợp được chọn bằng tập xác thực; chỉ số cuối cùng được tính trên tập kiểm tra.',
+            'Đơn vị mốc thời gian chưa được xác minh. Lịch sử chỉ gồm tương tác trước thời điểm kiểm tra; danh mục được giả định có sẵn trước đó. Dữ liệu hiện chia theo người dùng, chưa theo thời gian toàn hệ thống.',
+            'Kết quả dựa trên một lần khởi tạo huấn luyện. Khoảng tin cậy tính bằng lấy mẫu lại theo người dùng, chưa phản ánh biến thiên giữa các lần huấn luyện.',
+            'Đánh giá toàn danh mục bao gồm cả sản phẩm từng xuất hiện trong lịch sử cho mọi mô hình.',
+            '',f"Mã kiểm tra SHA256 của dữ liệu đầu vào: {json.dumps(manifest['audit']['input_sha256'],ensure_ascii=False)}"]
     return PlainTextResponse('\n'.join(lines),headers={'Content-Disposition':'attachment; filename="research_report.md"'})

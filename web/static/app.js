@@ -16,11 +16,11 @@ const num = (v, d = 0) =>
 const pct = (v) => `${num(v * 100, 2)}%`;
 const decimal = (v) => num(v, 4);
 const routes = {
-  overview: "Tổng quan",
-  experiment: "Chạy đối chiếu",
-  results: "Kết quả toàn tập",
-  discussion: "Hạn chế & hướng đi",
-  method: "Quy trình & tái lập",
+  overview: "Tổng quan đề tài",
+  experiment: "So sánh dự đoán",
+  results: "Đánh giá mô hình",
+  discussion: "Nhận xét và cải tiến",
+  method: "Dữ liệu và phương pháp",
 };
 const state = {
   bootstrap: null,
@@ -86,7 +86,7 @@ function coreRows(rows) {
 }
 function metricsTable(rows, full = false) {
   const best = Math.max(...coreRows(rows).map((x) => x.ndcg10));
-  return `<div class="table-wrap"><table class="metrics-table"><caption class="screen-reader">Chỉ số đánh giá thực nghiệm trên cùng tập người dùng và ứng viên</caption><thead><tr><th>Mô hình</th><th>Users</th><th>Recall@10</th><th>NDCG@10</th><th>Coverage@10</th>${full ? "<th>CI 95% · NDCG</th>" : ""}</tr></thead><tbody>${rows.map((r) => `<tr class="${r.ndcg10 === best ? "best" : ""}"><td>${h(model(r.model).name)}${r.ndcg10 === best ? '<span class="best-label">Cao nhất lần chạy</span>' : ""}<span class="metric-sub">${h(model(r.model).family)}</span></td><td>${num(r.users)}</td><td class="metric-num">${pct(r.recall10)}</td><td class="metric-num">${decimal(r.ndcg10)}</td><td class="metric-num">${pct(r.coverage10)}</td>${full ? `<td class="metric-num">${decimal(r.ndcg_ci_low)} – ${decimal(r.ndcg_ci_high)}</td>` : ""}</tr>`).join("")}</tbody></table></div>`;
+  return `<div class="table-wrap"><table class="metrics-table"><caption class="screen-reader">Chỉ số đánh giá thực nghiệm trên cùng tập người dùng và ứng viên</caption><thead><tr><th>Mô hình</th><th>Tìm trúng / số người dùng</th><th>Tỷ lệ tìm trúng</th><th>Điểm thứ hạng</th><th>Độ phủ sản phẩm</th>${full ? "<th>Khoảng tin cậy 95%</th>" : ""}</tr></thead><tbody>${rows.map((r) => `<tr class="${r.ndcg10 === best ? "best" : ""}"><td>${h(model(r.model).name)}${r.ndcg10 === best ? '<span class="best-label">Cao nhất lần chạy</span>' : ""}<span class="metric-sub">${h(model(r.model).family)}</span></td><td class="metric-num"><strong>${num(r.hits10 ?? Math.round(r.recall10 * r.users))}</strong> / ${num(r.users)}</td><td class="metric-num">${pct(r.recall10)}</td><td class="metric-num">${decimal(r.ndcg10)}</td><td class="metric-num">${pct(r.coverage10)}</td>${full ? `<td class="metric-num">${decimal(r.ndcg_ci_low)} – ${decimal(r.ndcg_ci_high)}</td>` : ""}</tr>`).join("")}</tbody></table></div>`;
 }
 function bars(rows) {
   const max = Math.max(...rows.map((r) => r.ndcg10), 0.00001);
@@ -110,17 +110,17 @@ function protocolOptions(current) {
   );
 }
 function metricLegend() {
-  return `<div class="metric-legend"><div><h4>Recall@10</h4><p>Tỷ lệ người dùng có sản phẩm mục tiêu nằm trong top 10. Mỗi người có một mục tiêu test.</p></div><div><h4>NDCG@10</h4><p>Thưởng cao hơn khi mục tiêu xuất hiện ở vị trí đầu. Không phải chỉ số đa dạng.</p></div><div><h4>Coverage@10</h4><p>Tỷ lệ trong 2.934 sản phẩm xuất hiện trong các danh sách top 10 của nhóm được đánh giá.</p></div></div>`;
+  return `<div class="metric-legend"><div><h4>Tỷ lệ tìm trúng · Recall@10</h4><p>Tỷ lệ người dùng có sản phẩm mục tiêu nằm trong 10 kết quả đầu. Mỗi người có một sản phẩm thực tế trong tập kiểm tra.</p></div><div><h4>Điểm thứ hạng · NDCG@10</h4><p>Thang điểm từ 0 đến 1; sản phẩm thực tế nằm càng gần đầu danh sách thì điểm càng cao.</p></div><div><h4>Độ phủ sản phẩm · Coverage@10</h4><p>Tỷ lệ sản phẩm xuất hiện trong các danh sách gợi ý. Đây là độ phủ, không phải độ chính xác.</p></div></div>`;
 }
 function overview() {
   const b = state.bootstrap,
     a = b.audit;
   $("#main").innerHTML =
-    `<section class="hero"><div><div class="eyebrow">NHÓM DAD · AMAZON ALL BEAUTY</div><h1>Thực nghiệm hệ thống<br>gợi ý sản phẩm</h1><p>Đối chiếu ba hướng nghiên cứu trên cùng dữ liệu: mô hình tuần tự theo thời gian, đồ thị kết hợp nội dung và mô hình tích hợp.</p><div class="hero-actions"><a href="#experiment" class="btn">Chạy thực nghiệm</a><a href="#method" class="btn btn-outline">Phương pháp nghiên cứu</a></div></div></section>
-<div class="stats"><div class="stat"><div class="stat-label">Hồ sơ kiểm chứng</div><div class="stat-value">${num(a.users)}</div></div><div class="stat"><div class="stat-label">Sản phẩm trong danh mục</div><div class="stat-value">${num(a.catalog)}</div></div><div class="stat"><div class="stat-label">Tương tác huấn luyện</div><div class="stat-value">${num(a.train_rows)}</div></div><div class="stat"><div class="stat-label">Mục tiêu chưa có trong train</div><div class="stat-value">${num((a.cold_test_targets / a.test_rows) * 100, 1)}%</div></div></div>
-<div class="section-heading"><div><h2>Ba hướng thực nghiệm</h2><p>H1 và H2 theo slide gốc; H3 là hướng tích hợp được nhóm bổ sung.</p></div></div>
-<div class="directions-grid"><article class="panel research-panel"><div class="panel-index">HƯỚNG 1</div><h3>Tuần tự và thời gian</h3><p>So sánh GRU4Rec cơ sở, Time Gap và Time Decay để kiểm tra tác động của tín hiệu thời gian.</p><a href="#experiment" class="inline-link">M1 · M2 · M3</a></article><article class="panel research-panel"><div class="panel-index">HƯỚNG 2</div><h3>Đồ thị và nội dung</h3><p>LightGCN kết hợp đặc trưng tiêu đề sản phẩm. Phiên bản đang chạy dùng TF-IDF/SVD, chưa phải MiniLM.</p><a href="#experiment" class="inline-link">H2 · LightGCN + Text</a></article><article class="panel research-panel"><div class="panel-index">HƯỚNG 3</div><h3>Tích hợp H1–H2</h3><p>Kết hợp điểm tuần tự, đồ thị/nội dung và popularity. Trọng số chọn trên validation, kiểm tra trên test.</p><a href="#experiment" class="inline-link">H3 · Mô hình tích hợp</a></article></div>
-<div class="section-heading"><div><h2>Kết quả trên toàn danh mục</h2><p>Cùng tập người dùng và ứng viên; K = 10.</p></div><a href="#results" class="inline-link">Xem bảng đầy đủ</a></div><div id="overview-metrics" class="panel">${loading()}</div><details class="disclosure"><summary>Lưu ý khi đọc kết quả</summary><div class="small muted">H3 hiện chọn trọng số bằng 0 cho H1 và bằng 1 cho nhánh H2 nội dung, nên kết quả trùng baseline nội dung. Chưa có bằng chứng mô hình tích hợp cải thiện hiệu quả. Web xếp hạng từ điểm đã lưu, không huấn luyện lại khi bấm nút.</div></details>`;
+    `<section class="hero"><div><div class="eyebrow">NHÓM DAD · AMAZON ALL BEAUTY</div><h1>Thực nghiệm hệ thống<br>gợi ý sản phẩm</h1><p>Phân tích lịch sử tương tác, so sánh sản phẩm dự đoán của ba hướng nghiên cứu và tổng hợp chỉ số đánh giá.</p><div class="hero-actions"><a href="#experiment" class="btn">Chạy thực nghiệm</a><a href="#method" class="btn btn-outline">Phương pháp nghiên cứu</a></div></div></section>
+<div class="stats"><div class="stat"><div class="stat-label">Hồ sơ kiểm chứng</div><div class="stat-value">${num(a.users)}</div></div><div class="stat"><div class="stat-label">Sản phẩm trong danh mục</div><div class="stat-value">${num(a.catalog)}</div></div><div class="stat"><div class="stat-label">Tương tác huấn luyện</div><div class="stat-value">${num(a.train_rows)}</div></div><div class="stat"><div class="stat-label">Sản phẩm chưa có trong tập huấn luyện</div><div class="stat-value">${num((a.cold_test_targets / a.test_rows) * 100, 1)}%</div></div></div>
+<div class="section-heading"><div><h2>Ba hướng thực nghiệm</h2><p>Ba nhóm mô hình được đánh giá trên cùng dữ liệu đầu vào.</p></div></div>
+<div class="directions-grid"><article class="panel research-panel"><div class="panel-index">HƯỚNG 1</div><h3>Tuần tự và thời gian</h3><p>So sánh GRU4Rec cơ sở, khoảng cách thời gian và suy giảm theo thời gian để kiểm tra tác động của tín hiệu thời gian.</p><a href="#experiment" class="inline-link">M1 · M2 · M3</a></article><article class="panel research-panel"><div class="panel-index">HƯỚNG 2</div><h3>Đồ thị và nội dung</h3><p>LightGCN kết hợp đặc trưng tiêu đề sản phẩm. Phiên bản đang chạy dùng TF-IDF/SVD, chưa phải MiniLM.</p><a href="#experiment" class="inline-link">H2 · Đồ thị và nội dung</a></article><article class="panel research-panel"><div class="panel-index">HƯỚNG 3</div><h3>Tích hợp H1–H2</h3><p>Kết hợp điểm tuần tự, đồ thị, nội dung và độ phổ biến. Trọng số chọn trên tập xác thực, đánh giá trên tập kiểm tra.</p><a href="#experiment" class="inline-link">H3 · Mô hình tích hợp</a></article></div>
+<div class="section-heading"><div><h2>Kết quả trên toàn danh mục</h2><p>Cùng tập người dùng và ứng viên; 10 kết quả đầu.</p></div><a href="#results" class="inline-link">Xem bảng đầy đủ</a></div><div id="overview-metrics" class="panel">${loading()}</div><details class="disclosure"><summary>Kết quả mô hình tích hợp</summary><div class="small muted">H3 hiện chọn trọng số bằng 0 cho H1 và bằng 1 cho nhánh H2 nội dung, nên kết quả trùng mô hình đối chứng theo nội dung. Chưa có bằng chứng mô hình tích hợp cải thiện hiệu quả. Điểm dự đoán được lưu từ lần huấn luyện trước.</div></details>`;
   const generation = state.generation;
   getMetrics()
     .then((data) => {
@@ -144,14 +144,14 @@ function experiment() {
     heading(
       "01 / ĐỐI CHIẾU MỘT HỒ SƠ",
       "Đối chiếu kết quả dự đoán",
-      "Chọn hồ sơ test, xem top 10 rồi mở sản phẩm mục tiêu để kiểm chứng.",
+      "So sánh 10 sản phẩm được xếp hạng cao nhất với sản phẩm thực tế của từng người dùng.",
     ) +
-    `<form id="experiment-form" class="panel experiment-controls"><div class="control-grid"><div><label for="profile-search">Tìm mã hồ sơ</label><input id="profile-search" placeholder="Ví dụ: KH-0020" value="${h(state.query)}" autocomplete="off"></div><div><label for="profile-select">Hồ sơ trong tập test</label><select id="profile-select" required><option value="">Đang đọc hồ sơ…</option></select></div><div><label for="experiment-protocol">Không gian đánh giá</label><select id="experiment-protocol">${protocolOptions(state.protocol)}</select></div><button type="submit" class="btn" id="run-button">Chạy đối chiếu <span>→</span></button></div><div class="profile-feedback" id="profile-feedback">Đang tải danh sách…</div><div class="presets"><span>Trường hợp cần xem:</span>${[
+    `<form id="experiment-form" class="panel experiment-controls"><div class="control-grid"><div><label for="profile-search">Tìm mã người dùng</label><input id="profile-search" placeholder="Ví dụ: KH-0020" value="${h(state.query)}" autocomplete="off"></div><div><label for="profile-select">Người dùng trong tập kiểm tra</label><select id="profile-select" required><option value="">Đang đọc hồ sơ…</option></select></div><div><label for="experiment-protocol">Phạm vi đánh giá</label><select id="experiment-protocol">${protocolOptions(state.protocol)}</select></div><button type="submit" class="btn" id="run-button">So sánh dự đoán <span>→</span></button></div><div class="profile-feedback" id="profile-feedback">Đang tải danh sách…</div><div class="presets"><span>Nhóm người dùng:</span>${[
       ["all", "Tất cả"],
       ["warm", "Sản phẩm đã học"],
       ["cold", "Sản phẩm chưa học"],
-      ["long", "Lịch sử ≥ 10"],
-      ["empty", "Không có lịch sử trước mốc"],
+      ["long", "Có ít nhất 10 tương tác"],
+      ["empty", "Không có lịch sử trước thời điểm kiểm tra"],
     ]
       .map(
         ([value, label]) =>
@@ -159,11 +159,11 @@ function experiment() {
       )
       .join(
         "",
-      )}</div><div class="model-options"><span class="models-label">Mô hình đối chiếu</span>${b.models
+      )}</div><div class="model-options"><span class="models-label">Mô hình so sánh</span>${b.models
       .filter((x) => b.default_models.includes(x.id))
       .map(
         (m) =>
-          `<label class="model-option"><input type="checkbox" name="model" value="${m.id}" ${state.selected.includes(m.id) ? "checked" : ""}>${h(m.id === "popularity" ? "Popularity" : m.id === "content" ? "Nội dung" : m.name.replace(" · ", ": "))}</label>`,
+          `<label class="model-option"><input type="checkbox" name="model" value="${m.id}" ${state.selected.includes(m.id) ? "checked" : ""}>${h(m.id === "popularity" ? "Độ phổ biến" : m.id === "content" ? "Nội dung" : m.name.replace(" · ", ": "))}</label>`,
       )
       .join(
         "",
@@ -175,7 +175,7 @@ function experiment() {
       )
       .join(
         "",
-      )}</div><p class="model-choice-note">H2 blend là cấu hình phụ. H3 đã có trong nhóm mô hình đối chiếu chính; đây là hướng tích hợp được bổ sung so với slide gốc.</p></details><p class="protocol-note" id="protocol-note">${h(b.protocols[state.protocol])}</p></form><section id="case-output" aria-live="polite">${emptyCase()}</section>`;
+      )}</div><p class="model-choice-note">Cấu hình phụ kết hợp điểm đồ thị và nội dung; trọng số được chọn trên tập xác thực.</p></details><p class="protocol-note" id="protocol-note">${h(b.protocols[state.protocol])}</p></form><section id="case-output" aria-live="polite">${emptyCase()}</section>`;
   $("#experiment-form").addEventListener("submit", runCase);
   $("#profile-search").addEventListener("input", (e) => {
     state.query = e.target.value;
@@ -201,7 +201,7 @@ function experiment() {
   if (state.case) renderCase(state.case);
 }
 function emptyCase() {
-  return `<div class="empty"><div class="empty-icon">⌁</div><h3>Sẵn sàng để kiểm chứng</h3><p>Chọn hồ sơ và bấm “Chạy đối chiếu”. Kết quả sai cũng là bằng chứng cần phân tích.</p></div>`;
+  return `<div class="empty"><div class="empty-icon">⌁</div><h3>Chưa có kết quả dự đoán</h3></div>`;
 }
 function invalidateCase() {
   state.case = null;
@@ -232,13 +232,13 @@ async function loadProfiles() {
       select.innerHTML = data.items
         .map(
           (p) =>
-            `<option value="${h(p.id)}" ${p.id === state.profile ? "selected" : ""}>${h(p.id)} · ${p.history_length} lịch sử · ${p.target_warm ? "warm" : "cold"}</option>`,
+            `<option value="${h(p.id)}" ${p.id === state.profile ? "selected" : ""}>${h(p.id)} · ${p.history_length} lịch sử · ${p.target_warm ? "đã có dữ liệu huấn luyện" : "chưa có dữ liệu huấn luyện"}</option>`,
         )
         .join("");
     }
     if (previousProfile !== state.profile) invalidateCase();
     $("#profile-feedback").textContent =
-      `Hiện ${data.items.length} / ${data.total} hồ sơ phù hợp. Gõ mã để tìm hồ sơ khác.`;
+      `Hiện ${data.items.length} / ${data.total} hồ sơ phù hợp. `;
   } catch (err) {
     if (generation === state.profileGeneration && $("#profile-feedback"))
       $("#profile-feedback").textContent = err.message;
@@ -295,7 +295,7 @@ function renderCase(data) {
   const history = data.history.slice(-12);
   const total = data.history.length;
   $("#case-output").innerHTML =
-    `<div class="section-heading"><div><h2>Đối chiếu ${h(data.profile_id)}</h2><p>Cùng ${num(data.candidate_count)} ứng viên · Top 10 · ${data.results.length} mô hình</p></div><button class="btn btn-outline btn-small" data-action="case-csv" ${!reveal ? "disabled" : ""}>Xuất đối chiếu CSV ↓</button></div><div class="case-context"><div class="panel"><div class="history-header"><span class="profile-title">Lịch sử được phép sử dụng</span><span class="tag">${total} tương tác</span></div>${total ? `<div class="history-timeline">${history.map((item, i) => `<div class="history-item"><small>${num(total - history.length + i + 1)} / ${total}</small><p title="${h(item.title)}">${h(item.title)}</p><code>${h(item.item_id)}</code><div><small>Mốc ${num(item.timestamp)}</small></div></div>`).join("")}</div><div class="history-info">${total > 12 ? "Hiển thị 12 tương tác cuối. " : ""}Mọi mốc &lt; ${num(data.cutoff)}. Đơn vị thời gian chưa được xác minh; không diễn giải là ngày.</div>` : `<div class="notice notice-warning">Không có lịch sử có mốc sớm hơn mục tiêu. Mọi mô hình dùng cùng popularity fallback; đây không phải dự đoán cá nhân hóa của GRU/GNN.</div>`}<details class="disclosure"><summary>Xem đầy đủ lịch sử (${total})</summary><div class="table-wrap"><table class="metrics-table"><thead><tr><th>Thứ tự</th><th>Sản phẩm</th><th>Mốc số</th></tr></thead><tbody>${data.history.map((x, i) => `<tr><td>${i + 1}</td><td>${h(x.title)}</td><td>${num(x.timestamp)}</td></tr>`).join("")}</tbody></table></div></details></div><div class="panel target-panel"><span class="target-label">SẢN PHẨM GIỮ LẠI TRONG TEST</span>${reveal ? `<p class="target-name">${h(data.target.title)}</p><code class="target-id">${h(data.target.item_id)}</code><div><span class="tag ${data.target.warm ? "" : "tag-blue"}">${data.target.warm ? "Warm · đã có trong train" : "Cold · chưa có trong train"}</span></div><p class="history-info">Chỉ dùng mục tiêu để tính thứ hạng và chỉ số, không đưa vào lịch sử hay huấn luyện.</p><button class="btn btn-outline btn-small" data-action="reveal">Ẩn mục tiêu</button>` : `<h3 style="margin-top:16px">Đọc top 10 trước.<br>Sau đó mở đáp án.</h3><p class="small muted">Mục tiêu được giữ ngoài lịch sử. Bấm nút để đánh dấu kết quả tìm trúng và xem thứ hạng.</p><button class="btn" data-action="reveal">Mở mục tiêu test →</button>`}</div></div>${reveal ? `<div class="notice ${!data.target.warm ? "notice-warning" : ""}"><strong>Phân tích trường hợp này.</strong> ${data.fallback ? "Hồ sơ không có lịch sử trước mốc, nên mọi mô hình dùng chung popularity fallback. Không quy kết kết quả này là lợi ích của GRU/GNN." : !data.target.warm ? "Mục tiêu chưa xuất hiện trong train. M1/M2/M3 không có đầu ra ID đã học cho item này; thứ hạng giữa các item cold bằng điểm chỉ theo ID, không phải độ phù hợp ngữ nghĩa. H2/nội dung có thể chấm từ tiêu đề, nhưng vẫn cần đối chiếu trúng hoặc sai." : data.history.length <= 2 ? "Mục tiêu đã có trong train nhưng lịch sử rất ngắn. Đây là điều kiện cần kiểm tra riêng; chưa đủ để quy nguyên nhân dự đoán sai cho một thành phần mô hình." : "Mục tiêu đã có trong train và có lịch sử trước test. So M1/M2/M3 để xem tác động trên case này, rồi kiểm tra kết luận trên toàn tập cùng cohort."}</div>` : ""}<div class="run-meta"><span>RUN ${h(data.run_id)} · ${h(data.execution_mode)} · Không huấn luyện lại khi bấm nút</span><span>Xếp hạng phía máy chủ: ${num(data.server_ms, 2)} ms · API + đọc JSON: ${num(data.roundtrip_ms, 1)} ms</span></div><div class="comparison-grid">${data.results.map((result) => `<article class="model-card"><header class="model-card-head"><div><span class="model-family">${h(model(result.model).family)}</span><h3>${h(result.name)}</h3></div><span class="hit-badge ${!reveal || !result.hit10 ? "miss-badge" : ""}">${!reveal ? "Chưa đối chiếu" : result.hit10 ? "Trúng top 10" : "Chưa trúng"}</span></header><ol class="ranking-list">${result.top10.map((item) => `<li class="ranking-item ${reveal && item.is_target ? "target" : ""}"><span class="ranking-pos">${String(item.rank).padStart(2, "0")}</span><div><span class="ranking-title" title="${h(item.title)}">${h(item.title)}</span><small>${h(item.item_id)} ${reveal && item.is_target ? "· MỤC TIÊU TEST" : ""}</small></div></li>`).join("")}</ol><footer class="model-footer"><span>${reveal ? `Mục tiêu: hạng ${num(result.rank)} / ${num(data.candidate_count)}` : "Chờ mở mục tiêu test"}</span><span>${reveal ? `NDCG ${decimal(result.ndcg10)}` : "K = 10"}</span></footer></article>`).join("")}</div><div class="notice"><strong>Cách đọc kết quả.</strong> Một hồ sơ chỉ là trường hợp minh họa. Kết luận mô hình cần dựa trên toàn tập, warm/cold, khoảng tin cậy và nhiều seed. Điểm chuẩn hóa không phải xác suất khách mua hàng.</div><a href="#results" class="btn btn-outline">Xem kết quả toàn tập →</a>`;
+    `<div class="section-heading"><div><h2>Đối chiếu ${h(data.profile_id)}</h2><p>Cùng ${num(data.candidate_count)} ứng viên · 10 kết quả đầu · ${data.results.length} mô hình</p></div><button class="btn btn-outline btn-small" data-action="case-csv" ${!reveal ? "disabled" : ""}>Xuất đối chiếu CSV ↓</button></div><div class="case-context"><div class="panel"><div class="history-header"><span class="profile-title">Lịch sử dùng để dự đoán</span><span class="tag">${total} tương tác</span></div>${total ? `<div class="history-timeline">${history.map((item, i) => `<div class="history-item"><small>${num(total - history.length + i + 1)} / ${total}</small><p title="${h(item.title)}">${h(item.title)}</p><code>${h(item.item_id)}</code><div><small>Mốc ${num(item.timestamp)}</small></div></div>`).join("")}</div><div class="history-info">${total > 12 ? "Hiển thị 12 tương tác cuối. " : ""}Mọi mốc &lt; ${num(data.cutoff)}. Đơn vị thời gian chưa được xác minh.</div>` : `<div class="notice notice-warning">Không có tương tác trước thời điểm kiểm tra. Các mô hình sử dụng cùng phương án dự phòng theo độ phổ biến.</div>`}<details class="disclosure"><summary>Xem đầy đủ lịch sử (${total})</summary><div class="table-wrap"><table class="metrics-table"><thead><tr><th>Thứ tự</th><th>Sản phẩm</th><th>Mốc số</th></tr></thead><tbody>${data.history.map((x, i) => `<tr><td>${i + 1}</td><td>${h(x.title)}</td><td>${num(x.timestamp)}</td></tr>`).join("")}</tbody></table></div></details></div><div class="panel target-panel"><span class="target-label">SẢN PHẨM THỰC TẾ</span>${reveal ? `<p class="target-name">${h(data.target.title)}</p><code class="target-id">${h(data.target.item_id)}</code><div><span class="tag ${data.target.warm ? "" : "tag-blue"}">${data.target.warm ? "Đã xuất hiện trong tập huấn luyện" : "Chưa xuất hiện trong tập huấn luyện"}</span></div><p class="history-info">Sản phẩm thuộc tập kiểm tra, không được đưa vào lịch sử dự đoán.</p><button class="btn btn-outline btn-small" data-action="reveal">Ẩn sản phẩm thực tế</button>` : `<h3 style="margin-top:16px">Sản phẩm cần dự đoán</h3><button class="btn" data-action="reveal">Hiện sản phẩm thực tế →</button>`}</div></div>${reveal ? `<div class="notice ${!data.target.warm ? "notice-warning" : ""}"><strong>Đặc điểm dữ liệu.</strong> ${data.fallback ? "Không có lịch sử trước thời điểm kiểm tra. Các mô hình sử dụng cùng phương án dự phòng theo độ phổ biến. " : !data.target.warm ? "Sản phẩm thực tế chưa có trong tập huấn luyện. M1/M2/M3 chưa học đầu ra cho sản phẩm này. Các sản phẩm mới bằng điểm được xếp theo mã; H2 và mô hình nội dung sử dụng đặc trưng tiêu đề." : data.history.length <= 2 ? "Sản phẩm đã có trong tập huấn luyện; lịch sử người dùng có tối đa hai tương tác. " : "Sản phẩm đã có trong tập huấn luyện và người dùng có lịch sử trước thời điểm kiểm tra. "}</div>` : ""}<div class="run-meta"><span>Mã thực nghiệm ${h(data.run_id)} · Điểm dự đoán đã lưu</span><span>Xếp hạng phía máy chủ: ${num(data.server_ms, 2)} ms · Thời gian nhận kết quả: ${num(data.roundtrip_ms, 1)} ms</span></div><div class="comparison-grid">${data.results.map((result) => `<article class="model-card"><header class="model-card-head"><div><span class="model-family">${h(model(result.model).family)}</span><h3>${h(result.name)}</h3></div><span class="hit-badge ${!reveal || !result.hit10 ? "miss-badge" : ""}">${!reveal ? "Chưa đối chiếu" : result.hit10 ? "Trúng 10 kết quả đầu" : "Chưa trúng"}</span></header><ol class="ranking-list">${result.top10.map((item) => `<li class="ranking-item ${reveal && item.is_target ? "target" : ""}"><span class="ranking-pos">${String(item.rank).padStart(2, "0")}</span><div><span class="ranking-title" title="${h(item.title)}">${h(item.title)}</span><small>${h(item.item_id)} ${reveal && item.is_target ? "· SẢN PHẨM THỰC TẾ" : ""}</small></div></li>`).join("")}</ol><footer class="model-footer"><span>${reveal ? `Sản phẩm thực tế: hạng ${num(result.rank)} / ${num(data.candidate_count)}` : "Chưa hiện sản phẩm thực tế"}</span><span>${reveal ? `NDCG ${decimal(result.ndcg10)}` : "10 kết quả đầu"}</span></footer></article>`).join("")}</div><a href="#results" class="btn btn-outline">Xem kết quả toàn tập →</a>`;
 }
 async function results() {
   const generation = state.generation;
@@ -303,13 +303,13 @@ async function results() {
     heading(
       "02 / ĐÁNH GIÁ TOÀN TẬP",
       "Kết quả thực nghiệm",
-      "Cùng người dùng, cùng catalog và ứng viên. Epoch và trọng số đã chọn bằng validation.",
+      "Mỗi người dùng có một sản phẩm thực tế để đối chiếu. Dự đoán tìm trúng khi sản phẩm đó nằm trong 10 gợi ý đầu.",
     ) +
-    `<div class="result-controls"><div><label for="metrics-protocol">Giao thức</label><select id="metrics-protocol">${protocolOptions(state.protocol)}</select></div><div><label for="metrics-cohort">Nhóm mục tiêu</label><select id="metrics-cohort">${options(
+    `<div class="result-controls"><div><label for="metrics-protocol">Phạm vi đánh giá</label><select id="metrics-protocol">${protocolOptions(state.protocol)}</select></div><div><label for="metrics-cohort">Nhóm sản phẩm thực tế</label><select id="metrics-cohort">${options(
       [
         ["all", "Tất cả người dùng"],
-        ["warm", "Warm · mục tiêu đã có trong train"],
-        ["cold", "Cold · mục tiêu chưa có trong train"],
+        ["warm", "Đã có trong tập huấn luyện"],
+        ["cold", "Chưa có trong tập huấn luyện"],
       ],
       state.cohort,
     )}</select></div><a href="/api/export/metrics.csv" class="btn btn-outline">Xuất toàn bộ CSV ↓</a><a id="report-link" href="/api/export/report.md?protocol=${state.protocol}&cohort=${state.cohort}" class="btn">Tải nhận xét & kết quả ↓</a></div><div class="study-strip" id="metric-context"></div><div id="metrics-body">${loading()}</div>`;
@@ -333,12 +333,12 @@ async function results() {
         `/api/export/report.md?protocol=${protocol}&cohort=${cohort}`;
       const rows = coreRows(data.rows);
       $("#metrics-body").innerHTML =
-        `<div class="panel">${metricsTable(rows, true)}<p class="table-caption">CI 95% = bootstrap NDCG theo người dùng, 500 lần. Đây là một seed huấn luyện, chưa gồm biến thiên giữa các lần huấn luyện.</p></div>${metricLegend()}<div class="section-heading"><div><h2>So sánh NDCG@10</h2><p>Chất lượng thứ hạng của mục tiêu. Thanh dài hơn chưa đồng nghĩa có khác biệt thống kê.</p></div></div><div class="panel">${bars(rows)}</div><div class="notice notice-warning"><strong>Lưu ý về phạm vi.</strong> H2 ở đây là LightGCN + TF-IDF/SVD. Chưa chạy MiniLM đúng như slide. H2 blend/H3 chọn trọng số nội dung, chưa có bằng chứng cải thiện do mô hình lai.</div><details class="disclosure"><summary>Phần mở rộng ngoài slide và đối chiếu chênh lệch</summary><div>${metricsTable(
+        `<div class="panel">${metricsTable(rows)}<p class="table-caption">Tìm trúng / số người dùng: số trường hợp dự đoán đúng trong 10 kết quả đầu trên tổng số người được đánh giá.</p></div>${metricLegend()}<details class="disclosure"><summary>Khoảng tin cậy của điểm thứ hạng</summary><div class="table-wrap"><table class="metrics-table"><thead><tr><th>Mô hình</th><th>NDCG@10</th><th>Khoảng tin cậy 95%</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${h(model(r.model).name)}</td><td>${decimal(r.ndcg10)}</td><td>${decimal(r.ndcg_ci_low)} – ${decimal(r.ndcg_ci_high)}</td></tr>`).join("")}</tbody></table></div><p class="table-caption">Lấy mẫu lại theo người dùng, 500 lần; một lần khởi tạo huấn luyện.</p></details><div class="section-heading"><div><h2>So sánh NDCG@10</h2><p>Chất lượng thứ hạng của sản phẩm thực tế trong 10 kết quả đầu.</p></div></div><div class="panel">${bars(rows)}</div><div class="notice notice-warning"><strong>Cấu hình hiện tại.</strong> H2 sử dụng LightGCN và TF-IDF/SVD, chưa triển khai MiniLM. H3 có kết quả trùng mô hình đối chứng theo nội dung.</div><details class="disclosure"><summary>Cấu hình phụ và chênh lệch chỉ số</summary><div>${metricsTable(
           data.rows.filter(
             (r) => !state.bootstrap.default_models.includes(r.model),
           ),
           true,
-        )}${data.contrasts.length ? `<h4 style="margin-top:20px">Chênh lệch NDCG so với baseline nội dung</h4><div class="table-wrap"><table class="metrics-table"><thead><tr><th>Mô hình</th><th>Δ NDCG</th><th>CI 95% theo cặp</th></tr></thead><tbody>${data.contrasts.map((r) => `<tr><td>${h(model(r.model).name)}</td><td class="metric-num">${decimal(r.ndcg_delta)}</td><td class="metric-num">${decimal(r.ci_low)} – ${decimal(r.ci_high)}</td></tr>`).join("")}</tbody></table></div><p class="table-caption">Phân tích khám phá, chưa hiệu chỉnh nhiều phép so sánh; không thay thế đánh giá nhiều seed hoặc thử nghiệm thực tế.</p>` : ""}</div></details><div class="notice">Web dùng giao thức full catalog cho phép mua lại cho mọi mô hình. Một bảng full catalog ở bản demo cũ từng lọc lịch sử; không so trực tiếp hai giao thức này.</div>`;
+        )}${data.contrasts.length ? `<h4 style="margin-top:20px">Chênh lệch NDCG so với mô hình đối chứng theo nội dung</h4><div class="table-wrap"><table class="metrics-table"><thead><tr><th>Mô hình</th><th>Δ NDCG</th><th>Khoảng tin cậy 95% theo cặp</th></tr></thead><tbody>${data.contrasts.map((r) => `<tr><td>${h(model(r.model).name)}</td><td class="metric-num">${decimal(r.ndcg_delta)}</td><td class="metric-num">${decimal(r.ci_low)} – ${decimal(r.ci_high)}</td></tr>`).join("")}</tbody></table></div><p class="table-caption">Chênh lệch được tính trên cùng người dùng; chưa hiệu chỉnh nhiều phép so sánh.</p>` : ""}</div></details>`;
     } catch (err) {
       if (generation === state.generation)
         $("#metrics-body").innerHTML = errorBlock(err);
@@ -350,49 +350,48 @@ async function results() {
 }
 const discussionData = [
   {
-    family: "H1 / M1",
-    title: "GRU4Rec — thứ tự tương tác",
+    family: "Hướng 1 · M1",
+    title: "GRU4Rec — chuỗi tương tác",
     strength:
-      "Học thứ tự và phụ thuộc trong chuỗi; là mốc đối chứng để tách tác động của đặc trưng thời gian.",
+      "Học thứ tự sản phẩm trong lịch sử và tạo điểm dự đoán cho tương tác tiếp theo.",
     limit:
-      "Chỉ có đầu ra ID cho sản phẩm train. Chuỗi ngắn và nhiều mục tiêu cold-item khiến việc dự đoán khó; thứ tự không thể thay thế khoảng cách thời gian.",
-    next: "Đánh giá riêng warm-item và chuỗi dài; tăng dữ liệu chuỗi sạch, so với baseline đơn giản trước khi tăng kiến trúc.",
+      "Chỉ có đầu ra cho sản phẩm đã học. Lịch sử ngắn và sản phẩm mới làm giảm khả năng dự đoán.",
+    next: "Bổ sung chuỗi tương tác sạch; đánh giá riêng theo độ dài lịch sử và mức độ xuất hiện của sản phẩm.",
   },
   {
-    family: "H1 / M2",
-    title: "Time Gap — khoảng cách giữa các lần",
-    strength:
-      "Đưa log(1 + gap/scale) vào GRU để mô hình có thể phân biệt tương tác sát nhau và cách xa nhau.",
+    family: "Hướng 1 · M2",
+    title: "Khoảng cách thời gian",
+    strength: "Bổ sung khoảng cách giữa hai tương tác vào đầu vào của GRU.",
     limit:
-      "Timestamp đang là số rút gọn chưa rõ đơn vị. Không thể kết luận mô hình đã học hành vi theo ngày; mốc trùng làm mất thông tin thứ tự.",
-    next: "Khôi phục timestamp gốc, kiểm tra đơn vị và split thời gian. Chạy ablation M1/M2 cùng seed, cùng ngân sách.",
+      "Mốc thời gian chưa rõ đơn vị và có nhiều giá trị trùng; chưa diễn giải được khoảng cách theo ngày.",
+    next: "Khôi phục thời gian gốc và so sánh với M1 trong cùng điều kiện huấn luyện.",
   },
   {
-    family: "H1 / M3",
-    title: "Time Decay — ưu tiên tín hiệu gần",
+    family: "Hướng 1 · M3",
+    title: "Suy giảm theo thời gian",
     strength:
-      "Trọng số exp(−age/scale) giảm ảnh hưởng đầu vào cũ; giả thuyết phù hợp khi sở thích thay đổi.",
+      "Giảm trọng số véc-tơ đầu vào của các tương tác cũ để ưu tiên lịch sử gần.",
     limit:
-      "Chỉ giảm embedding đầu vào, chưa phải decay trạng thái GRU. Scale hiện theo train, chưa tối ưu đầy đủ τ; tín hiệu cũ có ích có thể bị giảm quá mức.",
-    next: "Tìm τ trên validation sau khi xác minh thời gian; phân tích nhóm mua lặp, sở thích bền và thay đổi nhanh.",
+      "Chưa áp dụng suy giảm lên trạng thái GRU. Tham số suy giảm chưa được tối ưu đầy đủ; tương tác cũ hữu ích có thể bị giảm trọng số.",
+    next: "Chọn tham số suy giảm bằng tập xác thực; phân tích riêng hành vi mua lặp và thay đổi sở thích.",
   },
   {
-    family: "H2",
-    title: "LightGCN + Text — quan hệ & nội dung",
+    family: "Hướng 2",
+    title: "Đồ thị và nội dung",
     strength:
-      "Lan truyền quan hệ user–item và chiếu đặc trưng tiêu đề; có thể chấm item chưa có tương tác nếu có nội dung.",
+      "Kết hợp quan hệ người dùng–sản phẩm với thông tin tiêu đề để tạo điểm gợi ý.",
     limit:
-      "Đồ thị train rất thưa; user không có cạnh train chưa học được ID embedding. Văn bản hiện chỉ là tiêu đề TF-IDF/SVD; chưa phải MiniLM. Catalog được giả định sẵn trước test, chưa xác minh ngày xuất bản.",
-    next: "Bổ sung metadata thật, so TF-IDF với MiniLM; ablation text-only, graph-text và blend. Kiểm tra cold-item theo thời điểm xuất bản thật.",
+      "Đồ thị tương tác thưa; thông tin văn bản chỉ có tiêu đề. Đang dùng TF-IDF/SVD, chưa triển khai MiniLM. Ngày xuất bản sản phẩm chưa được xác minh.",
+    next: "Bổ sung mô tả sản phẩm; so sánh TF-IDF với MiniLM và đánh giá riêng đóng góp của đồ thị.",
   },
   {
-    family: "H3",
+    family: "Hướng 3",
     title: "Mô hình tích hợp H1–H2",
     strength:
-      "Kết hợp các nguồn điểm theo cùng ánh xạ ID; trọng số được chọn bằng validation, không chọn theo test.",
+      "Phối hợp nhiều nguồn điểm theo cùng mã người dùng và sản phẩm; trọng số được chọn bằng tập xác thực.",
     limit:
-      "Trọng số hiện là H1 = 0, H2 = 1 và popularity = 0; H2 blend lại chọn nhánh nội dung. H3 chưa tốt hơn baseline nội dung.",
-    next: "Sau khi cải thiện từng nhánh, đánh giá ablation và phối hợp theo độ dài lịch sử hoặc warm/cold; kiểm chứng nhiều seed trước khi kết luận.",
+      "Cấu hình hiện tại có trọng số H1 = 0, H2 = 1 và độ phổ biến = 0. Kết quả trùng mô hình đối chứng theo nội dung.",
+    next: "Cải thiện các mô hình thành phần; đánh giá cách phối hợp theo độ dài lịch sử và mức độ xuất hiện của sản phẩm.",
   },
 ];
 async function discussion() {
@@ -401,37 +400,35 @@ async function discussion() {
     heading(
       "03 / THẢO LUẬN",
       "Nhận xét và hướng cải tiến",
-      "Phân biệt khả năng thiết kế với lợi ích đã đo. Không mặc định mô hình phức tạp sẽ tốt hơn.",
+      "Ưu điểm, hạn chế và đề xuất cải tiến của ba hướng nghiên cứu.",
     ) +
-    `<div id="discussion-evidence">${loading()}</div><div class="two-col">${discussionData.map((x) => `<article class="discussion-card"><span class="model-family">${h(x.family)}</span><h3>${h(x.title)}</h3><div class="discussion-block"><strong>Điểm mạnh về thiết kế</strong><p>${h(x.strength)}</p></div><div class="discussion-block"><strong>Hạn chế cần nói khi bảo vệ</strong><p>${h(x.limit)}</p></div><div class="discussion-block"><strong>Hướng cải tiến có thể kiểm chứng</strong><p>${h(x.next)}</p></div></article>`).join("")}</div><div class="section-heading"><div><h2>Nên ưu tiên đi tiếp theo thứ tự nào?</h2><p>Mỗi bước cần một kiểm chứng, không chỉ thêm tên mô hình.</p></div><span class="section-tag">RESEARCH ROADMAP</span></div><div class="priority-list">${[
+    `<div id="discussion-evidence">${loading()}</div><div class="two-col">${discussionData.map((x) => `<article class="discussion-card"><span class="model-family">${h(x.family)}</span><h3>${h(x.title)}</h3><div class="discussion-block"><strong>Điểm mạnh về thiết kế</strong><p>${h(x.strength)}</p></div><div class="discussion-block"><strong>Hạn chế</strong><p>${h(x.limit)}</p></div><div class="discussion-block"><strong>Hướng cải tiến</strong><p>${h(x.next)}</p></div></article>`).join("")}</div><div class="section-heading"><div><h2>Nội dung phát triển tiếp theo</h2><p></p></div><span class="section-tag">ĐỊNH HƯỚNG NGHIÊN CỨU</span></div><div class="priority-list">${[
       [
         "01",
-        "Sửa nền dữ liệu và giao thức",
-        "Lấy timestamp gốc, ngày xuất bản catalog và metadata đầy đủ; xác minh train/validation/test theo thời gian toàn hệ thống. Đây là ưu tiên trước tuning.",
+        "Chuẩn hóa dữ liệu và phương pháp đánh giá",
+        "Khôi phục thời gian gốc, ngày xuất bản và thông tin sản phẩm; phân chia tập huấn luyện, xác thực và kiểm tra theo thời gian toàn hệ thống.",
       ],
       [
         "02",
-        "Hoàn thiện đúng hai hướng trong slide",
-        "Giữ M1/M2/M3 cho H1; bổ sung MiniLM cho H2 và so với TF-IDF trên cùng điều kiện. Chỉ ghi MiniLM khi đã chạy và có artifact.",
+        "Hoàn thiện các mô hình thành phần",
+        "Đánh giá M1/M2/M3, bổ sung MiniLM cho H2 và kiểm tra các phương án phối hợp của H3 trên cùng dữ liệu.",
       ],
       [
         "03",
-        "Chứng minh lợi ích bằng ablation và nhiều seed",
-        "Đo full catalog + warm/cold, chuỗi ngắn/dài, nhiều seed và CI chênh lệch. Chọn cấu hình bằng validation, giữ test để báo cáo.",
+        "Đánh giá từng thành phần và nhiều lần khởi tạo",
+        "Đánh giá toàn danh mục, tách sản phẩm đã học và chưa học; phân tích chuỗi ngắn, chuỗi dài và nhiều lần khởi tạo. Chọn cấu hình bằng tập xác thực.",
       ],
       [
         "04",
-        "Chọn mô hình có bằng chứng rồi mới ứng dụng",
-        "Ưu tiên baseline tốt nếu mô hình phức tạp chưa vượt. H3 chỉ là mở rộng khi giảng viên đồng ý; thử nghiệm doanh nghiệp cần A/B và dữ liệu thật riêng.",
+        "Đánh giá khả năng ứng dụng",
+        "So sánh H3 với các mô hình thành phần và mô hình đối chứng. Khả năng ứng dụng được đánh giá riêng bằng dữ liệu thực tế.",
       ],
     ]
       .map(
         ([n, t, p]) =>
           `<div class="priority-row"><div class="priority-number">${n}</div><div><h4>${h(t)}</h4><p>${h(p)}</p></div></div>`,
       )
-      .join(
-        "",
-      )}</div><div class="notice"><strong>Cách kết luận phù hợp.</strong> “Trong thiết lập và bộ dữ liệu này, mô hình X đạt chỉ số Y; chưa đủ bằng chứng để khái quát sang dữ liệu khác hoặc hiệu quả kinh doanh.” Báo cáo trường hợp sai và điều kiện mô hình không áp dụng được.</div>`;
+      .join("")}</div>`;
   try {
     const [all, warm, cold] = await Promise.all([
       getMetrics(),
@@ -445,7 +442,7 @@ async function discussion() {
       .sort((a, b) => b.ndcg10 - a.ndcg10)[0];
     const coldText = cold.rows.find((r) => r.model === "content");
     $("#discussion-evidence").innerHTML =
-      `<div class="study-strip"><strong>Bằng chứng của lần chạy ${h(state.bootstrap.run_id)}</strong><span>Đánh giá toàn bộ ${num(state.bootstrap.audit.catalog)} sản phẩm · Không diễn giải như tỷ lệ mua hàng.</span></div><div class="stats"><div class="stat"><div class="stat-label">Content · Recall toàn tập</div><div class="stat-value">${pct(text.recall10)}</div><small>NDCG ${decimal(text.ndcg10)}</small></div><div class="stat"><div class="stat-label">${h(model(bestH1.model).short)} · Recall warm</div><div class="stat-value">${pct(bestH1.recall10)}</div><small>Chỉ ${bestH1.users} mục tiêu đã có trong train</small></div><div class="stat"><div class="stat-label">Content · Recall cold</div><div class="stat-value">${pct(coldText.recall10)}</div><small>${coldText.users} mục tiêu chưa có trong train</small></div><div class="stat"><div class="stat-label">Trọng số graph của H2 blend</div><div class="stat-value">${num(state.bootstrap.audit.h2_graph_weight, 2)}</div><small>Validation chưa chọn lợi ích thêm của graph</small></div></div>`;
+      `<div class="study-strip"><strong>Kết quả thực nghiệm ${h(state.bootstrap.run_id)}</strong><span>Đánh giá toàn bộ ${num(state.bootstrap.audit.catalog)} sản phẩm · Đánh giá trên tập tương tác đã lưu.</span></div><div class="stats"><div class="stat"><div class="stat-label">Nội dung · Tỷ lệ tìm trúng</div><div class="stat-value">${pct(text.recall10)}</div><small>NDCG ${decimal(text.ndcg10)}</small></div><div class="stat"><div class="stat-label">${h(model(bestH1.model).short)} · Tỷ lệ tìm trúng sản phẩm đã học</div><div class="stat-value">${pct(bestH1.recall10)}</div><small>${bestH1.users} sản phẩm đã có trong tập huấn luyện</small></div><div class="stat"><div class="stat-label">Nội dung · Tỷ lệ tìm trúng sản phẩm chưa học</div><div class="stat-value">${pct(coldText.recall10)}</div><small>${coldText.users} sản phẩm chưa có trong tập huấn luyện</small></div><div class="stat"><div class="stat-label">Trọng số đồ thị của H2 kết hợp</div><div class="stat-value">${num(state.bootstrap.audit.h2_graph_weight, 2)}</div><small>Tập xác thực chọn trọng số đồ thị bằng 0</small></div></div>`;
   } catch (err) {
     if (generation === state.generation)
       $("#discussion-evidence").innerHTML = errorBlock(err);
@@ -459,13 +456,9 @@ async function methodology() {
     heading(
       "04 / PHƯƠNG PHÁP",
       "Phương pháp và tái lập",
-      "Theo dõi dữ liệu đầu vào, lựa chọn mô hình, giao thức test và artifact của lần chạy.",
+      "Dữ liệu đầu vào, thông số mô hình, phương pháp đánh giá và nhật ký huấn luyện.",
     ) +
-    `<div class="study-strip"><strong>RUN ${h(b.run_id)}</strong><span>Seed ${a.seed} · CPU / 2 luồng · K = 10</span><span>Sinh artifact: ${h(new Intl.DateTimeFormat("vi-VN", { dateStyle: "medium", timeStyle: "short", timeZone: "Asia/Ho_Chi_Minh" }).format(new Date(b.generated_at)))} (giờ Việt Nam)</span></div><div class="method-steps"><article class="method-step"><div><h3>Kiểm tra dữ liệu và loại mốc nhập nhằng</h3><p>Train gốc ${num(a.raw_train_rows)} dòng, giữ ${num(a.train_rows)} dòng có timestamp nhỏ hơn mốc validation tương ứng; bỏ ${a.excluded_ambiguous_train_rows} dòng. Validation ${a.val_rows}, test ${a.test_rows}, catalog ${num(a.catalog)}. ${a.empty_strict_test_profiles} hồ sơ không có lịch sử trước test dùng cùng popularity fallback. Đơn vị timestamp chưa xác minh.</p></div></article><article class="method-step"><div><h3>Học từ train, chọn bằng validation</h3><p>H1: ${num(a.training_prefixes)} tiền tố, embedding 32, GRU hidden 48, tối đa 30 tương tác; Adam 0,003, tối đa 25 epoch, early stopping 5. M2 ghép gap; M3 nhân trọng số đầu vào với scale tương đối ${a.gap_scale}. Không gọi scale này là ngày. Mỗi biến thể có checkpoint riêng.</p></div></article><article class="method-step"><div><h3>Đồ thị và văn bản không dùng cạnh test</h3><p>H2: LightGCN hai tầng với D⁻¹ᐟ² A D⁻¹ᐟ², embedding 32 và BPR trên train. Tiêu đề → TF-IDF bigram → SVD 64 chiều; fit đặc trưng trên item train. Điểm cuối dùng 50% user embedding + 50% trung bình item embedding lịch sử strict-prior. Baseline nội dung cũng có trọng số recency. Không dùng review sau mua làm nội dung sản phẩm. Đây là biến thể TF-IDF, chưa phải MiniLM.</p></div></article><article class="method-step"><div><h3>Đánh giá trên cùng điều kiện</h3><p>Full catalog: toàn bộ ${num(a.catalog)} sản phẩm, cho phép mua lại cho mọi mô hình, không lọc theo nhãn target. Sampled: 1 target + 99 negatives cố định seed 42, loại lịch sử khỏi negatives. Tie-break theo ID sản phẩm. Tách warm/cold, Recall/NDCG/Coverage tại 10 và CI bootstrap 500 lần theo người dùng.</p></div></article><article class="method-step"><div><h3>Xuất điểm và chạy web nhẹ</h3><p>Mạng neural được huấn luyện offline. Web chỉ đọc dòng điểm từ tệp memory-map, xếp hạng và đối chiếu. Giao diện không tải ma trận hoặc mô hình. Thời gian API không đại diện thời gian huấn luyện/suy luận lại neural. Render Free vẫn có thể chậm khi khởi động sau thời gian ngủ.</p></div></article></div><div class="section-heading"><div><h2>Đường học trên validation</h2><p>Đường cong từ log huấn luyện thực tế, không dùng test để chọn epoch.</p></div></div><div id="training-charts">${loading()}</div><div class="section-heading"><div><h2>Tái lập từ dữ liệu gốc</h2><p>Cần bộ dữ liệu local trong data/; gói phục vụ web đã có artifact.</p></div></div><pre class="code-block">python -m venv .venv
-.venv/bin/pip install -r requirements-train.txt
-.venv/bin/python train.py --epochs 25
-.venv/bin/python export_web.py
-.venv/bin/python -m uvicorn app:app --host 0.0.0.0 --port 8501</pre><details class="disclosure"><summary>Hash đầu vào và phiên bản điểm mô hình</summary><div><table class="hash-table"><tbody>${Object.entries(
+    `<div class="study-strip"><strong>Mã thực nghiệm ${h(b.run_id)}</strong><span>Giá trị khởi tạo ngẫu nhiên: ${a.seed} · Bộ xử lý trung tâm, 2 luồng · 10 kết quả đầu</span><span>Ngày tạo kết quả: ${h(new Intl.DateTimeFormat("vi-VN", { dateStyle: "medium", timeStyle: "short", timeZone: "Asia/Ho_Chi_Minh" }).format(new Date(b.generated_at)))} (giờ Việt Nam)</span></div><div class="method-steps"><article class="method-step"><div><h3>Chuẩn bị dữ liệu</h3><p>Tập huấn luyện gốc có ${num(a.raw_train_rows)} tương tác; sử dụng ${num(a.train_rows)} tương tác sau khi loại ${a.excluded_ambiguous_train_rows} mốc không phù hợp. Tập xác thực và kiểm tra đều có ${a.test_rows} người dùng. Đơn vị mốc thời gian chưa được xác minh.</p></div></article><article class="method-step"><div><h3>Hướng 1: tuần tự và thời gian</h3><p>${num(a.training_prefixes)} chuỗi huấn luyện; véc-tơ đầu vào 32 chiều; trạng thái GRU 48 chiều; tối đa 30 tương tác. Thuật toán Adam, tốc độ học 0,003; tối đa 25 vòng, dừng sớm sau 5 vòng không cải thiện. M2 bổ sung khoảng cách thời gian; M3 giảm trọng số tương tác cũ.</p></div></article><article class="method-step"><div><h3>Hướng 2: đồ thị và nội dung</h3><p>LightGCN hai tầng, véc-tơ 32 chiều, hàm mất mát BPR. Tiêu đề được mã hóa bằng TF-IDF và giảm chiều SVD còn 64 chiều. Đồ thị chỉ chứa tương tác huấn luyện. Chưa sử dụng MiniLM.</p></div></article><article class="method-step"><div><h3>Hướng 3: mô hình tích hợp</h3><p>Phối hợp điểm của mô hình tuần tự, đồ thị và nội dung. Trọng số được chọn bằng tập xác thực. Cấu hình hiện tại có trọng số H1 bằng 0, H2 bằng 1; kết quả trùng mô hình đối chứng theo nội dung.</p></div></article><article class="method-step"><div><h3>Đánh giá và lưu kết quả</h3><p>Đánh giá trên toàn bộ ${num(a.catalog)} sản phẩm hoặc 100 sản phẩm ứng viên cố định. Mọi mô hình dùng cùng người dùng và tập ứng viên. Chỉ số gồm Recall@10, NDCG@10 và Coverage@10. Web xếp hạng từ điểm đã lưu sau huấn luyện.</p></div></article></div><div class="section-heading"><div><h2>Diễn biến huấn luyện trên tập xác thực</h2><p>Chỉ số theo từng vòng huấn luyện; cấu hình được chọn bằng tập xác thực.</p></div></div><div id="training-charts">${loading()}</div><details class="disclosure"><summary>Mã kiểm tra dữ liệu và điểm mô hình</summary><div><table class="hash-table"><tbody>${Object.entries(
       a.input_sha256,
     )
       .map(([k, v]) => `<tr><td>${h(k)}</td><td>${h(v)}</td></tr>`)
@@ -473,7 +466,7 @@ async function methodology() {
       .map(([k, v]) => `<tr><td>${h(k)}.npy</td><td>${h(v)}</td></tr>`)
       .join(
         "",
-      )}</tbody></table></div></details><div class="notice notice-warning"><strong>Giới hạn thiết kế.</strong> Split hiện theo từng user và graph transductive chưa thay thế split thời gian toàn cục. Catalog giả định sẵn trước target, một seed huấn luyện và thiếu mô tả thật. Cần báo cáo các hạn chế này khi bảo vệ.</div><div class="download-row"><a class="btn" href="/api/export/report.md">Tải báo cáo Markdown ↓</a><a class="btn btn-outline" href="/api/export/metrics.csv">Tải toàn bộ chỉ số CSV ↓</a></div>`;
+      )}</tbody></table></div></details><div class="notice notice-warning"><strong>Phạm vi dữ liệu.</strong> Tập dữ liệu được chia theo từng người dùng, chưa chia theo thời gian toàn hệ thống. Danh mục được giả định có sẵn trước thời điểm kiểm tra. Kết quả dựa trên một lần khởi tạo và thông tin tiêu đề sản phẩm. </div><div class="download-row"><a class="btn" href="/api/export/report.md">Tải báo cáo thực nghiệm ↓</a><a class="btn btn-outline" href="/api/export/metrics.csv">Tải toàn bộ chỉ số CSV ↓</a></div>`;
   try {
     const data = await api("/api/training");
     if (generation !== state.generation) return;
@@ -489,11 +482,11 @@ async function methodology() {
               `${8 + (i / Math.max(rows.length - 1, 1)) * 204},${95 - (r.val_ndcg / max) * 80}`,
           )
           .join(" ");
-        return `<div class="training-panel"><h4>${h(name.replace("H1 ", "H1 · "))}</h4><svg class="sparkline" viewBox="0 0 220 110" role="img" aria-label="Validation NDCG của ${h(name)}"><path d="M8 15H212M8 55H212M8 95H212" stroke="#e7ede1" stroke-dasharray="3 3" fill="none"/><polyline points="${points}" fill="none" stroke="#6b9670" stroke-width="2"/></svg><small>Epoch 1–${rows.at(-1).epoch} · Best val ${decimal(best)}</small></div>`;
+        return `<div class="training-panel"><h4>${h({ "H1 base": "M1 · GRU cơ sở", "H1 gap": "M2 · Khoảng cách thời gian", "H1 decay": "M3 · Suy giảm theo thời gian", "H2 LightGCN-Text": "H2 · Đồ thị và nội dung" }[name] || name)}</h4><svg class="sparkline" viewBox="0 0 220 110" role="img" aria-label="NDCG trên tập xác thực của ${h(name)}"><path d="M8 15H212M8 55H212M8 95H212" stroke="#e7ede1" stroke-dasharray="3 3" fill="none"/><polyline points="${points}" fill="none" stroke="#6b9670" stroke-width="2"/></svg><small>Vòng huấn luyện 1–${rows.at(-1).epoch} · NDCG cao nhất ${decimal(best)}</small></div>`;
       })
       .join(
         "",
-      )}</div><p class="table-caption">Các đồ thị dùng chung thang NDCG từ 0 đến ${decimal(max)}. Chúng mô tả lựa chọn checkpoint, không phải hiệu quả trên test.</p>`;
+      )}</div><p class="table-caption">Các đồ thị dùng chung thang NDCG từ 0 đến ${decimal(max)}. Chỉ số trong đồ thị thuộc tập xác thực, không phải tập kiểm tra.</p>`;
   } catch (err) {
     if (generation === state.generation)
       $("#training-charts").innerHTML = errorBlock(err);
@@ -509,14 +502,14 @@ function downloadCase() {
   };
   const rows = [
     [
-      "run_id",
-      "profile",
-      "protocol",
-      "model",
-      "rank",
-      "item_id",
-      "title",
-      "is_test_target",
+      "Mã thực nghiệm",
+      "Mã người dùng",
+      "Phạm vi đánh giá",
+      "Mô hình",
+      "Thứ hạng",
+      "Mã sản phẩm",
+      "Tên sản phẩm",
+      "Trùng sản phẩm thực tế",
     ],
   ];
   for (const result of data.results)

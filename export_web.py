@@ -19,6 +19,10 @@ MODELS=[
  {'id':'h3','name':'H3 · Mô hình tích hợp','family':'H3','short':'Hybrid','source':'h3','description':'Ngoài phạm vi hai hướng trong slide; trọng số hiện trùng baseline nội dung.'},
 ]
 
+DISPLAY_MODELS={'popularity': ('Độ phổ biến', 'Đối chứng', 'Độ phổ biến'), 'content': ('Nội dung sản phẩm · TF-IDF/SVD', 'Đối chứng', 'Nội dung sản phẩm'), 'm1': ('M1 · GRU4Rec', 'Hướng 1', 'GRU cơ sở'), 'm2': ('M2 · Khoảng cách thời gian', 'Hướng 1', 'Khoảng cách thời gian'), 'm3': ('M3 · Suy giảm theo thời gian', 'Hướng 1', 'Suy giảm theo thời gian'), 'h2': ('H2 · Đồ thị và nội dung', 'Hướng 2', 'Đồ thị và nội dung'), 'h2_tuned': ('H2 · Kết hợp đồ thị và nội dung', 'Cấu hình phụ', 'H2 kết hợp'), 'h3': ('H3 · Mô hình tích hợp', 'Hướng 3', 'Mô hình tích hợp')}
+for _m in MODELS:
+ _m["name"],_m["family"],_m["short"]=DISPLAY_MODELS[_m["id"]]
+
 def main():
  p=ROOT/'artifacts';out=p/'web';out.mkdir(exist_ok=True)
  audit=json.loads((p/'audit.json').read_text());profiles=json.loads((p/'profiles.json').read_text())
@@ -46,7 +50,7 @@ def main():
     n=int(mask.sum());rng=np.random.default_rng(42)
     boots=ndcg[mask][rng.integers(0,n,(500,n))].mean(1)
     low,high=np.quantile(boots,[.025,.975])
-    metrics.append({'model':model['id'],'protocol':protocol,'cohort':cohort,'users':n,'recall10':float(hits[mask].mean()),
+    metrics.append({'model':model['id'],'protocol':protocol,'cohort':cohort,'users':n,'recall10':float(hits[mask].mean()),'hits10':int(hits[mask].sum()),
                     'ndcg10':float(ndcg[mask].mean()),'coverage10':len(np.unique(ordered[mask,:10]))/len(catalog),
                     'ndcg_ci_low':float(low),'ndcg_ci_high':float(high)})
  legacy.close();variants.close()
@@ -63,14 +67,14 @@ def main():
  manifest={'run_id':run_id,'generated_at':datetime.now(timezone.utc).isoformat(),'models':public_models,'audit':audit,
            'score_sha256':hashes,'top_k':10,'default_models':['popularity','content','m1','m2','m3','h2','h3'],
            'execution_mode':'saved_scores','execution_note':'Xếp hạng lại từ điểm đã lưu sau huấn luyện; không huấn luyện hay suy luận lại mạng neural khi bấm nút.',
-           'protocols':{'full_catalog':'Toàn bộ 2.934 sản phẩm; cho phép mua lại; không loại item theo nhãn test.',
-                        'sampled100':'Một mục tiêu + 99 negatives cố định seed 42; negatives không nằm trong lịch sử; cùng ứng viên cho mọi model.'},
+           'protocols':{'full_catalog':'Toàn bộ 2.934 sản phẩm, bao gồm sản phẩm từng xuất hiện trong lịch sử.',
+                        'sampled100':'Một sản phẩm thực tế và 99 sản phẩm đối chứng cố định; cùng tập ứng viên cho mọi mô hình.'},
            'history_median':float(np.median([x['history_length'] for x in profiles])),
            'history_short_count':sum(x['history_length']<=2 for x in profiles),
            'full_catalog_policy':'repeat_allowed_v1','legacy_note':'Bảng metrics trong artifacts/ ở phiên bản cũ có lọc lịch sử khi đánh giá full catalog. Web này dùng artifacts/web/ với giao thức cho phép mua lại công bố rõ.'}
  write('manifest.json',manifest)
  with (out/'metrics.csv').open('w',newline='') as f:
-  writer=csv.DictWriter(f,fieldnames=list(metrics[0]));writer.writeheader();writer.writerows(metrics)
+  writer=csv.DictWriter(f,fieldnames=list(metrics[0]),lineterminator="\n");writer.writeheader();writer.writerows(metrics)
  print('Web artifacts ready:',run_id,len(profiles),'profiles,',len(metrics),'metric rows')
  print(pd.DataFrame(metrics).query("protocol=='full_catalog' and cohort=='all'")[['model','recall10','ndcg10']].to_string(index=False))
 if __name__=='__main__':main()

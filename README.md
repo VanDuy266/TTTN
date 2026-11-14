@@ -65,3 +65,5 @@ API docs: `/api/docs`. Health check: `/healthz`. Web runtime đọc score bằng
 `retail_demo.py` và `src/business.py` giữ nguyên mẫu bán hàng cũ để tham khảo, không được gọi bởi web hiện tại hoặc Render. Muốn chạy riêng cần `requirements-legacy.txt`. Dữ liệu runtime SQLite và upload không được đưa lên GitHub. Kịch bản doanh nghiệp trong `docs/PILOT.md` là tham khảo ứng dụng về sau, không phải mục tiêu của demo thực nghiệm hiện tại.
 
 Giao diện hiện dùng Times New Roman (serif tương đương khi máy không có font), nhận diện chữ DAD và icon SVG nét đồng bộ. H3 có trong nhóm mô hình mặc định khi đối chiếu và bảng kết quả chính; trọng số/kết quả thực nghiệm giữ nguyên.
+
+Giao diện dùng tên chức năng tiếng Việt: So sánh dự đoán, Đánh giá mô hình, Nhận xét và cải tiến, Dữ liệu và phương pháp. Bảng kết quả hiển thị số người tìm trúng trên tổng số người dùng, tỷ lệ tìm trúng, điểm thứ hạng và độ phủ; khoảng tin cậy nằm trong phần chi tiết. Tên thuật toán chuẩn và tên sản phẩm trong dữ liệu gốc được giữ nguyên.

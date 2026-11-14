@@ -15,10 +15,10 @@ def main(base):
         page.screenshot(path=str(ROOT/'docs/screenshots/research-web-overview.png'))
         page.locator('a[data-nav=experiment]').click()
         page.wait_for_function('document.querySelector("#profile-select")?.value?.startsWith("KH-")')
-        page.get_by_role('button',name='Chạy đối chiếu',exact=False).click()
+        page.get_by_role('button',name='So sánh dự đoán',exact=False).click()
         page.locator('.model-card').first.wait_for();assert page.locator('.model-card').count()==7
         assert page.locator('.target-name').count()==0
-        page.get_by_role('button',name='Mở mục tiêu test',exact=False).click();page.locator('.target-name').wait_for()
+        page.get_by_role('button',name='Hiện sản phẩm thực tế',exact=False).click();page.locator('.target-name').wait_for()
         with page.expect_download() as download:
             page.get_by_role('button',name='Xuất đối chiếu CSV',exact=False).click()
         assert download.value.suggested_filename.endswith('.csv')
@@ -27,16 +27,16 @@ def main(base):
         page.fill('#profile-search','KH-0020')
         page.wait_for_function('document.querySelector("#profile-select")?.value==="KH-0020"')
         assert page.locator('.model-card').count()==0
-        page.get_by_role('button',name='Chạy đối chiếu',exact=False).click();page.locator('.model-card').first.wait_for()
-        page.get_by_role('button',name='Không có lịch sử trước mốc',exact=True).click()
+        page.get_by_role('button',name='So sánh dự đoán',exact=False).click();page.locator('.model-card').first.wait_for()
+        page.get_by_role('button',name='Không có lịch sử trước thời điểm kiểm tra',exact=True).click()
         page.wait_for_function('document.querySelector("#profile-select").selectedOptions[0].textContent.includes("0 lịch sử")')
-        page.get_by_role('button',name='Chạy đối chiếu',exact=False).click()
-        page.get_by_text('Không có lịch sử có mốc sớm hơn mục tiêu.',exact=False).wait_for()
+        page.get_by_role('button',name='So sánh dự đoán',exact=False).click()
+        page.get_by_text('Không có tương tác trước thời điểm kiểm tra.',exact=False).wait_for()
         page.locator('a[data-nav=results]').click();page.locator('#metrics-body table').first.wait_for()
         page.select_option('#metrics-cohort','cold')
         page.wait_for_function('document.querySelector("#metric-context").textContent.includes("550")')
         page.select_option('#metrics-protocol','sampled100')
-        page.wait_for_function('document.querySelector("#metric-context").textContent.includes("99 negatives")')
+        page.wait_for_function('document.querySelector("#metric-context").textContent.includes("99 sản phẩm đối chứng")')
         page.screenshot(path=str(ROOT/'docs/screenshots/research-web-results.png'))
         page.locator('a[data-nav=discussion]').click();page.locator('#discussion-evidence .stats').wait_for()
         page.screenshot(path=str(ROOT/'docs/screenshots/research-web-discussion.png'))
@@ -47,7 +47,7 @@ def main(base):
         mobile.screenshot(path=str(ROOT/'docs/screenshots/research-web-mobile.png'))
         mobile.locator('#menu-button').click();mobile.locator('a[data-nav=experiment]').click()
         mobile.wait_for_function('document.querySelector("#profile-select")?.value?.startsWith("KH-")')
-        mobile.get_by_role('button',name='Chạy đối chiếu',exact=False).click();mobile.locator('.model-card').first.wait_for()
+        mobile.get_by_role('button',name='So sánh dự đoán',exact=False).click();mobile.locator('.model-card').first.wait_for()
         assert mobile.evaluate('document.documentElement.scrollWidth<=innerWidth')
         assert not errors,errors
         print('PASS: DAD branding, seven-model comparison including H3, reveal, CSV, profile invalidation, fallback, cohort/protocol changes, discussion, training curves, mobile; no JS errors.')

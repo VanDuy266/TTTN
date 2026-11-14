@@ -58,6 +58,7 @@ class ResearchWebTests(unittest.TestCase):
                     expected=next(x for x in self.lab.metrics if (x['model'],x['protocol'],x['cohort'])==(model,protocol,cohort))
                     self.assertEqual(int(mask.sum()),expected['users'])
                     self.assertAlmostEqual(float((ranks[mask]<=10).mean()),expected['recall10'])
+                    self.assertEqual(int((ranks[mask]<=10).sum()),expected['hits10'])
                     ndcg=np.where(ranks[mask]<=10,1/np.log2(ranks[mask]+1),0.)
                     self.assertAlmostEqual(float(ndcg.mean()),expected['ndcg10'])
                     self.assertAlmostEqual(len(np.unique(ranked[mask,:10]))/len(self.lab.catalog),expected['coverage10'])
@@ -72,7 +73,7 @@ class ResearchWebTests(unittest.TestCase):
         response=self.client.get('/api/export/metrics.csv');self.assertEqual(response.status_code,200)
         self.assertEqual(len(list(csv.DictReader(io.StringIO(response.text)))),48)
         report=self.client.get('/api/export/report.md?cohort=cold')
-        self.assertIn('cold',report.text);self.assertIn('MiniLM',report.text)
+        self.assertIn('Chưa có trong tập huấn luyện',report.text);self.assertIn('MiniLM',report.text)
         training=self.client.get('/api/training').json()['rows']
         self.assertTrue({'H1 base','H1 gap','H1 decay','H2 LightGCN-Text'}.issubset({r['model'] for r in training}))
         self.assertEqual(self.client.get('/api/docs').status_code,200)
