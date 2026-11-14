@@ -2151,3 +2151,13 @@ select {
     font-size: 10px;
   }
 }
+
+.dad-logo { display: block; width: 165px; max-width: 100%; height: auto; }
+
+/* Technology logo accent; the requested serif text is preserved. */
+:root{--green:#214c72}
+.dad-brand-rule{background:#287aff}
+.sidebar nav>a[aria-current=page]{background:#edf3f8;color:#214c72;border-left-color:#287aff}
+.inline-link,.btn-outline{color:#214c72}
+.model-option:has(input:checked){background:#edf3f8;border-color:#b8cddd;color:#214c72}
+.model-option input{accent-color:#214c72}
