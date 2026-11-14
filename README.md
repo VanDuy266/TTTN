@@ -1,6 +1,6 @@
-# DAD · RecLab — Web thực nghiệm hệ thống gợi ý
+# DAD — Web thực nghiệm hệ thống gợi ý
 
-**Nhóm DAD: Duy · Ân · Đạt.** Web phục vụ thực nghiệm thực tập tốt nghiệp theo slide Amazon All Beauty: H1 có M1/M2/M3; H2 dùng đồ thị kết hợp văn bản. H3 là phần mở rộng, không phải hướng thứ ba được xác nhận trong slide.
+**Nhóm DAD: Duy · Ân · Đạt.** Web phục vụ thực nghiệm thực tập tốt nghiệp theo slide Amazon All Beauty: H1 có M1/M2/M3; H2 dùng đồ thị kết hợp văn bản. H3 là hướng tích hợp được nhóm bổ sung và đã được đưa lên giao diện chính; slide gốc có H1/H2.
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/VanDuy266/TTTN)
 
@@ -63,3 +63,5 @@ API docs: `/api/docs`. Health check: `/healthz`. Web runtime đọc score bằng
 ## Bản cũ
 
 `retail_demo.py` và `src/business.py` giữ nguyên mẫu bán hàng cũ để tham khảo, không được gọi bởi web hiện tại hoặc Render. Muốn chạy riêng cần `requirements-legacy.txt`. Dữ liệu runtime SQLite và upload không được đưa lên GitHub. Kịch bản doanh nghiệp trong `docs/PILOT.md` là tham khảo ứng dụng về sau, không phải mục tiêu của demo thực nghiệm hiện tại.
+
+Giao diện hiện dùng Times New Roman (serif tương đương khi máy không có font), nhận diện chữ DAD và icon SVG nét đồng bộ. H3 có trong nhóm mô hình mặc định khi đối chiếu và bảng kết quả chính; trọng số/kết quả thực nghiệm giữ nguyên.

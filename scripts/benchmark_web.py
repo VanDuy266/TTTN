@@ -31,7 +31,7 @@ def main(python,port):
         bootstrap,size,load=request(base+'/api/bootstrap')
         latencies=[];server_times=[];sizes=[]
         for i in range(31):
-            data,length,elapsed=request(base+'/api/experiments',{'profile_id':f'KH-{i+1:04}','protocol':'full_catalog'})
+            data,length,elapsed=request(base+'/api/experiments',{'profile_id':f'KH-{i+1:04}','protocol':'full_catalog','models':['popularity','content','m1','m2','m3','h2']})
             if i:
                 latencies.append(elapsed);server_times.append(json.loads(data)['server_ms']);sizes.append(length)
         p95=lambda values:sorted(values)[int(.95*(len(values)-1))]

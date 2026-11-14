@@ -16,7 +16,7 @@ class ResearchWebTests(unittest.TestCase):
         self.assertNotIn('streamlit',root.text.lower());self.assertNotIn('__ASSET_VERSION__',root.text)
         self.assertEqual(self.client.get('/healthz').json()['status'],'ok')
         b=self.client.get('/api/bootstrap');self.assertLess(len(b.content),18000)
-        self.assertEqual(len(b.json()['default_models']),6)
+        self.assertEqual(len(b.json()['default_models']),7)
     def test_profile_filters_and_bounds(self):
         cold=self.client.get('/api/profiles?cohort=cold&limit=646').json()
         self.assertEqual(cold['total'],550);self.assertTrue(all(not x['target_warm'] for x in cold['items']))
@@ -27,7 +27,7 @@ class ResearchWebTests(unittest.TestCase):
     def test_comparison_protocols_and_strict_history(self):
         for protocol,count in [('full_catalog',2934),('sampled100',100)]:
             result=self.client.post('/api/experiments',json={'profile_id':'KH-0001','protocol':protocol}).json()
-            self.assertEqual(result['candidate_count'],count);self.assertEqual(len(result['results']),6)
+            self.assertEqual(result['candidate_count'],count);self.assertEqual(len(result['results']),7)
             self.assertTrue(all(x['timestamp']<result['cutoff'] for x in result['history']))
             for row in result['results']:
                 self.assertEqual(len(row['top10']),10)

@@ -16,7 +16,7 @@ DATA=ROOT/'artifacts/web'
 class Experiment(BaseModel):
     profile_id:str=Field(min_length=1,max_length=32)
     protocol:Literal['full_catalog','sampled100']='full_catalog'
-    models:list[str]=Field(default_factory=lambda:['popularity','content','m1','m2','m3','h2'],min_length=1,max_length=8)
+    models:list[str]=Field(default_factory=lambda:['popularity','content','m1','m2','m3','h2','h3'],min_length=1,max_length=8)
 
 class ResearchLab:
     def __init__(self,path=DATA):
@@ -58,7 +58,7 @@ async def lifespan(application):
     application.state.lab=ResearchLab()
     yield
 
-app=FastAPI(title='DAD · Recommendation Research Lab',version='2.0',lifespan=lifespan,docs_url='/api/docs',redoc_url=None)
+app=FastAPI(title='DAD · Thực nghiệm hệ thống gợi ý',version='2.0',lifespan=lifespan,docs_url='/api/docs',redoc_url=None)
 app.add_middleware(GZipMiddleware,minimum_size=1000)
 app.mount('/static',StaticFiles(directory=ROOT/'web/static'),name='static')
 

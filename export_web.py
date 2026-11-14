@@ -16,7 +16,7 @@ MODELS=[
  {'id':'m3','name':'M3 · GRU + Time Decay','family':'H1','short':'Time Decay','mode':'decay','description':'Nhân embedding lịch sử với exp(−age / scale) trước GRU.'},
  {'id':'h2','name':'H2 · LightGCN + Text','family':'H2','short':'Graph + Text','source':'graph','description':'LightGCN hai tầng, BPR và tiêu đề TF-IDF/SVD. Chưa phải MiniLM trong slide.'},
  {'id':'h2_tuned','name':'H2 · Blend chọn bằng validation','family':'Mở rộng','short':'H2 blend','source':'h2','description':'Trộn điểm graph-text với nội dung; validation hiện chọn graph weight = 0.'},
- {'id':'h3','name':'H3 · Hybrid (bổ sung)','family':'Mở rộng','short':'Hybrid','source':'h3','description':'Ngoài phạm vi hai hướng trong slide; trọng số hiện trùng baseline nội dung.'},
+ {'id':'h3','name':'H3 · Mô hình tích hợp','family':'H3','short':'Hybrid','source':'h3','description':'Ngoài phạm vi hai hướng trong slide; trọng số hiện trùng baseline nội dung.'},
 ]
 
 def main():
@@ -61,7 +61,7 @@ def main():
  public_models=[{k:v for k,v in m.items() if k not in {'source','mode'}} for m in MODELS]
  run_id=hashlib.sha256(json.dumps(hashes,sort_keys=True).encode()).hexdigest()[:12]
  manifest={'run_id':run_id,'generated_at':datetime.now(timezone.utc).isoformat(),'models':public_models,'audit':audit,
-           'score_sha256':hashes,'top_k':10,'default_models':['popularity','content','m1','m2','m3','h2'],
+           'score_sha256':hashes,'top_k':10,'default_models':['popularity','content','m1','m2','m3','h2','h3'],
            'execution_mode':'saved_scores','execution_note':'Xếp hạng lại từ điểm đã lưu sau huấn luyện; không huấn luyện hay suy luận lại mạng neural khi bấm nút.',
            'protocols':{'full_catalog':'Toàn bộ 2.934 sản phẩm; cho phép mua lại; không loại item theo nhãn test.',
                         'sampled100':'Một mục tiêu + 99 negatives cố định seed 42; negatives không nằm trong lịch sử; cùng ứng viên cho mọi model.'},

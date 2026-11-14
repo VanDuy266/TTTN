@@ -116,11 +116,11 @@ function overview() {
   const b = state.bootstrap,
     a = b.audit;
   $("#main").innerHTML =
-    `<section class="hero"><div><div class="eyebrow">NHÓM DAD / THỰC TẬP TỐT NGHIỆP</div><h1>Từ lịch sử tương tác<br>đến <em>bằng chứng thực nghiệm.</em></h1><p>Kiểm tra mô hình gợi ý sản phẩm trên Amazon All Beauty. Xem lịch sử, so sánh H1–H2 và đối chiếu sản phẩm giữ lại trong test — trên cùng dữ liệu, cùng điều kiện.</p><div class="hero-actions"><a href="#experiment" class="btn btn-lime">Bắt đầu đối chiếu <span>↗</span></a><a href="#method" class="btn btn-ghost">Xem quy trình</a></div></div><div class="hero-orbit" aria-hidden="true"><div class="orbit-ring"></div><div class="pipeline"><div class="pipeline-node"><span>01</span>Lịch sử trước mục tiêu</div><div class="pipeline-node"><span>02</span>H1 · GRU & H2 · Graph + Text</div><div class="pipeline-node"><span>03</span>Top 10 → đối chiếu → kết luận</div></div></div></section>
-<div class="stats"><div class="stat"><div class="stat-label">Hồ sơ kiểm chứng</div><div class="stat-value">${num(a.users)}</div><small>Mỗi hồ sơ có một mục tiêu test</small></div><div class="stat"><div class="stat-label">Danh mục đánh giá</div><div class="stat-value">${num(a.catalog)}</div><small>${num(a.train_items)} sản phẩm có trong train</small></div><div class="stat"><div class="stat-label">Tương tác được học</div><div class="stat-value">${num(a.train_rows)}</div><small>Đã bỏ ${num(a.excluded_ambiguous_train_rows)} mốc nhập nhằng</small></div><div class="stat"><div class="stat-label">Mục tiêu chưa có tương tác train</div><div class="stat-value">${num((a.cold_test_targets / a.test_rows) * 100, 1)}<span class="small">%</span></div><small>${num(a.cold_test_targets)} / ${num(a.test_rows)} mục tiêu cold-item</small></div></div>
-<div class="section-heading"><div><h2>Hai hướng, một bài toán chung.</h2><p>H1 có ba biến thể M1/M2/M3. H2 khai thác đồ thị kết hợp nội dung.</p></div><span class="section-tag">RESEARCH SCOPE</span></div><div class="two-col"><article class="panel research-panel"><div class="panel-index"><span>HƯỚNG 01</span><span>SEQUENCE × TIME</span></div><h3>Thứ tự và khoảng cách thời gian<br>có giúp dự đoán tốt hơn?</h3><p>Đặt GRU cơ sở, Time Gap và Time Decay cạnh nhau trên cùng người dùng. Kiểm tra lợi ích của tín hiệu thời gian bằng số liệu, có cả trường hợp dự đoán sai.</p><div class="tags"><span class="tag">M1 · GRU4Rec</span><span class="tag">M2 · Time Gap</span><span class="tag">M3 · Time Decay</span></div></article><article class="panel research-panel"><div class="panel-index"><span>HƯỚNG 02</span><span>GRAPH × TEXT</span></div><h3>Quan hệ tương tác và nội dung<br>hỗ trợ sản phẩm mới ra sao?</h3><p>So sánh LightGCN + đặc trưng tiêu đề với baseline nội dung. Tách sản phẩm đã có và chưa có trong train; công bố đúng bộ mã hóa đang được sử dụng.</p><div class="tags"><span class="tag tag-blue">LightGCN · BPR</span><span class="tag tag-blue">TF-IDF / SVD</span><span class="tag tag-blue">MiniLM · Chưa chạy</span></div></article></div>
-<div class="section-heading"><div><h2>Đi qua một thực nghiệm</h2><p>Mỗi dự đoán đều nối được với lịch sử và mục tiêu được giữ lại.</p></div><a class="inline-link" href="#experiment">Chọn hồ sơ ↗</a></div><div class="step-row"><div class="step-card"><span class="step-num">01</span><div><h4>Xem dữ liệu đầu vào</h4><p>Chỉ dùng tương tác trước mốc test, không đưa mục tiêu vào lịch sử.</p></div></div><div class="step-card"><span class="step-num">02</span><div><h4>Đặt mô hình cạnh nhau</h4><p>Cùng một hồ sơ và một tập ứng viên; xem top 10 của từng mô hình.</p></div></div><div class="step-card"><span class="step-num">03</span><div><h4>Mở mục tiêu và đối chiếu</h4><p>Kiểm tra tìm trúng, thứ hạng, rồi xem kết quả trên toàn tập.</p></div></div></div>
-<div class="section-heading"><div><h2>Kết quả toàn danh mục</h2><p>Không lấy kết quả 100 ứng viên để mô tả toàn bộ catalog.</p></div><a href="#results" class="inline-link">Xem đầy đủ ↗</a></div><div id="overview-metrics" class="panel">${loading()}</div><div class="notice"><strong>Điều cần phân biệt.</strong> Web xếp hạng từ điểm đã lưu sau huấn luyện, không huấn luyện lại khi bấm nút. Chưa có bằng chứng mô hình lai vượt baseline nội dung hay tăng hiệu quả kinh doanh.</div>`;
+    `<section class="hero"><div><div class="eyebrow">NHÓM DAD · AMAZON ALL BEAUTY</div><h1>Thực nghiệm hệ thống<br>gợi ý sản phẩm</h1><p>Đối chiếu ba hướng nghiên cứu trên cùng dữ liệu: mô hình tuần tự theo thời gian, đồ thị kết hợp nội dung và mô hình tích hợp.</p><div class="hero-actions"><a href="#experiment" class="btn">Chạy thực nghiệm</a><a href="#method" class="btn btn-outline">Phương pháp nghiên cứu</a></div></div></section>
+<div class="stats"><div class="stat"><div class="stat-label">Hồ sơ kiểm chứng</div><div class="stat-value">${num(a.users)}</div></div><div class="stat"><div class="stat-label">Sản phẩm trong danh mục</div><div class="stat-value">${num(a.catalog)}</div></div><div class="stat"><div class="stat-label">Tương tác huấn luyện</div><div class="stat-value">${num(a.train_rows)}</div></div><div class="stat"><div class="stat-label">Mục tiêu chưa có trong train</div><div class="stat-value">${num((a.cold_test_targets / a.test_rows) * 100, 1)}%</div></div></div>
+<div class="section-heading"><div><h2>Ba hướng thực nghiệm</h2><p>H1 và H2 theo slide gốc; H3 là hướng tích hợp được nhóm bổ sung.</p></div></div>
+<div class="directions-grid"><article class="panel research-panel"><div class="panel-index">HƯỚNG 1</div><h3>Tuần tự và thời gian</h3><p>So sánh GRU4Rec cơ sở, Time Gap và Time Decay để kiểm tra tác động của tín hiệu thời gian.</p><a href="#experiment" class="inline-link">M1 · M2 · M3</a></article><article class="panel research-panel"><div class="panel-index">HƯỚNG 2</div><h3>Đồ thị và nội dung</h3><p>LightGCN kết hợp đặc trưng tiêu đề sản phẩm. Phiên bản đang chạy dùng TF-IDF/SVD, chưa phải MiniLM.</p><a href="#experiment" class="inline-link">H2 · LightGCN + Text</a></article><article class="panel research-panel"><div class="panel-index">HƯỚNG 3</div><h3>Tích hợp H1–H2</h3><p>Kết hợp điểm tuần tự, đồ thị/nội dung và popularity. Trọng số chọn trên validation, kiểm tra trên test.</p><a href="#experiment" class="inline-link">H3 · Mô hình tích hợp</a></article></div>
+<div class="section-heading"><div><h2>Kết quả trên toàn danh mục</h2><p>Cùng tập người dùng và ứng viên; K = 10.</p></div><a href="#results" class="inline-link">Xem bảng đầy đủ</a></div><div id="overview-metrics" class="panel">${loading()}</div><details class="disclosure"><summary>Lưu ý khi đọc kết quả</summary><div class="small muted">H3 hiện chọn trọng số bằng 0 cho H1 và bằng 1 cho nhánh H2 nội dung, nên kết quả trùng baseline nội dung. Chưa có bằng chứng mô hình tích hợp cải thiện hiệu quả. Web xếp hạng từ điểm đã lưu, không huấn luyện lại khi bấm nút.</div></details>`;
   const generation = state.generation;
   getMetrics()
     .then((data) => {
@@ -143,7 +143,7 @@ function experiment() {
   $("#main").innerHTML =
     heading(
       "01 / ĐỐI CHIẾU MỘT HỒ SƠ",
-      "Một lịch sử. Nhiều mô hình. Cùng điều kiện.",
+      "Đối chiếu kết quả dự đoán",
       "Chọn hồ sơ test, xem top 10 rồi mở sản phẩm mục tiêu để kiểm chứng.",
     ) +
     `<form id="experiment-form" class="panel experiment-controls"><div class="control-grid"><div><label for="profile-search">Tìm mã hồ sơ</label><input id="profile-search" placeholder="Ví dụ: KH-0020" value="${h(state.query)}" autocomplete="off"></div><div><label for="profile-select">Hồ sơ trong tập test</label><select id="profile-select" required><option value="">Đang đọc hồ sơ…</option></select></div><div><label for="experiment-protocol">Không gian đánh giá</label><select id="experiment-protocol">${protocolOptions(state.protocol)}</select></div><button type="submit" class="btn" id="run-button">Chạy đối chiếu <span>→</span></button></div><div class="profile-feedback" id="profile-feedback">Đang tải danh sách…</div><div class="presets"><span>Trường hợp cần xem:</span>${[
@@ -167,7 +167,7 @@ function experiment() {
       )
       .join(
         "",
-      )}</div><details class="disclosure"><summary>Mở rộng ngoài phạm vi slide</summary><div class="model-options">${b.models
+      )}</div><details class="disclosure"><summary>Cấu hình bổ sung</summary><div class="model-options">${b.models
       .filter((x) => !b.default_models.includes(x.id))
       .map(
         (m) =>
@@ -175,7 +175,7 @@ function experiment() {
       )
       .join(
         "",
-      )}</div><p class="model-choice-note">H3 là phần bổ sung, không phải hướng thứ ba được xác nhận trong slide gốc. H2 blend/H3 hiện chọn nhánh nội dung.</p></details><p class="protocol-note" id="protocol-note">${h(b.protocols[state.protocol])}</p></form><section id="case-output" aria-live="polite">${emptyCase()}</section>`;
+      )}</div><p class="model-choice-note">H2 blend là cấu hình phụ. H3 đã có trong nhóm mô hình đối chiếu chính; đây là hướng tích hợp được bổ sung so với slide gốc.</p></details><p class="protocol-note" id="protocol-note">${h(b.protocols[state.protocol])}</p></form><section id="case-output" aria-live="polite">${emptyCase()}</section>`;
   $("#experiment-form").addEventListener("submit", runCase);
   $("#profile-search").addEventListener("input", (e) => {
     state.query = e.target.value;
@@ -302,7 +302,7 @@ async function results() {
   $("#main").innerHTML =
     heading(
       "02 / ĐÁNH GIÁ TOÀN TẬP",
-      "Kết luận bằng toàn bộ dữ liệu.",
+      "Kết quả thực nghiệm",
       "Cùng người dùng, cùng catalog và ứng viên. Epoch và trọng số đã chọn bằng validation.",
     ) +
     `<div class="result-controls"><div><label for="metrics-protocol">Giao thức</label><select id="metrics-protocol">${protocolOptions(state.protocol)}</select></div><div><label for="metrics-cohort">Nhóm mục tiêu</label><select id="metrics-cohort">${options(
@@ -385,13 +385,22 @@ const discussionData = [
       "Đồ thị train rất thưa; user không có cạnh train chưa học được ID embedding. Văn bản hiện chỉ là tiêu đề TF-IDF/SVD; chưa phải MiniLM. Catalog được giả định sẵn trước test, chưa xác minh ngày xuất bản.",
     next: "Bổ sung metadata thật, so TF-IDF với MiniLM; ablation text-only, graph-text và blend. Kiểm tra cold-item theo thời điểm xuất bản thật.",
   },
+  {
+    family: "H3",
+    title: "Mô hình tích hợp H1–H2",
+    strength:
+      "Kết hợp các nguồn điểm theo cùng ánh xạ ID; trọng số được chọn bằng validation, không chọn theo test.",
+    limit:
+      "Trọng số hiện là H1 = 0, H2 = 1 và popularity = 0; H2 blend lại chọn nhánh nội dung. H3 chưa tốt hơn baseline nội dung.",
+    next: "Sau khi cải thiện từng nhánh, đánh giá ablation và phối hợp theo độ dài lịch sử hoặc warm/cold; kiểm chứng nhiều seed trước khi kết luận.",
+  },
 ];
 async function discussion() {
   const generation = state.generation;
   $("#main").innerHTML =
     heading(
       "03 / THẢO LUẬN",
-      "Điểm mạnh, hạn chế và hướng đi.",
+      "Nhận xét và hướng cải tiến",
       "Phân biệt khả năng thiết kế với lợi ích đã đo. Không mặc định mô hình phức tạp sẽ tốt hơn.",
     ) +
     `<div id="discussion-evidence">${loading()}</div><div class="two-col">${discussionData.map((x) => `<article class="discussion-card"><span class="model-family">${h(x.family)}</span><h3>${h(x.title)}</h3><div class="discussion-block"><strong>Điểm mạnh về thiết kế</strong><p>${h(x.strength)}</p></div><div class="discussion-block"><strong>Hạn chế cần nói khi bảo vệ</strong><p>${h(x.limit)}</p></div><div class="discussion-block"><strong>Hướng cải tiến có thể kiểm chứng</strong><p>${h(x.next)}</p></div></article>`).join("")}</div><div class="section-heading"><div><h2>Nên ưu tiên đi tiếp theo thứ tự nào?</h2><p>Mỗi bước cần một kiểm chứng, không chỉ thêm tên mô hình.</p></div><span class="section-tag">RESEARCH ROADMAP</span></div><div class="priority-list">${[
@@ -449,7 +458,7 @@ async function methodology() {
   $("#main").innerHTML =
     heading(
       "04 / PHƯƠNG PHÁP",
-      "Một quy trình có thể tái lập.",
+      "Phương pháp và tái lập",
       "Theo dõi dữ liệu đầu vào, lựa chọn mô hình, giao thức test và artifact của lần chạy.",
     ) +
     `<div class="study-strip"><strong>RUN ${h(b.run_id)}</strong><span>Seed ${a.seed} · CPU / 2 luồng · K = 10</span><span>Sinh artifact: ${h(new Intl.DateTimeFormat("vi-VN", { dateStyle: "medium", timeStyle: "short", timeZone: "Asia/Ho_Chi_Minh" }).format(new Date(b.generated_at)))} (giờ Việt Nam)</span></div><div class="method-steps"><article class="method-step"><div><h3>Kiểm tra dữ liệu và loại mốc nhập nhằng</h3><p>Train gốc ${num(a.raw_train_rows)} dòng, giữ ${num(a.train_rows)} dòng có timestamp nhỏ hơn mốc validation tương ứng; bỏ ${a.excluded_ambiguous_train_rows} dòng. Validation ${a.val_rows}, test ${a.test_rows}, catalog ${num(a.catalog)}. ${a.empty_strict_test_profiles} hồ sơ không có lịch sử trước test dùng cùng popularity fallback. Đơn vị timestamp chưa xác minh.</p></div></article><article class="method-step"><div><h3>Học từ train, chọn bằng validation</h3><p>H1: ${num(a.training_prefixes)} tiền tố, embedding 32, GRU hidden 48, tối đa 30 tương tác; Adam 0,003, tối đa 25 epoch, early stopping 5. M2 ghép gap; M3 nhân trọng số đầu vào với scale tương đối ${a.gap_scale}. Không gọi scale này là ngày. Mỗi biến thể có checkpoint riêng.</p></div></article><article class="method-step"><div><h3>Đồ thị và văn bản không dùng cạnh test</h3><p>H2: LightGCN hai tầng với D⁻¹ᐟ² A D⁻¹ᐟ², embedding 32 và BPR trên train. Tiêu đề → TF-IDF bigram → SVD 64 chiều; fit đặc trưng trên item train. Điểm cuối dùng 50% user embedding + 50% trung bình item embedding lịch sử strict-prior. Baseline nội dung cũng có trọng số recency. Không dùng review sau mua làm nội dung sản phẩm. Đây là biến thể TF-IDF, chưa phải MiniLM.</p></div></article><article class="method-step"><div><h3>Đánh giá trên cùng điều kiện</h3><p>Full catalog: toàn bộ ${num(a.catalog)} sản phẩm, cho phép mua lại cho mọi mô hình, không lọc theo nhãn target. Sampled: 1 target + 99 negatives cố định seed 42, loại lịch sử khỏi negatives. Tie-break theo ID sản phẩm. Tách warm/cold, Recall/NDCG/Coverage tại 10 và CI bootstrap 500 lần theo người dùng.</p></div></article><article class="method-step"><div><h3>Xuất điểm và chạy web nhẹ</h3><p>Mạng neural được huấn luyện offline. Web chỉ đọc dòng điểm từ tệp memory-map, xếp hạng và đối chiếu. Giao diện không tải ma trận hoặc mô hình. Thời gian API không đại diện thời gian huấn luyện/suy luận lại neural. Render Free vẫn có thể chậm khi khởi động sau thời gian ngủ.</p></div></article></div><div class="section-heading"><div><h2>Đường học trên validation</h2><p>Đường cong từ log huấn luyện thực tế, không dùng test để chọn epoch.</p></div></div><div id="training-charts">${loading()}</div><div class="section-heading"><div><h2>Tái lập từ dữ liệu gốc</h2><p>Cần bộ dữ liệu local trong data/; gói phục vụ web đã có artifact.</p></div></div><pre class="code-block">python -m venv .venv

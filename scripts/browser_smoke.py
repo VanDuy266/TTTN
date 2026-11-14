@@ -10,13 +10,13 @@ def main(base):
         browser=p.chromium.launch(executable_path='/usr/bin/chromium',headless=True,args=['--no-sandbox'])
         page=browser.new_page(viewport={'width':1536,'height':1100});page.on('pageerror',lambda e:errors.append(str(e)))
         page.goto(base,wait_until='networkidle')
-        page.get_by_role('heading',name='Hai hướng, một bài toán chung.').wait_for()
+        page.get_by_role('heading',name='Ba hướng thực nghiệm').wait_for()
         assert 'DAD' in page.title()
         page.screenshot(path=str(ROOT/'docs/screenshots/research-web-overview.png'))
         page.locator('a[data-nav=experiment]').click()
         page.wait_for_function('document.querySelector("#profile-select")?.value?.startsWith("KH-")')
         page.get_by_role('button',name='Chạy đối chiếu',exact=False).click()
-        page.locator('.model-card').first.wait_for();assert page.locator('.model-card').count()==6
+        page.locator('.model-card').first.wait_for();assert page.locator('.model-card').count()==7
         assert page.locator('.target-name').count()==0
         page.get_by_role('button',name='Mở mục tiêu test',exact=False).click();page.locator('.target-name').wait_for()
         with page.expect_download() as download:
@@ -43,14 +43,14 @@ def main(base):
         page.locator('a[data-nav=method]').click();page.locator('.training-panel').first.wait_for()
         page.screenshot(path=str(ROOT/'docs/screenshots/research-web-method.png'))
         mobile=browser.new_page(viewport={'width':390,'height':844},is_mobile=True,has_touch=True)
-        mobile.goto(base,wait_until='networkidle');mobile.get_by_role('heading',name='Hai hướng, một bài toán chung.').wait_for()
+        mobile.goto(base,wait_until='networkidle');mobile.get_by_role('heading',name='Ba hướng thực nghiệm').wait_for()
         mobile.screenshot(path=str(ROOT/'docs/screenshots/research-web-mobile.png'))
         mobile.locator('#menu-button').click();mobile.locator('a[data-nav=experiment]').click()
         mobile.wait_for_function('document.querySelector("#profile-select")?.value?.startsWith("KH-")')
         mobile.get_by_role('button',name='Chạy đối chiếu',exact=False).click();mobile.locator('.model-card').first.wait_for()
         assert mobile.evaluate('document.documentElement.scrollWidth<=innerWidth')
         assert not errors,errors
-        print('PASS: DAD branding, six-model comparison, reveal, CSV, profile invalidation, fallback, cohort/protocol changes, discussion, training curves, mobile; no JS errors.')
+        print('PASS: DAD branding, seven-model comparison including H3, reveal, CSV, profile invalidation, fallback, cohort/protocol changes, discussion, training curves, mobile; no JS errors.')
         browser.close()
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--base',default='http://127.0.0.1:8501');args=parser.parse_args();main(args.base)

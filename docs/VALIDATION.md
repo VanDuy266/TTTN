@@ -15,7 +15,7 @@ Web/API đã kiểm tra:
 - Thứ hạng một case khớp quy tắc tie-break theo ID; không ưu tiên target khi bằng điểm.
 - CSV, báo cáo Markdown, log huấn luyện đủ M1/M2/M3/H2 và API docs.
 
-Playwright/Chromium đã chạy luồng trình duyệt: Tổng quan → Chạy đối chiếu sáu model → mở mục tiêu → đổi preset warm → Kết quả cold/100 ứng viên → Hạn chế & hướng đi → log validation. Mobile 390 px chạy được cùng luồng, không tràn ngang. Không có lỗi JavaScript trong lượt kiểm tra. Các screenshot `research-web-*.png` ghi lại giao diện mới.
+Playwright/Chromium đã chạy luồng trình duyệt: Tổng quan → Chạy đối chiếu bảy model, gồm H3 → mở mục tiêu → đổi preset warm → Kết quả cold/100 ứng viên → Hạn chế & hướng đi → log validation. Mobile 390 px chạy được cùng luồng, không tràn ngang. Không có lỗi JavaScript trong lượt kiểm tra. Các screenshot `research-web-*.png` ghi lại giao diện mới.
 
 ## Hiệu năng
 
@@ -28,3 +28,5 @@ Backend memory-map điểm NPY theo hàng, frontend chỉ tải metadata/top 10,
 ## Phạm vi chưa xác nhận
 
 Chưa kiểm tra trên deployment Render của người dùng, chưa load-test hay đo cold start Render Free. Một seed huấn luyện, timestamp chưa rõ đơn vị, metadata chưa có ngày xuất bản, H2 chưa chạy MiniLM. Không có bằng chứng hiệu quả kinh doanh. Bảng full catalog mới cho phép mua lại, không trộn với bảng legacy có lọc lịch sử.
+
+Bản chỉnh nhận diện DAD: đã kiểm tra lại 19 tests và luồng trình duyệt với 7 mô hình mặc định, H3 hiện trực tiếp ở tổng quan/đối chiếu/kết quả/nhận xét; chữ Times New Roman và icon SVG, không dùng logo RecLab cũ. Không thay đổi điểm hay kết quả mô hình.

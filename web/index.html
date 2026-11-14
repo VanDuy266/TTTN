@@ -5,52 +5,109 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta
       name="description"
-      content="Thực nghiệm H1 GRU theo thời gian và H2 đồ thị kết hợp nội dung trên Amazon All Beauty."
+      content="Thực nghiệm ba hướng: mô hình tuần tự theo thời gian, đồ thị kết hợp nội dung và mô hình tích hợp H1–H2."
     />
     <meta name="theme-color" content="#143e3a" />
-    <title>DAD · RecLab — Thực nghiệm hệ thống gợi ý</title>
-    <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%23143e3a'/%3E%3Cpath d='M12 29V11h8a6 6 0 0 1 0 12h-8m9 0 7 6' fill='none' stroke='%23cef077' stroke-width='3'/%3E%3C/svg%3E"
-    />
+    <title>DAD — Thực nghiệm hệ thống gợi ý</title>
+    <link rel="icon" href="/static/favicon.svg" />
     <link rel="stylesheet" href="/static/style.css?v=__ASSET_VERSION__" />
     <script type="module" src="/static/app.js?v=__ASSET_VERSION__"></script>
   </head>
   <body>
     <a class="skip" href="#main">Đến nội dung chính</a>
     <aside class="sidebar" id="sidebar">
-      <a class="brand" href="#overview" aria-label="RecLab tổng quan"
-        ><span class="brand-icon">R<span>•</span></span
-        ><span
-          >rec<span class="brand-light">lab</span
-          ><small>RECOMMENDATION RESEARCH</small></span
-        ></a
-      >
+      <a class="brand dad-brand" href="#overview" aria-label="DAD — Tổng quan">
+        <span class="dad-wordmark">DAD</span>
+        <span class="dad-brand-rule"></span>
+        <span class="dad-brand-caption">NGHIÊN CỨU HỆ THỐNG GỢI Ý</span>
+      </a>
       <p class="nav-label">KHÔNG GIAN NGHIÊN CỨU</p>
       <nav aria-label="Điều hướng chính">
         <a href="#overview" data-nav="overview"
-          ><span class="nav-icon">◫</span>Tổng quan</a
+          ><svg
+            class="nav-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.65"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <rect x="14" y="14" width="7" height="7" rx="1" /></svg
+          >Tổng quan</a
         ><a href="#experiment" data-nav="experiment"
-          ><span class="nav-icon">⌁</span>Chạy đối chiếu<span class="nav-count"
-            >01</span
-          ></a
+          ><svg
+            class="nav-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.65"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path
+              d="M9 3h6m-5 0v6L4 19a1.4 1.4 0 0 0 1.2 2h13.6a1.4 1.4 0 0 0 1.2-2L14 9V3M7.5 15h9"
+            />
+            <path d="m10 17 1 1m3-6h.01" /></svg
+          >Chạy đối chiếu<span class="nav-count">H1–H3</span></a
         ><a href="#results" data-nav="results"
-          ><span class="nav-icon">▥</span>Kết quả toàn tập</a
+          ><svg
+            class="nav-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.65"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M4 3v17h17M8 16v-5m5 5V6m5 10V9" /></svg
+          >Kết quả toàn tập</a
         ><a href="#discussion" data-nav="discussion"
-          ><span class="nav-icon">◎</span>Hạn chế & hướng đi</a
+          ><svg
+            class="nav-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.65"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M21 11a8 8 0 0 1-8 8H7l-4 3v-7a8 8 0 1 1 18-4Z" />
+            <path d="M8 9h8m-8 4h5" /></svg
+          >Hạn chế & hướng đi</a
         ><a href="#method" data-nav="method"
-          ><span class="nav-icon">⤷</span>Quy trình & tái lập</a
+          ><svg
+            class="nav-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.65"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect x="5" y="4" width="14" height="18" rx="2" />
+            <path d="M9 2h6v4H9zM9 11l2 2 4-4m-6 9h6" /></svg
+          >Quy trình & tái lập</a
         >
       </nav>
       <div class="sidebar-bottom">
         <div class="dataset-badge">
           <span class="dot"></span> AMAZON ALL BEAUTY
         </div>
-        <p>H1 · Tuần tự & thời gian<br />H2 · Đồ thị & nội dung</p>
+        <p>
+          H1 · Tuần tự & thời gian<br />H2 · Đồ thị & nội dung<br />H3 · Tích
+          hợp H1–H2
+        </p>
         <div class="run-chip">RUN <code id="run-id">đang tải…</code></div>
-        <small
-          >Nhóm DAD · Thực tập tốt nghiệp<br />Giao diện web & API riêng</small
-        >
+        <small>Nhóm DAD · Thực tập tốt nghiệp<br />Duy · Ân · Đạt</small>
       </div>
     </aside>
     <div class="shell">
@@ -61,7 +118,17 @@
           aria-label="Mở điều hướng"
           aria-expanded="false"
         >
-          ☰
+          <svg
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            aria-hidden="true"
+          >
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
         </button>
         <div>
           <span class="breadcrumb">PHÒNG THỰC NGHIỆM</span
@@ -80,7 +147,7 @@
         </div>
       </main>
       <footer class="footer">
-        <span>RECLAB / NHÓM DAD</span
+        <span>DAD / THỰC TẬP TỐT NGHIỆP</span
         ><span>Thực nghiệm offline · Không suy ra hiệu quả kinh doanh</span
         ><a href="/api/docs" target="_blank" rel="noopener">API ↗</a>
       </footer>
