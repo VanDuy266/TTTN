@@ -156,7 +156,7 @@ def main(epochs):
             if prefix: samples.append(prefix);labels.append(warmmap[h[end][0]])
     tensors=encode(samples,warmmap,gap_scale);labels=torch.tensor(labels)
     vinputs=encode(val_h,warmmap,gap_scale);tinputs=encode(test_h,warmmap,gap_scale)
-    logs=[];best_global=-1.;best_mode=None
+    logs=[];best_global=-1.;best_mode=None;gru_variants={}
     for mode in ['base','gap','decay']:
         torch.manual_seed(SEED);model=SequenceModel(len(wi),mode);optim=torch.optim.Adam(model.parameters(),lr=.003)
         best=-1.;state=None;wait=0
@@ -172,6 +172,11 @@ def main(epochs):
             else:wait+=1
             if wait>=5:break
         model.load_state_dict(state);print('GRU',mode,'val',best,flush=True)
+        with torch.no_grad():
+            mode_val=np.full((nu,ni),-1e6,dtype='float32');mode_val[:,wi]=model(*vinputs).numpy()
+            mode_test=np.full((nu,ni),-1e6,dtype='float32');mode_test[:,wi]=model(*tinputs).numpy()
+        gru_variants[mode]=(mode_val,mode_test)
+        torch.save({'state_dict':state,'mode':mode},out/f'gru_{mode}.pt')
         if best>best_global:
             best_global=best;best_mode=mode
             with torch.no_grad():
@@ -215,6 +220,17 @@ def main(epochs):
     scaled=lambda matrix:np.array([scale(x) for x in matrix],dtype='float32')
     cv,ct=scaled(cv),scaled(ct);gv,gt=scaled(gv),scaled(gt)
     rawv,rawt=scaled(graph_v),scaled(graph_t);pv,pt=scaled(pv),scaled(pt)
+    gru_variants={mode:(scaled(v),scaled(t)) for mode,(v,t) in gru_variants.items()}
+    for v,t in gru_variants.values():
+        for u,h in enumerate(val_h):
+            if not h:v[u]=pv[u]
+        for u,h in enumerate(test_h):
+            if not h:t[u]=pt[u]
+    np.savez_compressed(out/'h1_variants.npz',**{mode:pair[1] for mode,pair in gru_variants.items()})
+    (out/'evaluation_context.json').write_text(json.dumps([
+        {'profile':f'KH-{u+1:04}','cutoff':int(testcut[u]),'history':[
+            {'item_index':imap[i],'timestamp':int(t)} for i,t in h]}
+        for u,h in enumerate(test_h)]))
     mixing=[]
     for beta in [0.,.25,.5,.75,1.]:
         hv=beta*rawv+(1-beta)*cv

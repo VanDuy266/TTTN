@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Thực nghiệm H1 GRU theo thời gian và H2 đồ thị kết hợp nội dung trên Amazon All Beauty."
+    />
+    <meta name="theme-color" content="#143e3a" />
+    <title>DAD · RecLab — Thực nghiệm hệ thống gợi ý</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%23143e3a'/%3E%3Cpath d='M12 29V11h8a6 6 0 0 1 0 12h-8m9 0 7 6' fill='none' stroke='%23cef077' stroke-width='3'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="/static/style.css?v=__ASSET_VERSION__" />
+    <script type="module" src="/static/app.js?v=__ASSET_VERSION__"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Đến nội dung chính</a>
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#overview" aria-label="RecLab tổng quan"
+        ><span class="brand-icon">R<span>•</span></span
+        ><span
+          >rec<span class="brand-light">lab</span
+          ><small>RECOMMENDATION RESEARCH</small></span
+        ></a
+      >
+      <p class="nav-label">KHÔNG GIAN NGHIÊN CỨU</p>
+      <nav aria-label="Điều hướng chính">
+        <a href="#overview" data-nav="overview"
+          ><span class="nav-icon">◫</span>Tổng quan</a
+        ><a href="#experiment" data-nav="experiment"
+          ><span class="nav-icon">⌁</span>Chạy đối chiếu<span class="nav-count"
+            >01</span
+          ></a
+        ><a href="#results" data-nav="results"
+          ><span class="nav-icon">▥</span>Kết quả toàn tập</a
+        ><a href="#discussion" data-nav="discussion"
+          ><span class="nav-icon">◎</span>Hạn chế & hướng đi</a
+        ><a href="#method" data-nav="method"
+          ><span class="nav-icon">⤷</span>Quy trình & tái lập</a
+        >
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="dataset-badge">
+          <span class="dot"></span> AMAZON ALL BEAUTY
+        </div>
+        <p>H1 · Tuần tự & thời gian<br />H2 · Đồ thị & nội dung</p>
+        <div class="run-chip">RUN <code id="run-id">đang tải…</code></div>
+        <small
+          >Nhóm DAD · Thực tập tốt nghiệp<br />Giao diện web & API riêng</small
+        >
+      </div>
+    </aside>
+    <div class="shell">
+      <header class="topbar">
+        <button
+          class="menu-button icon-button"
+          id="menu-button"
+          aria-label="Mở điều hướng"
+          aria-expanded="false"
+        >
+          ☰
+        </button>
+        <div>
+          <span class="breadcrumb">PHÒNG THỰC NGHIỆM</span
+          ><span class="breadcrumb-sep">/</span
+          ><span id="view-title">Tổng quan</span>
+        </div>
+        <span class="status"
+          ><span class="dot"></span>Kết quả đã huấn luyện</span
+        >
+      </header>
+      <main id="main" tabindex="-1">
+        <div class="loading-shell" role="status">
+          <div class="skeleton title-skeleton"></div>
+          <div class="skeleton hero-skeleton"></div>
+          <p>Đang mở phòng thực nghiệm…</p>
+        </div>
+      </main>
+      <footer class="footer">
+        <span>RECLAB / NHÓM DAD</span
+        ><span>Thực nghiệm offline · Không suy ra hiệu quả kinh doanh</span
+        ><a href="/api/docs" target="_blank" rel="noopener">API ↗</a>
+      </footer>
+    </div>
+    <div id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "run_id": "a7a85e27f1a1",
+  "scope": "Loopback, clean serving venv, one process, six models, full catalog; excludes Internet/Render cold start and neural inference.",
+  "samples": 30,
+  "startup_to_health_ms": 409.0,
+  "bootstrap_ms": 1.61,
+  "bootstrap_gzip_bytes": 2216,
+  "bootstrap_decoded_bytes": 4294,
+  "api_p50_ms": 2.59,
+  "api_p95_ms": 3.1,
+  "ranking_p50_ms": 1.03,
+  "ranking_p95_ms": 1.2,
+  "case_gzip_bytes_mean": 4559
+}

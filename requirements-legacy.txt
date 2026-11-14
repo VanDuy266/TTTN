@@ -1,0 +1,2 @@
+-r requirements-train.txt
+streamlit==1.51.0

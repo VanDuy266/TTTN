@@ -1,37 +1,39 @@
-# Kết quả thực nghiệm đã chạy
+# Kết quả hiện hành — DAD · RecLab
 
-Seed 42, CPU 2 luồng; thời gian huấn luyện/đánh giá 52.5 giây.
+Run ID: `a7a85e27f1a1`. Seed 42, CPU 2 luồng. Điểm được sinh bằng `train.py` và `export_web.py`.
 
-Train gốc 2712 dòng; bỏ 296 dòng có mốc >= validation tương ứng; dùng 2416 dòng. Catalog 2934 sản phẩm, 646 hồ sơ; cold test 550/646 sau lọc. Tất cả 646 user vẫn được đánh giá, hồ sơ rỗng dùng popularity.
+**Giao thức web mới:** full catalog cho phép mua lại với mọi model, không lọc theo target. Bảng này thay thế phần diễn giải web; số liệu legacy trong artifacts/metrics.csv có giao thức lọc lịch sử khác, không so trực tiếp.
+
+## Toàn danh mục — cho phép mua lại
+
+| Model | Users | Recall@10 | NDCG@10 | Coverage@10 |
+|---|---:|---:|---:|---:|
+| Popularity | 646 | 0.003096 | 0.001995 | 0.003408 |
+| TF-IDF + SVD | 646 | 0.034056 | 0.013824 | 0.801977 |
+| M1 · GRU4Rec | 646 | 0.000000 | 0.000000 | 0.255283 |
+| M2 · GRU + Time Gap | 646 | 0.000000 | 0.000000 | 0.135310 |
+| M3 · GRU + Time Decay | 646 | 0.000000 | 0.000000 | 0.312883 |
+| H2 · LightGCN + Text | 646 | 0.000000 | 0.000000 | 0.309816 |
+| H2 · Blend chọn bằng validation | 646 | 0.034056 | 0.013824 | 0.801977 |
+| H3 · Hybrid (bổ sung) | 646 | 0.034056 | 0.013824 | 0.801977 |
 
 ## 100 ứng viên cố định
 
 | Model | Users | Recall@10 | NDCG@10 | Coverage@10 |
 |---|---:|---:|---:|---:|
 | Popularity | 646 | 0.047988 | 0.025562 | 0.162236 |
-| Content TF-IDF | 646 | 0.255418 | 0.146683 | 0.845603 |
-| Graph branch | 646 | 0.102167 | 0.044188 | 0.726653 |
-| H1 GRU | 646 | 0.027864 | 0.015541 | 0.331970 |
-| H2 Graph + Text | 646 | 0.255418 | 0.146683 | 0.845603 |
-| H3 Hybrid | 646 | 0.255418 | 0.146683 | 0.845603 |
+| TF-IDF + SVD | 646 | 0.255418 | 0.146683 | 0.845603 |
+| M1 · GRU4Rec | 646 | 0.041796 | 0.018384 | 0.387526 |
+| M2 · GRU + Time Gap | 646 | 0.027864 | 0.015541 | 0.331970 |
+| M3 · GRU + Time Decay | 646 | 0.043344 | 0.017772 | 0.402863 |
+| H2 · LightGCN + Text | 646 | 0.102167 | 0.044188 | 0.726653 |
+| H2 · Blend chọn bằng validation | 646 | 0.255418 | 0.146683 | 0.845603 |
+| H3 · Hybrid (bổ sung) | 646 | 0.255418 | 0.146683 | 0.845603 |
 
-## Toàn danh mục
+## Nhận xét
 
-| Model | Users | Recall@10 | NDCG@10 | Coverage@10 |
-|---|---:|---:|---:|---:|
-| Popularity | 646 | 0.003096 | 0.001995 | 0.006135 |
-| Content TF-IDF | 646 | 0.035604 | 0.016816 | 0.775051 |
-| Graph branch | 646 | 0.000000 | 0.000000 | 0.245058 |
-| H1 GRU | 646 | 0.000000 | 0.000000 | 0.135310 |
-| H2 Graph + Text | 646 | 0.035604 | 0.016816 | 0.775051 |
-| H3 Hybrid | 646 | 0.035604 | 0.016816 | 0.775051 |
+Trên full catalog, M1/M2/M3 và H2 graph-text chưa tìm trúng target trong top 10 ở lần chạy này. Baseline nội dung tốt hơn theo ước lượng điểm; H2 blend/H3 chọn nội dung nên không có bằng chứng lợi ích tăng thêm của hybrid.
 
-## Kết luận đúng phạm vi
+Các baseline/mô hình vẫn có khả năng đưa ra top 10; việc render danh sách không chứng minh danh sách đó đúng. Phải đối chiếu target và toàn tập.
 
-H1 chọn GRU `gap`. Trọng số graph của H2 = 0.0. H3 = {'h1': 0.0, 'h2': 1.0, 'popularity': 0.0}.
-
-Validation chọn nhánh nội dung; H2 và H3 trùng baseline content. Không có bằng chứng GRU hoặc graph cải thiện kết quả trong thiết lập hiện tại. Không được báo cáo đây là tăng trưởng của hybrid.
-
-Chi tiết warm/cold, khoảng tin cậy NDCG bootstrap người dùng, thử trọng số và lịch sử huấn luyện nằm trong artifacts. Chưa có nhiều seed, kiểm định chênh lệch nhiều mô hình hay A/B kinh doanh. Danh mục giả định có sẵn trước target; timestamp chưa xác minh đơn vị. Các hạn chế này chưa cho phép kết luận sẵn sàng production.
-
-Kết quả web có bộ lọc đã xem/tồn kho và MMR nên có thể khác offline (mặc định không MMR, cho phép dự đoán mua lại target đã từng mua). Tốc độ xếp lại trong giao diện chỉ đo thao tác trên điểm đã tính sẵn, không phải latency suy luận mô hình mới.
+H2 dùng TF-IDF/SVD, chưa phải MiniLM. Timestamp chưa rõ đơn vị, catalog giả định có sẵn, một seed và split theo user/transductive. Xem DISCUSSION.md để biết thứ tự cải tiến. Không suy ra tăng doanh thu từ các chỉ số này.

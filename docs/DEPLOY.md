@@ -1,41 +1,46 @@
-# Triển khai Streamlit
+# Triển khai DAD · RecLab trên Render
 
-## Render — cấu hình đã chuẩn bị
+Runtime đã chuyển sang **FastAPI + HTML/CSS/JavaScript**, không dùng Streamlit hoặc WebSocket Streamlit.
 
-Mở [Deploy to Render](https://render.com/deploy?repo=https://github.com/VanDuy266/TTTN), đăng nhập và cho phép Render đọc repository khi được yêu cầu. Blueprint `render.yaml` tạo web service `beauty-intelligence-demo` trên gói Free, cài `requirements.txt`, chạy Streamlit bằng biến `$PORT` và kiểm tra `/_stcore/health`. Chọn nhánh `main` nếu Render yêu cầu.
+## Render mới
 
-Chọn tạo Blueprint/Deploy trong tài khoản của bạn. Khi Render báo Live, mở URL HTTPS được Render cấp và kiểm tra luồng khách cũ, khách mới, bảng metrics và xuất CSV. Dịch vụ Free có thể ngủ khi không hoạt động, nên lần truy cập đầu có thể chậm. Không chọn gói trả phí nếu chưa có chủ tài khoản đồng ý chi phí.
+Mở [Deploy to Render](https://render.com/deploy?repo=https://github.com/VanDuy266/TTTN). Đăng nhập và cấp quyền repository nếu được yêu cầu. Blueprint `render.yaml` dùng gói Free:
 
-Không cần API key cho mô hình và không cần cài PyTorch để phục vụ web. Hiện chưa có deployment ID hoặc URL Render đã được xác nhận; mã nguồn và blueprint không đồng nghĩa dịch vụ đã Live.
+- Repository: `VanDuy266/TTTN`, nhánh `main`.
+- Python: `3.12.12`.
+- Build: `pip install -r requirements.txt`.
+- Start: `uvicorn app:app --host 0.0.0.0 --port $PORT`.
+- Health: `/healthz`.
 
-## Streamlit Community Cloud
+Giữ tên resource `beauty-intelligence-demo` để phù hợp blueprint trước; tên hiển thị của sản phẩm là DAD · RecLab. Không chọn gói trả phí nếu chưa được chủ tài khoản đồng ý.
 
-Gói demo chỉ cần `app.py`, `src/`, `.streamlit/config.toml`, `requirements.txt` và `artifacts/`. Không cần upload notebook, raw review, PDF hoặc khóa API.
+## Dịch vụ Render đã có từ bản Streamlit
 
-1. Đưa source cùng serving artifact lên repository GitHub do bạn quản lý.
-2. Đăng nhập Streamlit Community Cloud bằng tài khoản được cấp quyền repository.
-3. Chọn repository `VanDuy266/TTTN`, nhánh chứa bản demo, entrypoint `app.py`, Python 3.12 rồi Deploy.
-4. Chờ build, kiểm tra tab gợi ý cho khách đã có lịch sử và khách mới; kiểm tra bảng metrics và xuất CSV. Chỉ chia sẻ URL sau khi các luồng này hoạt động trên instance được triển khai.
+Nếu dịch vụ được tạo thủ công, đổi Build/Start/Health như trên trong Settings, rồi deploy commit mới nhất. Nếu dùng Blueprint, đồng bộ cấu hình đã cập nhật; đẩy mã GitHub không tự bảo đảm settings thủ công đã đổi. Không giữ start command `streamlit run app.py` vì `app.py` hiện là ASGI app.
 
-Quá trình đăng nhập/ủy quyền tài khoản hosting cần chủ tài khoản thực hiện. Thành công khi chạy trong máy phát triển không đồng nghĩa đã xuất bản web công khai. Không có URL công khai được xác nhận trong lần bàn giao này nếu chưa hoàn thành các bước trên.
+Khi trạng thái Live, kiểm tra:
 
-## Máy chủ nội bộ
+1. `/healthz` trả status ok và đúng run_id.
+2. Tổng quan có nhãn Nhóm DAD; chọn Chạy đối chiếu, hồ sơ, chạy sáu model, mở mục tiêu test.
+3. Đổi full catalog/100 ứng viên và warm/cold; tải CSV/báo cáo.
+4. Mở Hạn chế & hướng đi và đồ thị validation ở Quy trình & tái lập.
+
+Chỉ ghi nhận URL công khai khi đã kiểm tra trên chính deployment. Mã nguồn đã push hoặc chạy local không đồng nghĩa Render đã Live.
+
+## Tốc độ và cold start
+
+Frontend không tải ma trận score hay neural model. Backend memory-map các tệp NPY, chỉ đọc hàng điểm cần dùng. Gzip và cache asset có version hash được bật; dữ liệu theo màn hình tải khi cần. Runtime chỉ cài ba dependency trực tiếp, không cài Streamlit/PyArrow/PyTorch để phục vụ web.
+
+Render Free có thể ngủ khi không hoạt động. Lượt đầu sau khi ngủ có thể chậm do cold start, dù các thao tác sau nhanh. Đổi frontend không xóa giới hạn hosting này. Chưa thực hiện load test hoặc đo latency Internet/Render thực tế; số trong `web-performance.json` chỉ là loopback.
+
+## Máy chủ khác
 
 ```bash
 python -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python -m streamlit run app.py --server.address 0.0.0.0 --server.port 8501
+.venv/bin/pip install -r requirements.txt
+.venv/bin/python -m uvicorn app:app --host 0.0.0.0 --port 8501
 ```
 
-Đặt phía sau reverse proxy có TLS và xác thực của doanh nghiệp. Demo chưa có cơ chế đăng nhập hoặc phân quyền riêng. Không đưa hệ thống có dữ liệu khách thật ra Internet trước khi tích hợp bảo vệ truy cập.
+Phục vụ sau reverse proxy TLS nếu public. Ứng dụng hiện read-only trên artifact nghiên cứu đã ẩn danh, không có upload hay thông tin khách thật, không cần model API key. Chưa có endpoint huấn luyện, API sửa dữ liệu, thông tin thanh toán hoặc admin vận hành.
 
-Kiểm tra vận hành bằng `GET /_stcore/health`, sau đó kiểm tra chức năng; health endpoint riêng lẻ không chứng minh luồng gợi ý đã chạy.
-
-
-## Lưu trữ và quyền vận hành của bản thí điểm
-
-SQLite nằm tại `runtime/retail.sqlite` (gitignored); có thể đổi bằng `RETAIL_DB_PATH`. Đây là dữ liệu trên instance, Render Free có thể xóa khi restart/redeploy. Không gọi đó là lưu trữ production; cần adapter PostgreSQL/dịch vụ DB bền vững trước khi nhận dữ liệu doanh nghiệp.
-
-Có thể thêm `RETAIL_ADMIN_PASSWORD` trong Environment của Render để yêu cầu mật khẩu khi mở Điều hành cửa hàng. Không ghi mật khẩu vào repository. Nếu chưa đặt, chế độ trình diễn cho phép truy cập màn hình này; chưa có SSO/RBAC và không dùng cho dữ liệu khách thật.
-
-Sau deploy kiểm tra: thêm giỏ → tạo đơn thử → mở Điều hành đối chiếu đơn, tồn kho và sự kiện. Giá/tồn kho mặc định là minh họa và đơn không gọi thanh toán. Toàn bộ nghiệp vụ mới chỉ dùng thư viện chuẩn SQLite, không cần dependency bổ sung.
+Việc tạo dịch vụ trong tài khoản Render cần quyền tài khoản/Render API key hợp lệ. Không đưa credential vào repository hay chat. Không có URL Render được xác nhận chỉ từ cấu hình này.

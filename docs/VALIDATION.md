@@ -1,21 +1,30 @@
-# Kiểm chứng phiên bản nghiệp vụ
+# Kiểm chứng DAD · RecLab — Web độc lập Streamlit
 
-## Đã chạy
+## Kết quả kiểm tra
 
-`python -m unittest discover -s tests -v`: **12 tests qua**.
+`python -m unittest discover -s tests -v`: **19 tests qua**. Gồm 8 kiểm thử web/API mới, 4 kiểm thử nghiên cứu và 7 kiểm thử nghiệp vụ legacy được giữ để tránh mất hành vi cũ. Runtime web không import Streamlit hoặc module bán hàng.
 
-- Chỉ nhập snapshot tồn kho hợp lệ; snapshot thiếu SKU tắt bán SKU đó; lỗi đầu vào không đổi DB.
-- Click/cart chỉ được ghi cho visitor và request đã có exposure đúng SKU; sự kiện trùng được khử trùng.
-- Checkout ghi đơn, accepted price và giảm tồn kho trong một transaction; gửi lại cùng khóa không tạo đơn/trừ hàng hai lần.
-- Đơn có một món thiếu hàng bị rollback toàn bộ, bao gồm event purchase; hai checkout đồng thời tranh món cuối chỉ một đơn thành công.
-- Gợi ý loại hàng hết, nhóm không phù hợp, lịch sử và món trong giỏ; control/treatment dùng cùng luật bán hàng.
-- Phân nhóm A/B ổn định theo visitor và có cả hai nhánh.
-- Streamlit AppTest: thêm giỏ → tạo đơn → đối chiếu chỉ số Điều hành; mở Kiểm chứng và đổi giao thức; quay lại chọn hồ sơ và nhu cầu.
-- Mật khẩu vận hành tùy chọn chặn dữ liệu Điều hành khi chưa nhập/nhập sai và mở đúng khi nhập hợp lệ. Đây chưa phải phân quyền đầy đủ.
-- Các kiểm thử nghiên cứu vẫn tính lại Recall/NDCG từ serving artifact và xác minh ranh giới train đã lọc.
+Web/API đã kiểm tra:
 
-Playwright với Chromium thực tế: cửa hàng → chi tiết → giỏ → tạo đơn thử → dashboard → đối chiếu đơn → nhập snapshot CSV → kiểm chứng; chụp màn hình desktop và mobile. DB kiểm tra trình duyệt riêng, không đưa vào repository. Screenshot dashboard chứa đơn thử thực sự tạo trong lượt kiểm tra, không phải số kinh doanh điền sẵn.
+- Trang HTML, health và metadata gọn; root không chứa bootstrap của Streamlit.
+- Bộ lọc warm/cold/lịch sử rỗng, query không có kết quả và giới hạn tham số.
+- Cùng 2.934 hoặc 100 ứng viên cho mọi model; K = 10; lịch sử strictly trước cutoff.
+- Từ chối profile/model/giao thức không hợp lệ, model trùng hoặc danh sách rỗng.
+- Hồ sơ rỗng dùng cùng popularity fallback cho mọi mô hình.
+- Tính lại Recall, NDCG và Coverage từ điểm cho **toàn bộ 48 hàng kết quả**: 8 mô hình × 2 giao thức × 3 cohort.
+- Thứ hạng một case khớp quy tắc tie-break theo ID; không ưu tiên target khi bằng điểm.
+- CSV, báo cáo Markdown, log huấn luyện đủ M1/M2/M3/H2 và API docs.
 
-## Chưa được chứng minh
+Playwright/Chromium đã chạy luồng trình duyệt: Tổng quan → Chạy đối chiếu sáu model → mở mục tiêu → đổi preset warm → Kết quả cold/100 ứng viên → Hạn chế & hướng đi → log validation. Mobile 390 px chạy được cùng luồng, không tràn ngang. Không có lỗi JavaScript trong lượt kiểm tra. Các screenshot `research-web-*.png` ghi lại giao diện mới.
 
-Chưa thử trên deployment Render của người dùng, chưa nối ERP/POS/CRM/payment, chưa load-test hoặc kiểm thử phân quyền đầy đủ. Chưa đo tăng trưởng kinh doanh. Giá/tồn kho mặc định là minh họa. SQLite không giải quyết lưu trữ bền vững trên Render Free. Kết quả offline của mô hình không thay đổi trong lần sửa giao diện/nghiệp vụ này.
+## Hiệu năng
+
+Tạo virtualenv sạch `/workspace/reclab-web-venv`, cài đúng `requirements.txt` (không kế thừa site-packages), khởi động Uvicorn và gọi HTTP thực trên loopback. 30 lượt sau warm-up, mỗi lượt sáu model/full catalog, nhiều profile khác nhau.
+
+Xem `docs/web-performance.json` và `scripts/benchmark_web.py`: startup tới health khoảng 409 ms, API p50 2,59 ms, p95 3,10 ms. Bootstrap gzip 2.216 byte; case gzip trung bình 4.559 byte. Đây là phép đo local của lần kiểm tra, **không phải SLA Render/Internet, latency neural inference hay bằng chứng nhanh hơn một tỷ lệ cố định so với bản cũ**.
+
+Backend memory-map điểm NPY theo hàng, frontend chỉ tải metadata/top 10, gzip và asset cache có hash. Không nạp similarity matrix vào serving path, không tải model xuống browser, không huấn luyện lại khi thao tác.
+
+## Phạm vi chưa xác nhận
+
+Chưa kiểm tra trên deployment Render của người dùng, chưa load-test hay đo cold start Render Free. Một seed huấn luyện, timestamp chưa rõ đơn vị, metadata chưa có ngày xuất bản, H2 chưa chạy MiniLM. Không có bằng chứng hiệu quả kinh doanh. Bảng full catalog mới cho phép mua lại, không trộn với bảng legacy có lọc lịch sử.
