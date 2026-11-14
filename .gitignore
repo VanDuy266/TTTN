@@ -5,3 +5,4 @@ data/
 review/
 .streamlit/secrets.toml
 *.log
+runtime/

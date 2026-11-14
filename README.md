@@ -1,6 +1,6 @@
 # Beauty Intelligence — Nhóm 2
 
-Demo Streamlit cho đề tài Amazon All Beauty, nối mô hình tuần tự H1, đồ thị/nội dung H2 và hướng tích hợp H3. Báo cáo được cung cấp chỉ có H1 và H2; H3 là phần bổ sung trong sản phẩm này.
+Nguyên mẫu thí điểm website mỹ phẩm: trải nghiệm khách mua hàng, điều hành cửa hàng và kiểm chứng nghiên cứu trong ba không gian riêng. H1 (chuỗi/thời gian), H2 (đồ thị/nội dung) và H3 (tích hợp) nối qua lớp luật bán hàng và sự kiện có truy vết. Báo cáo gốc chỉ có H1 và H2; H3 là đề xuất bổ sung.
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/VanDuy266/TTTN)
 
@@ -16,7 +16,15 @@ python -m venv .venv
 .venv/bin/python -m streamlit run app.py --server.address 0.0.0.0 --server.port 8501
 ```
 
-Các artifact phục vụ đã kèm sẵn; mở web không cần PyTorch, API key, notebook, dữ liệu review gốc hay huấn luyện lại. Người dùng thử chọn hồ sơ hoặc khách mới, xem top K, áp tồn kho, xuất CSV và đối chiếu mục tiêu test. Phản hồi chỉ lưu trong phiên; không có đơn hàng hay doanh thu thật.
+Các artifact phục vụ đã kèm sẵn; mở web không cần PyTorch, API key, notebook, dữ liệu review gốc hay huấn luyện lại.
+
+- **Cửa hàng trải nghiệm:** chọn nhu cầu/lịch sử, xem hàng còn bán, xem chi tiết, thêm giỏ và tạo đơn thử.
+- **Điều hành cửa hàng:** CSV snapshot tồn kho/giá, phễu sự kiện, phân nhóm A/B tùy chọn, đối chiếu đơn và xuất log.
+- **Kiểm chứng & tích hợp:** sơ đồ H1/H2/H3 gắn với nghiệp vụ, kết quả full catalog và ranh giới triển khai thật.
+
+Đơn mô phỏng và tồn kho được lưu bằng SQLite trong `runtime/retail.sqlite`; có kiểm tra giao dịch nguyên tử và chống checkout lặp. Đặt `RETAIL_DB_PATH` nếu cần đổi đường dẫn. **Render Free có thể mất DB khi restart/redeploy**; chưa dùng cho dữ liệu thật. Giá/tồn kho mặc định sinh để minh họa; dashboard không có KPI kinh doanh điền sẵn.
+
+Đặt `RETAIL_ADMIN_PASSWORD` để bảo vệ màn hình vận hành bằng mật khẩu tùy chọn. Nếu không đặt, màn hình mở cho trình diễn; chưa có SSO/RBAC. [Kịch bản trình bày 5–7 phút](docs/DEMO_SCRIPT.md) giải thích một hành trình hoàn chỉnh.
 
 ## Ba hướng và bằng chứng
 
@@ -44,4 +52,4 @@ Tài nguyên lần chạy: CPU, 2 luồng PyTorch, seed 42. Ngân sách này ph�
 
 Đánh giá 100 ứng viên có thể cao hơn đáng kể so với toàn danh mục. Cả hai đều được báo cáo. Warm/cold được tính theo tập train thật sự dùng sau khi bỏ mốc thời gian nhập nhằng. Danh mục được giả định có sẵn trước mục tiêu; chưa có ngày công bố sản phẩm để xác minh. Split theo từng người dùng và graph train dạng transductive chưa thay thế kiểm định theo mốc thời gian toàn hệ thống.
 
-Đây là nguyên mẫu offline đã có kiểm thử, chưa có xác thực người dùng, cơ sở dữ liệu sự kiện bền vững, API thương mại hay kiểm chứng tăng doanh số.
+Đây là nguyên mẫu có luồng nghiệp vụ và log SQLite trên một instance, chưa có xác thực khách hàng, phân quyền đầy đủ, DB bền vững trên hosting, API thương mại hay kiểm chứng tăng doanh số.

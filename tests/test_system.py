@@ -51,20 +51,46 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(len(selected),audit['train_rows'])
 
 class AppTests(unittest.TestCase):
-    def test_existing_and_new_customer(self):
-        at=AppTest.from_file(str(ROOT/'app.py'),default_timeout=40).run()
-        self.assertEqual(len(at.exception),0,str(at.exception))
-        self.assertTrue(any('Dành cho' in x.value for x in at.subheader))
-        at.radio[0].set_value('Khách mới').run()
-        self.assertEqual(len(at.exception),0,str(at.exception))
-        at.multiselect[0].set_value([0,1]).run()
-        self.assertEqual(len(at.exception),0,str(at.exception))
-        at.button[0].click().run()
-        self.assertEqual(len(at.exception),0,str(at.exception))
-        at.radio[1].set_value('Toàn bộ danh mục').run()
-        self.assertEqual(len(at.exception),0,str(at.exception))
-        at.radio[0].set_value('Khách đã có lịch sử').run()
-        at.selectbox[1].set_value('KH-0020').run()
-        self.assertEqual(len(at.exception),0,str(at.exception))
+    def test_customer_order_and_operations(self):
+        import tempfile, os
+        with tempfile.TemporaryDirectory() as directory:
+            os.environ['RETAIL_DB_PATH']=str(Path(directory)/'retail.sqlite')
+            at=AppTest.from_file(str(ROOT/'app.py'),default_timeout=40).run()
+            self.assertEqual(len(at.exception),0,str(at.exception))
+            self.assertTrue(any(x.value=='Gợi ý cho bạn' for x in at.subheader))
+            add=next(b for b in at.button if b.label=='Thêm giỏ')
+            add.click().run()
+            self.assertEqual(len(at.exception),0,str(at.exception))
+            checkout=next(b for b in at.button if b.label=='Tạo đơn thử nghiệm')
+            self.assertFalse(checkout.disabled);checkout.click().run()
+            self.assertEqual(len(at.exception),0,str(at.exception))
+            self.assertTrue(any('DEMO-' in x.value for x in at.success))
+            at.radio(key='workspace').set_value('Điều hành cửa hàng').run()
+            self.assertEqual(len(at.exception),0,str(at.exception))
+            self.assertTrue(any(x.label=='Đơn thử đã tạo' and x.value=='1' for x in at.metric))
+            at.radio(key='workspace').set_value('Kiểm chứng & tích hợp').run()
+            self.assertEqual(len(at.exception),0,str(at.exception))
+            at.radio(key='evaluation_space').set_value('100 ứng viên cố định').run()
+            self.assertEqual(len(at.exception),0,str(at.exception))
+            at.radio(key='workspace').set_value('Cửa hàng trải nghiệm').run()
+            at.selectbox(key='profile').set_value('KH-0020').run()
+            self.assertEqual(len(at.exception),0,str(at.exception))
+            from src.business import product_group
+            catalog=pd.read_csv(ROOT/'artifacts/catalog.csv')
+            selected=catalog[catalog.title.map(product_group)!='Chưa phân nhóm'].item_id.iloc[0]
+            at.multiselect(key='needs').set_value([selected]).run()
+            self.assertEqual(len(at.exception),0,str(at.exception))
+            os.environ['RETAIL_ADMIN_PASSWORD']='fixture-admin-only'
+            try:
+                at.radio(key='workspace').set_value('Điều hành cửa hàng').run()
+                self.assertEqual(len(at.metric),0)
+                at.text_input(key='admin_password').set_value('wrong').run()
+                self.assertEqual(len(at.metric),0)
+                at.text_input(key='admin_password').set_value('fixture-admin-only').run()
+                self.assertEqual(len(at.exception),0,str(at.exception))
+                self.assertTrue(any(x.label=='Đơn thử đã tạo' for x in at.metric))
+            finally:
+                os.environ.pop('RETAIL_ADMIN_PASSWORD',None)
+            os.environ.pop('RETAIL_DB_PATH',None)
 
 if __name__=='__main__':unittest.main()

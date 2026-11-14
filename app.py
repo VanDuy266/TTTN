@@ -1,175 +1,269 @@
+"""Retail demonstration with separate customer, operations, and research views."""
 from pathlib import Path
-import html, io, json, time
+import hashlib, hmac, html, json, os, time, uuid
 import numpy as np
 import pandas as pd
 import streamlit as st
-from src.ranking import topk, diversify, scale
+from src.business import RetailStore, product_group, recommend, funnel
 
 ROOT=Path(__file__).resolve().parent
-st.set_page_config(page_title='Beauty Intelligence · Nhóm 2',page_icon='✦',layout='wide')
+st.set_page_config(page_title='Beauty Studio · Retail Pilot',page_icon='✦',layout='wide')
 
 @st.cache_resource
-def load():
+def resources():
     p=ROOT/'artifacts'
-    catalog=pd.read_csv(p/'catalog.csv',dtype={'item_id':str})
+    cat=pd.read_csv(p/'catalog.csv',dtype={'item_id':str}).fillna('')
+    cat['group']=cat.title.map(product_group)
     arrays=dict(np.load(p/'serving.npz',allow_pickle=False))
-    return catalog,arrays,json.loads((p/'profiles.json').read_text()),pd.read_csv(p/'metrics.csv'),json.loads((p/'audit.json').read_text())
+    profiles=json.loads((p/'profiles.json').read_text())
+    store=RetailStore(os.environ.get('RETAIL_DB_PATH',str(ROOT/'runtime/retail.sqlite')))
+    store.seed_sample(cat)
+    return cat,arrays,profiles,store
 
-if not (ROOT/'artifacts/serving.npz').exists():
-    st.error('Chưa có mô hình. Chạy python train.py trước khi mở demo.');st.stop()
-cat,arrays,profiles,metrics,audit=load()
-ids=cat.item_id.to_numpy();titles=cat.title.fillna('Chưa có tên').to_numpy()
+cat,arrays,profiles,store=resources()
+for key,value in {'visitor':uuid.uuid4().hex,'cart':{},'checkout_key':uuid.uuid4().hex}.items():
+    if key not in st.session_state:st.session_state[key]=value
+visitor=st.session_state.visitor
+money=lambda value:f'{int(value):,}'.replace(',','.')+' ₫'
+sample=store.setting('inventory_source')=='sample'
 st.markdown('''<style>
-.block-container {padding-top:4rem;max-width:1440px}
-h1 {font-size:3.2rem!important;letter-spacing:-.055em;line-height:1.05!important}
-h2,h3 {letter-spacing:-.025em}
-.eyebrow {color:#b8f36c;font-size:.8rem;letter-spacing:.18em;font-weight:700}
-.intro {color:#a2b2c2;font-size:1.05rem;max-width:800px}
-.product {border:1px solid #2c3947;border-radius:16px;padding:18px;min-height:205px;background:linear-gradient(135deg,#182532,#101923)}
-.product h4 {font-size:1rem;line-height:1.45;min-height:65px;margin:10px 0}
-.badge {color:#b8f36c;font-size:.75rem;letter-spacing:.06em}
-.muted {color:#9eacba;font-size:.8rem}
+.block-container{padding-top:3.8rem;max-width:1500px;padding-bottom:3rem}
+[data-testid="stSidebar"]{background:#f0f0e9;border-right:1px solid #dce1d8}
+h1,h2,h3{letter-spacing:-.04em;color:#183c31}
+h1{font-size:3.15rem!important;line-height:1.08!important}h2{font-size:1.8rem!important}
+[data-testid="stMetric"]{background:white;border:1px solid #e2e5db;border-radius:14px;padding:16px}
+.eyebrow{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:#496657;font-weight:700}
+.hero{background:#e5ecdf;border-radius:24px;padding:35px 38px;margin:8px 0 26px;position:relative;overflow:hidden}
+.hero p{max-width:650px;color:#496254;font-size:1.03rem;line-height:1.7}.hero small{color:#496254}
+.flow{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.flow span{background:#f9faf6;border:1px solid #cbd7c4;padding:7px 11px;border-radius:100px;font-size:.78rem;color:#345244}
+.card{background:white;border:1px solid #e1e5da;border-radius:18px;overflow:hidden;margin-top:10px}
+.card-art{height:130px;display:flex;align-items:center;justify-content:center;position:relative;background:#ede9e1;color:#485e4a}
+.card-art small{position:absolute;bottom:7px;right:12px;font-size:.62rem;opacity:.65}
+.card-body{padding:17px 18px 14px}.card-title{font-size:.94rem;line-height:1.5;height:67px;overflow:hidden;font-weight:600;color:#253a30;margin:8px 0}
+.card-group{color:#68745e;letter-spacing:.08em;font-size:.65rem;text-transform:uppercase}.card-price{font-size:1.15rem;font-weight:700;color:#234b37}.card-stock{color:#738070;font-size:.74rem;margin-left:10px}
+.reason{font-size:.75rem;color:#6d796c;min-height:38px;margin-top:10px}.tag{display:inline-block;border-radius:6px;background:#e9efdf;color:#3c5c37;font-size:.7rem;padding:4px 8px}
+.notice{font-size:.8rem;color:#647460;background:#eef0e8;padding:12px 17px;border-radius:10px;margin-bottom:14px}
+.section-note{font-size:.87rem;color:#667461;line-height:1.65}
+@media(max-width:640px){h1{font-size:2rem!important}.hero{padding:23px 20px;border-radius:18px}.hero p{font-size:.9rem}.flow{gap:5px;margin:12px 0}.flow span{font-size:.67rem;padding:5px 8px}.block-container{padding-left:1rem;padding-right:1rem}}
 </style>''',unsafe_allow_html=True)
-with st.sidebar:
-    st.markdown('## ✦ Beauty Intelligence')
-    st.caption('NHÓM 2 / AMAZON ALL BEAUTY')
-    st.divider()
-    st.markdown('**Một hệ thống · Ba hướng nghiên cứu**')
-    st.write('H1 · Sở thích theo chuỗi')
-    st.write('H2 · Đồ thị và nội dung')
-    st.write('H3 · Kết hợp để xếp hạng')
-    st.divider()
-    st.info('Bản thử nghiệm trên dữ liệu Amazon. Hiệu quả kinh doanh cần được đo tại doanh nghiệp.')
-    st.caption('Không cần API key. Không thu thập thông tin khách hàng thật trong demo.')
 
-st.markdown('<div class="eyebrow">RECOMMENDATION LAB / 2026</div>',unsafe_allow_html=True)
-st.markdown('<h1>Hiểu sở thích.<br>Gợi ý có căn cứ.</h1>',unsafe_allow_html=True)
-st.markdown('<p class="intro">Từ lịch sử mua sắm đến danh sách sản phẩm phù hợp. Trải nghiệm ba hướng nghiên cứu trong cùng một sản phẩm, với kết quả đánh giá có thể kiểm tra.</p>',unsafe_allow_html=True)
-c1,c2,c3,c4=st.columns(4)
-c1.metric('Hồ sơ thử nghiệm',f"{audit['users']:,}")
-c2.metric('Sản phẩm trong danh mục',f"{audit['catalog']:,}")
-c3.metric('Tương tác huấn luyện',f"{audit['train_rows']:,}")
-c4.metric('Mục tiêu mới / tập test',f"{audit['cold_test_targets']/audit['test_rows']:.1%}")
-tabs=st.tabs(['Khám phá gợi ý','Kiểm chứng mô hình','Liên kết ba hướng','Thí điểm doanh nghiệp'])
-with tabs[0]:
-    left,right=st.columns([1,2])
-    with left:
-        st.subheader('Chọn một hành trình')
-        customer=st.radio('Tình huống',['Khách đã có lịch sử','Khách mới'],horizontal=True)
-        model=st.selectbox('Mô hình',['H3 · Hybrid','H2 · Graph + Text','H1 · GRU','Nội dung','Phổ biến'])
-        key={'H3 · Hybrid':'h3','H2 · Graph + Text':'h2','H1 · GRU':'h1','Nội dung':'content','Phổ biến':'popularity'}[model]
-        k=st.slider('Số sản phẩm',3,20,10)
-        diversity=st.slider('Ưu tiên đa dạng nội dung',0.,.5,.15,.05)
-        excluded=set()
-        if customer=='Khách đã có lịch sử':
-            profile=st.selectbox('Hồ sơ ẩn danh',[p['profile'] for p in profiles])
-            u=next(j for j,p in enumerate(profiles) if p['profile']==profile)
-            history=profiles[u]['history'];excluded={ids[j] for j in history}
-            scores=arrays[key][u].copy()
-            st.caption(f'{len(history)} tương tác trước thời điểm test. Danh sách gợi ý không sử dụng mục tiêu test.')
-            with st.expander('Xem lịch sử trước mục tiêu'):
-                st.dataframe(cat.iloc[history][['item_id','title']],hide_index=True)
-            if not history:st.warning('Không có lịch sử có timestamp sớm hơn mục tiêu; ưu tiên phổ biến khi phục vụ.')
-            if not history:scores=arrays['popularity'][u].copy()
+with st.sidebar:
+    st.markdown('## ✦ BEAUTY STUDIO')
+    st.caption('KỊCH BẢN CỬA HÀNG MỸ PHẨM · NHÓM 2')
+    view=st.radio('Không gian làm việc',['Cửa hàng trải nghiệm','Điều hành cửa hàng','Kiểm chứng & tích hợp'],key='workspace')
+    st.divider()
+    st.markdown('**Bản thí điểm có thể thao tác**')
+    st.caption('Xem gợi ý → thêm giỏ → tạo đơn thử nghiệm → kiểm tra dashboard và tồn kho.')
+    st.warning('Giá và tồn kho minh họa. Đơn hàng mô phỏng, không thanh toán.' if sample else 'Giá và tồn kho từ CSV người vận hành nhập. Đơn vẫn là mô phỏng, không thanh toán.')
+    st.caption('Beauty Studio là tên kịch bản minh họa, chưa đại diện doanh nghiệp đối tác.')
+    st.caption('Chưa có SSO/phân quyền theo vai trò; có thể đặt mật khẩu vận hành. Không nhập dữ liệu khách hàng thật vào bản demo công khai.')
+
+
+def banner(label,title,description):
+    st.markdown(f'<div class="eyebrow">{html.escape(label)}</div><div class="hero"><h1>{title}</h1><p>{html.escape(description)}</p><div class="flow"><span>01 · Nhu cầu khách</span><span>02 · Gợi ý còn hàng</span><span>03 · Giỏ & đơn thử</span><span>04 · Đo lường</span></div></div>',unsafe_allow_html=True)
+
+
+def artwork(group):
+    # Generic vector illustrations of product families, never presented as actual SKU photographs.
+    bodies={
+        'Chăm sóc da':'<rect x="65" y="33" width="50" height="66" rx="9" fill="#a9bba0"/><rect x="76" y="17" width="28" height="20" rx="3" fill="#43654b"/><rect x="72" y="57" width="36" height="26" rx="3" fill="#f8f4e9"/>',
+        'Chăm sóc tóc':'<rect x="66" y="32" width="48" height="70" rx="14" fill="#b39a77"/><rect x="77" y="20" width="25" height="17" rx="4" fill="#466651"/><rect x="73" y="57" width="34" height="27" rx="3" fill="#f8f4e9"/>',
+        'Trang điểm':'<rect x="76" y="51" width="28" height="53" rx="4" fill="#425f4b"/><path d="M79 52V27L101 17V52Z" fill="#bd7f74"/><rect x="76" y="59" width="28" height="8" fill="#d8c19e"/>',
+        'Cọ & dụng cụ':'<rect x="86" y="60" width="10" height="48" rx="4" fill="#c1a379"/><rect x="82" y="48" width="18" height="24" rx="3" fill="#b5b9ae"/><path d="M78 49Q67 13 91 15Q115 13 104 49Z" fill="#52684d"/>',
+        'Chăm sóc móng':'<rect x="69" y="52" width="42" height="48" rx="8" fill="#b88c88"/><rect x="77" y="20" width="26" height="37" rx="3" fill="#405c48"/>'}
+    return '<svg width="180" height="120" viewBox="0 0 180 120" aria-hidden="true"><ellipse cx="90" cy="108" rx="43" ry="6" fill="#d9d7cb"/>'+bodies.get(group,bodies['Chăm sóc da'])+'</svg>'
+
+
+@st.dialog('Chi tiết sản phẩm · Bản thử nghiệm')
+def details(row):
+    st.subheader(str(row['title']));st.write(str(row['item_id']))
+    st.write(money(row['price']));st.write(f"Còn {row['stock']} sản phẩm trong tồn kho {'minh họa' if sample else 'đã nhập'}.")
+    st.caption('Chưa có mô tả, thành phần hoặc ảnh gốc đã xác minh. Minh họa nhóm sản phẩm không phải ảnh SKU. Không dùng gợi ý này thay cho tư vấn chuyên môn về da.')
+
+
+def storefront():
+    banner('RETAIL EXPERIENCE / CỬA HÀNG', 'Chọn đúng nhu cầu.<br>Tìm sản phẩm phù hợp.',
+           'Trải nghiệm một điểm bán có gợi ý sản phẩm: chọn nhu cầu hoặc lịch sử, xem hàng còn bán, thêm giỏ và tạo đơn thử nghiệm. Mỗi thao tác được nối về màn hình điều hành.')
+    controls,cartcol=st.columns([3,1])
+    with controls:
+        a,b=st.columns([1,1])
+        profile=a.selectbox('Hồ sơ trải nghiệm',['Khách mới']+[p['profile'] for p in profiles],key='profile')
+        group=b.selectbox('Nhu cầu mua sắm',['Tất cả']+sorted(set(cat['group'])-{'Chưa phân nhóm'}),key='shopping_group')
+        options=cat[cat['group'].ne('Chưa phân nhóm')]
+        if group!='Tất cả':options=options[options['group']==group]
+        seeds=st.multiselect('Sản phẩm bạn đang quan tâm',options.item_id.tolist(),format_func=lambda i:cat.loc[cat.item_id==i,'title'].iloc[0][:110],max_selections=4,key='needs')
+        if profile=='Khách mới' and not seeds:st.caption('Chưa có lịch sử: hiển thị sản phẩm phổ biến. Chọn sản phẩm quan tâm để nhận gợi ý theo nội dung.')
+        elif seeds:st.caption('Gợi ý đang dựa trên nội dung của các sản phẩm bạn chọn.')
         else:
-            seeds=st.multiselect('Chọn sản phẩm bạn quan tâm',range(len(cat)),format_func=lambda j:str(titles[j])[:100],max_selections=5)
-            history=list(seeds);excluded={ids[j] for j in seeds}
-            scores=scale(arrays['similarity'][seeds].mean(0)) if seeds else arrays['popularity'][0].copy()
-            st.caption('Khách mới dùng nội dung từ sản phẩm đã chọn; chưa có lựa chọn sẽ dùng mức phổ biến. Không gọi đây là dự đoán GRU cho người dùng mới.')
-        with st.expander('Điều kiện bán hàng'):
-            stockfile=st.file_uploader('CSV tồn kho: item_id, available (0 hoặc 1)',type='csv')
-            if stockfile is not None:
-                try:
-                    stock=pd.read_csv(stockfile,dtype={'item_id':str})
-                    if not {'item_id','available'}.issubset(stock):raise ValueError('Thiếu cột item_id hoặc available')
-                    available=pd.to_numeric(stock.available,errors='raise')
-                    if not available.isin([0,1]).all() or stock.item_id.duplicated().any():raise ValueError('available phải là 0/1 và mỗi item_id chỉ xuất hiện một lần')
-                    allowed=set(stock.loc[available==1,'item_id'])
-                    excluded.update(set(ids)-allowed)
-                    st.success(f'{len(set(ids)&allowed)} sản phẩm có thể đề xuất')
-                except Exception as exc:
-                    st.error(f'Không thể dùng tệp tồn kho: {exc}');st.stop()
-        started=time.perf_counter()
-        ranked=diversify(scores,arrays['similarity'],ids,k,diversity,excluded)
-        latency=(time.perf_counter()-started)*1000
-        rec=cat.iloc[ranked][['item_id','title']].copy();rec.insert(0,'rank',range(1,len(rec)+1))
-        rec['model']=model if customer=='Khách đã có lịch sử' else ('Content onboarding' if history else 'Popularity fallback')
-        st.download_button('↓ Xuất danh sách gợi ý',rec.to_csv(index=False).encode('utf-8-sig'),'recommendations.csv','text/csv')
-    with right:
-        st.subheader('Dành cho hành trình này')
-        st.caption(f'{len(ranked)} đề xuất · Đã lọc lịch sử và tồn kho · Xếp lại trong {latency:.1f} ms (không gồm tải mô hình/giao diện)')
-        if not ranked:st.info('Không còn sản phẩm thỏa điều kiện. Hãy kiểm tra danh sách tồn kho.')
-        for start in range(0,len(ranked),2):
-            cols=st.columns(2)
-            for col,j in zip(cols,ranked[start:start+2]):
+            history=next(p['history'] for p in profiles if p['profile']==profile)
+            st.caption(f'Hồ sơ ẩn danh có {len(history)} tương tác trước mục tiêu test. Mục tiêu test không được đưa vào lịch sử.')
+            with st.expander('Lịch sử làm căn cứ gợi ý'):
+                st.dataframe(cat.iloc[history][['title','group']],hide_index=True,width='stretch')
+        inventory=store.inventory();variant=store.variant(visitor)
+        start=time.perf_counter()
+        rec,route=recommend(cat,arrays,profiles,profile,seeds,inventory,variant,group,st.session_state.cart,9)
+        elapsed=(time.perf_counter()-start)*1000
+        signature=hashlib.sha256(json.dumps([profile,group,seeds,variant,route,rec.item_id.tolist(),store.setting('inventory_revision')],ensure_ascii=False).encode()).hexdigest()
+        if st.session_state.get('exposure_signature')!=signature:
+            st.session_state.request_id=store.expose(visitor,variant,route,rec.item_id.tolist(),elapsed)
+            st.session_state.exposure_signature=signature
+        request_id=st.session_state.request_id
+        st.subheader('Gợi ý cho bạn')
+        st.caption(f'{len(rec)} lựa chọn đang bán · Đã lọc hàng hết và giỏ hiện tại · Giá {"minh họa" if sample else "từ CSV đã nhập"}')
+        if rec.empty:st.info('Không có sản phẩm đáp ứng điều kiện. Thử nhu cầu khác hoặc kiểm tra tồn kho ở màn hình điều hành.')
+        for offset in range(0,len(rec),3):
+            columns=st.columns(3)
+            for col,(_,row) in zip(columns,rec.iloc[offset:offset+3].iterrows()):
                 with col:
-                    if history:
-                        near=max(history,key=lambda x:arrays['similarity'][j,x])
-                        sim=float(arrays['similarity'][j,near])
-                        reason=('Có nội dung gần với '+str(titles[near])[:65]) if sim>.01 else 'Được xếp hạng theo mô hình đã chọn'
-                    else:reason='Mức phổ biến từ tập huấn luyện'
-                    badge='ĐÃ CÓ TƯƠNG TÁC' if bool(cat.iloc[j].in_train) else 'CHƯA CÓ TƯƠNG TÁC TRAIN'
-                    st.markdown(f'<div class="product"><span class="badge">{badge}</span><h4>{html.escape(str(titles[j]))}</h4><p class="muted">{html.escape(reason)}</p><span class="muted">{html.escape(str(ids[j]))}</span></div>',unsafe_allow_html=True)
-                    if st.button('Quan tâm sản phẩm',key=f'click_{j}'):
-                        st.session_state.setdefault('events',[]).append({'item_id':str(ids[j]),'event':'interest','model':model,'session_index':len(st.session_state.get('events',[]))+1})
-                        st.toast('Đã ghi nhận trong phiên demo')
-        st.caption('Lý do tương đồng nội dung chỉ giải thích thuộc tính gần nhau, không phải giải thích nhân quả cho toàn bộ điểm mô hình.')
-with tabs[1]:
-    st.subheader('Kết quả tính lại từ dữ liệu đính kèm')
-    st.write('Tất cả mô hình dùng chung tập người dùng, ứng viên và chỉ số. Chọn mô hình, epoch và trọng số bằng validation; test dùng để báo cáo.')
-    if audit['h2_graph_weight']==0 and audit['h3_weights']['h1']==0:
-        st.info('Kết quả lựa chọn: validation ưu tiên hoàn toàn nhánh nội dung. H2/H3 hiện cho cùng kết quả với content; chưa có bằng chứng GRU hoặc đồ thị giúp cải thiện trên bộ dữ liệu này.')
-    protocol=st.radio('Không gian đánh giá',['100 ứng viên cố định','Toàn bộ danh mục'],horizontal=True)
-    cohort=st.selectbox('Nhóm mục tiêu',['all','warm','cold'],format_func=lambda s:{'all':'Tất cả','warm':'Sản phẩm có trong train','cold':'Sản phẩm chưa có trong train'}[s],disabled=protocol=='Toàn bộ danh mục')
-    split='test' if protocol=='100 ứng viên cố định' else 'test_full_catalog'
-    shown=metrics[(metrics.split==split)&(metrics.cohort==(cohort if split=='test' else 'all'))]
-    st.dataframe(shown[['model','users','Recall@10','NDCG@10','Coverage@10','NDCG_CI_low','NDCG_CI_high']],hide_index=True,width='stretch')
-    st.bar_chart(shown.set_index('model')[['Recall@10','NDCG@10']])
-    st.caption('Recall: tìm trúng mục tiêu trong top 10. NDCG: ưu tiên mục tiêu ở thứ hạng cao. Coverage: tỷ lệ danh mục xuất hiện trong top 10. CI: bootstrap 95% theo người dùng, 500 lần, chưa gồm biến thiên giữa các seed huấn luyện.')
-    st.warning('Danh mục metadata được giả định có sẵn trước mục tiêu; chưa có ngày công bố sản phẩm để xác minh. Đây là cold-item theo tương tác, chưa phải chứng minh vận hành với sản phẩm mới thực tế.')
-    with st.expander('Đối chiếu một dự đoán test'):
-        pu=st.selectbox('Hồ sơ kiểm chứng',range(len(profiles)),format_func=lambda j:profiles[j]['profile'])
-        candidate=profiles[pu]['candidates'];target=profiles[pu]['target']
-        rows=[]
-        for name,arrkey in [('Popularity','popularity'),('Content TF-IDF','content'),('H1 GRU','h1'),('H2 Graph + Text','h2'),('H3 Hybrid','h3')]:
-            rank=topk(arrays[arrkey][pu,candidate],ids[candidate],len(candidate))
-            target_rank=[candidate[x] for x in rank].index(target)+1
-            rows.append({'model':name,'target_rank':target_rank,'hit@10':target_rank<=10})
-        st.write('Mục tiêu giữ lại:',str(titles[target]));st.dataframe(rows,hide_index=True)
-        st.caption('Mục tiêu test chỉ được hiển thị để kiểm chứng, không được đưa vào lịch sử phục vụ.')
-    with st.expander('Kiểm toán dữ liệu và cấu hình'):
-        st.json(audit)
-        st.write('Timestamp có nhiều mốc trùng, đơn vị chưa xác minh. Mọi thành phần học chỉ dùng train có timestamp nhỏ hơn mốc validation tương ứng. Lịch sử phục vụ cũng chỉ lấy timestamp nhỏ hơn mục tiêu. Cần dữ liệu gốc để xác minh ý nghĩa thời gian.')
-        st.line_chart(pd.read_csv(ROOT/'artifacts/training.csv').pivot_table(index='epoch',columns='model',values='val_ndcg'))
-    st.download_button('↓ Tải toàn bộ chỉ số',(ROOT/'artifacts/metrics.csv').read_bytes(),'metrics.csv','text/csv')
-    st.download_button('↓ Tải kiểm toán',(ROOT/'artifacts/audit.json').read_bytes(),'audit.json','application/json')
-with tabs[2]:
-    st.subheader('Ba hướng cùng giải một bài toán')
-    st.write('Báo cáo gốc có hai hướng. H3 dưới đây là hướng tích hợp được bổ sung cho sản phẩm demo.')
-    cols=st.columns(3)
-    for col,title,body in zip(cols,['01 / H1 · Chuỗi và thời gian','02 / H2 · Đồ thị và nội dung','03 / H3 · Xếp hạng lai'],[
-        'GRU4Rec so sánh base, time gap và time decay. Học từ các tiền tố chuỗi train; chọn biến thể bằng NDCG validation. H1 không tự dự đoán được ID sản phẩm chưa học.',
-        'LightGCN hai tầng, chuẩn hóa theo bậc nút, học BPR trên cạnh train. Kết hợp vector văn bản từ tiêu đề để có thể chấm sản phẩm chưa có tương tác.',
-        'Chuẩn hóa điểm H1/H2 và popularity, tìm trọng số trên validation rồi cố định khi đo test. Kết quả có thể chọn trọng số 0 cho thành phần không giúp ích; chưa thể mặc định lai luôn tốt hơn.']):
-        with col:st.markdown('#### '+title);st.write(body)
-    st.code('Lịch sử + metadata → ID chung / split chung\n  ├─ H1: GRU + tín hiệu thời gian ────┐\n  └─ H2: LightGCN + nội dung ────────┤\n                                    ↓\n                         H3: phối hợp điểm\n                                    ↓\n               Lọc tồn kho → đa dạng → Top K → phản hồi',language=None)
-    st.info('Phiên bản chạy hiện tại: TF-IDF bigram → SVD 64 chiều. Chưa chạy MiniLM/LLM; chưa khẳng định đây là mô hình tốt nhất cho doanh nghiệp.')
-    st.write('Trọng số đã chọn:',audit['h3_weights'])
-with tabs[3]:
-    st.subheader('Từ demo đến thí điểm tại cửa hàng')
-    st.write('Điểm triển khai phù hợp: trang chi tiết sản phẩm, trang chủ dành cho khách đã đăng nhập và đề xuất sau mua. Các bộ lọc kinh doanh phải chạy trước khi trả kết quả.')
+                    reason='Phổ biến trong dữ liệu huấn luyện' if 'popularity' in route else 'Dựa trên sở thích bạn chọn' if seeds else 'Dựa trên lịch sử tương tác ẩn danh'
+                    st.markdown(f'<div class="card"><div class="card-art">{artwork(row["group"])}<small>Minh họa nhóm sản phẩm</small></div><div class="card-body"><span class="card-group">{html.escape(row["group"])}</span><div class="card-title" title="{html.escape(row["title"],quote=True)}">{html.escape(row["title"])}</div><span class="card-price">{money(row["price"])}</span><span class="card-stock">Còn {int(row["stock"])}</span><div class="reason">{reason}</div></div></div>',unsafe_allow_html=True)
+                    c1,c2=st.columns([1,1])
+                    if c1.button('Chi tiết',key=f'detail_{row.item_id}',width='stretch'):
+                        store.action(visitor,request_id,row.item_id,'click');details(row.to_dict())
+                    if c2.button('Thêm giỏ',key=f'add_{row.item_id}',type='primary',width='stretch'):
+                        store.action(visitor,request_id,row.item_id,'click');store.action(visitor,request_id,row.item_id,'cart')
+                        st.session_state.cart[row.item_id]={'quantity':1,'request_id':request_id}
+                        st.session_state.checkout_key=uuid.uuid4().hex;st.rerun()
+        with st.expander('Thông tin gợi ý và dữ liệu phiên'):
+            st.write('Nhóm phục vụ:',variant,'· Tuyến xếp hạng:',route)
+            st.caption('Điểm hồ sơ đã được tính trước. Chọn sở thích dùng tương đồng nội dung; thao tác giỏ hàng chưa huấn luyện lại GRU/GNN. Tốc độ xếp lại không phải latency suy luận mô hình mới.')
+            st.code(request_id,language=None)
+            st.download_button('Xuất đề xuất CSV',rec[['item_id','title','group','price','stock']].to_csv(index=False).encode('utf-8-sig'),'retail_recommendations.csv','text/csv')
+    with cartcol:
+        st.subheader('Giỏ thử nghiệm')
+        st.caption('Không thanh toán thật. Giá và tồn kho được kiểm tra lại khi xác nhận.')
+        if 'last_order' in st.session_state:st.success('Đã tạo '+st.session_state.last_order)
+        cart=st.session_state.cart;stock=store.inventory().set_index('item_id');total=0
+        if not cart:st.info('Chọn “Thêm giỏ” để bắt đầu hành trình.')
+        for item,entry in list(cart.items()):
+            title=cat.loc[cat.item_id==item,'title'].iloc[0]
+            st.markdown('**'+title[:85]+'**')
+            price=int(stock.loc[item,'price']) if item in stock.index else 0;total+=price*entry['quantity']
+            st.caption(f"{entry['quantity']} × {money(price)}")
+            if st.button('Bỏ khỏi giỏ',key='remove_'+item):
+                del st.session_state.cart[item];st.session_state.checkout_key=uuid.uuid4().hex;st.rerun()
+        st.divider();st.metric('Tạm tính mô phỏng',money(total))
+        if st.button('Tạo đơn thử nghiệm',disabled=not cart,type='primary',width='stretch'):
+            try:
+                order=store.checkout(visitor,cart,st.session_state.checkout_key)
+                st.session_state.last_order=order;st.session_state.cart={};st.session_state.checkout_key=uuid.uuid4().hex;st.rerun()
+            except ValueError as exc:st.error(str(exc))
+        st.caption('Sau khi tạo đơn, mở “Điều hành cửa hàng” để đối chiếu đơn, sự kiện và lượng hàng đã trừ.')
+
+
+def operations():
+    password=os.environ.get('RETAIL_ADMIN_PASSWORD')
+    if password:
+        entered=st.text_input('Mật khẩu người vận hành',type='password',key='admin_password')
+        if not hmac.compare_digest(entered,password):
+            st.info('Nhập mật khẩu được quản trị viên cấp để xem dữ liệu và thay đổi tồn kho.');return
+    banner('RETAIL OPERATIONS / ĐIỀU HÀNH','Từ gợi ý đến đơn thử.<br>Mỗi bước đều đối chiếu được.',
+           'Dành cho người vận hành: kiểm tra danh mục đang bán, nhập tồn kho, theo dõi luồng gợi ý và kiểm tra đơn mô phỏng. Số liệu được tính từ thao tác trong ứng dụng này.')
+    tables=store.tables();events=tables['events'];orders=tables['orders'];inventory=store.inventory()
+    cols=st.columns(4)
+    cols[0].metric('Sản phẩm sẵn bán',int(((inventory.active==1)&(inventory.stock>0)).sum()))
+    cols[1].metric('Lượt trả danh sách',len(tables['requests']))
+    cols[2].metric('Đơn thử đã tạo',len(orders))
+    cols[3].metric('Giá trị đơn mô phỏng',money(orders.total.sum() if len(orders) else 0))
+    st.caption('Số liệu demo trên instance hiện tại, không phải doanh số doanh nghiệp. SQLite có thể bị mất khi Render Free khởi động lại hoặc triển khai lại.')
+    funnel_tab,inventory_tab,orders_tab,rollout_tab=st.tabs(['Hành trình & A/B','Danh mục & tồn kho','Đối chiếu đơn','Kế hoạch áp dụng'])
+    with funnel_tab:
+        st.subheader('Phễu từ gợi ý đến hành động')
+        counts={event:int((events.event==event).sum()) for event in ['impression','click','cart','purchase']}
+        st.bar_chart(pd.DataFrame({'Giai đoạn':['01 · Hiển thị','02 · Click','03 · Thêm giỏ','04 · Đặt thử'],'Số lượng':list(counts.values())}).set_index('Giai đoạn'),color='#446A4E')
+        st.caption('Impression = sản phẩm được đưa vào danh sách đã render, chưa đo nhìn thấy trong viewport. Click = mở chi tiết hoặc bấm thêm giỏ; mỗi loại hành động được khử trùng theo request và sản phẩm. Purchase = SKU được xác nhận trong đơn mô phỏng.')
+        table=funnel(tables)
+        if table.empty:st.info('Chưa có dữ liệu hành trình. Thực hiện một lượt xem và tạo đơn ở cửa hàng.')
+        else:st.dataframe(table,hide_index=True,width='stretch')
+        st.caption('CTR = click/impression. Conversion phiên = số phiên có đơn/số phiên nhận gợi ý. Các tỷ lệ này chỉ mô tả demo, chưa dùng để kết luận hiệu quả kinh doanh.')
+        with st.form('experiment'):
+            enabled=st.checkbox('Bật phân nhóm A/B cho những lượt gợi ý tiếp theo',value=store.setting('experiment_enabled','0')=='1')
+            st.caption('Đối chứng dùng popularity; nhóm thử dùng tuyến cá nhân hóa. Phân nhóm ổn định theo mã phiên trình duyệt, chưa phải tài khoản khách hàng thật.')
+            if st.form_submit_button('Lưu chế độ thử nghiệm'):
+                store.configure('experiment_enabled','1' if enabled else '0');st.success('Đã lưu. Chỉ các lượt gợi ý tiếp theo dùng chế độ mới.')
+        if len(events):
+            st.download_button('Xuất log sự kiện có request_id',events.to_csv(index=False).encode(),'events.csv','text/csv')
+            with st.expander('Log gần nhất'):
+                st.dataframe(events.tail(30),hide_index=True,width='stretch')
+    with inventory_tab:
+        st.subheader('Kiểm soát những gì được phép đề xuất')
+        st.info('Nguồn hiện tại: '+('tồn kho và giá sinh để minh họa' if sample else 'snapshot CSV người vận hành đã nhập')+'. Nhập snapshot mới sẽ tắt bán các mã bị bỏ khỏi tệp.')
+        st.caption('CSV: item_id,stock,price,active. stock là số nguyên không âm; price là VND nguyên; active nhận 0/1. Không hỗ trợ SKU ngoài catalog mô hình trong bản này.')
+        with st.form('stock_import'):
+            upload=st.file_uploader('Chọn CSV tồn kho và giá',type='csv')
+            apply=st.form_submit_button('Kiểm tra và thay snapshot tồn kho')
+            if apply:
+                if upload is None:st.error('Chọn tệp CSV trước khi áp dụng.')
+                else:
+                    try:
+                        data=pd.read_csv(upload,dtype={'item_id':str});n=store.import_inventory(data,cat.item_id)
+                        st.session_state.stock_message=f'Đã nhập {n} mã; mã không có trong snapshot đã bị tắt bán.';st.rerun()
+                    except (ValueError,pd.errors.ParserError) as exc:st.error(str(exc))
+        if st.session_state.get('stock_message'):st.success(st.session_state.stock_message)
+        combined=cat[['item_id','title','group']].merge(inventory,on='item_id',how='inner')
+        search=st.text_input('Tìm tên hoặc mã sản phẩm')
+        if search:combined=combined[combined.title.str.contains(search,case=False,regex=False)|combined.item_id.str.contains(search,case=False,regex=False)]
+        st.dataframe(combined,hide_index=True,width='stretch')
+        st.download_button('Tải snapshot hiện tại',inventory.to_csv(index=False).encode(),'inventory_snapshot.csv','text/csv')
+        st.caption('Phân nhóm sản phẩm được suy ra từ từ khóa trong tiêu đề, chưa thay thế taxonomy do doanh nghiệp xác nhận.')
+    with orders_tab:
+        st.subheader('Kiểm tra một đơn từ đầu đến cuối')
+        if orders.empty:st.info('Chưa có đơn thử. Thêm sản phẩm vào giỏ và chọn “Tạo đơn thử nghiệm”.')
+        else:
+            order=st.selectbox('Mã đơn thử',orders.id.tolist()[::-1]);row=orders[orders.id==order].iloc[0]
+            st.write('Thời điểm UTC:',row.created_at,'· Giá trị mô phỏng:',money(row.total))
+            lines=tables['order_items'];lines=lines[lines.order_id==order].merge(cat[['item_id','title']],on='item_id')
+            st.dataframe(lines[['item_id','title','quantity','price']],hide_index=True,width='stretch')
+            st.caption('Tạo đơn và trừ tồn kho là một giao dịch SQLite: thiếu hàng sẽ hủy toàn bộ. Gửi lại cùng khóa checkout không tạo đơn hay trừ hàng lần hai.')
+            st.download_button('Xuất đơn thử',lines.to_csv(index=False).encode('utf-8-sig'),order+'.csv','text/csv')
+    with rollout_tab:
+        st.subheader('Đưa vào doanh nghiệp ở đâu?')
+        st.dataframe(pd.DataFrame([
+            ['Khách hàng','Trang chủ / trang chi tiết','Nhận đề xuất phù hợp nhu cầu; bấm xem, thêm giỏ'],
+            ['Nhân viên vận hành','CMS / hệ thống kho','Đồng bộ mã hàng, giá, hàng còn bán; xử lý ngoại lệ'],
+            ['Quản lý kinh doanh','Dashboard / báo cáo A/B','Đo CTR, chuyển đổi, doanh thu trên phiên và guardrail'],
+            ['Kỹ thuật / dữ liệu','Dịch vụ gợi ý + pipeline','Đảm bảo timestamp, quyền dữ liệu, version, fallback và rollback'],
+        ],columns=['Người dùng','Điểm tích hợp','Công việc']),hide_index=True,width='stretch')
+        st.markdown('**Lộ trình đề xuất**: chuẩn hóa dữ liệu → chạy shadow → A/B có cỡ mẫu được chốt trước → triển khai khi đạt tiêu chí nghiệm thu.')
+        st.write('Demo hiện thực hiện được lọc hàng, hành trình giỏ/đơn mô phỏng, sự kiện có truy vết và phễu vận hành. Để dùng thật cần API catalog/kho/đơn hàng, xác thực phân quyền, cơ sở dữ liệu bền vững và đo lường trên traffic thật.')
+        st.download_button('Tải đặc tả tích hợp và nghiệm thu',(ROOT/'docs/PILOT.md').read_bytes(),'PILOT.md','text/markdown')
+
+
+def evidence():
+    banner('EVIDENCE / KIỂM CHỨNG & TÍCH HỢP','Mô hình là một thành phần.<br>Quy trình mới tạo ra sản phẩm.',
+           'H1/H2/H3 cùng phục vụ bài toán chọn sản phẩm; lớp nghiệp vụ quyết định sản phẩm nào được bán, sự kiện nào được đo và khi nào có đủ bằng chứng để triển khai.')
+    st.subheader('Ba hướng nối với nghiệp vụ ra sao?')
     st.dataframe(pd.DataFrame([
-        ['Dữ liệu','Mã khách ẩn danh, mã sản phẩm, thời điểm, loại sự kiện; catalog và tồn kho'],
-        ['Tích hợp','Xuất top K qua CSV ở demo; xây API và đồng bộ tồn kho khi tích hợp thật'],
-        ['Thử nghiệm','So sánh với popularity bằng A/B có phân nhóm cố định; ghi impression, click, cart, purchase'],
-        ['KPI','CTR, conversion, doanh thu trên phiên; theo dõi tồn kho, đa dạng, độ trễ và hoàn trả'],
-        ['Điều kiện nghiệm thu','Chốt ngưỡng và cỡ mẫu trước khi chạy; báo cáo khoảng tin cậy; chỉ rollout khi đạt KPI'],
-        ['Vận hành','Phân quyền dữ liệu, chính sách lưu trữ, giám sát drift, phiên bản mô hình, fallback và rollback'],
-    ],columns=['Hạng mục','Công việc']),hide_index=True)
-    st.warning('Chưa kết nối doanh nghiệp, chưa có dữ liệu A/B hay bằng chứng tăng doanh số. Demo là nguyên mẫu kiểm chứng offline, chưa phải hệ thống production.')
-    events=pd.DataFrame(st.session_state.get('events',[]),columns=['item_id','event','model','session_index'])
-    st.write(f'{len(events)} phản hồi trong phiên demo. Phản hồi chưa được dùng để huấn luyện lại.')
-    st.download_button('↓ Xuất phản hồi phiên',events.to_csv(index=False).encode(),'session_events.csv','text/csv')
-    st.download_button('↓ Tải mẫu tồn kho',pd.DataFrame({'item_id':ids[:20],'available':[1]*20}).to_csv(index=False).encode(),'inventory.csv','text/csv')
+        ['H1 · GRU theo thời gian','Lịch sử mua/xem có thứ tự và timestamp','Điểm ưu tiên theo hồ sơ đã học','Không dự đoán tốt SKU chưa học; chưa cập nhật online trong demo'],
+        ['H2 · Đồ thị + nội dung','Cạnh train và tiêu đề sản phẩm','Điểm cộng tác và tương đồng nội dung','Phiên bản này dùng TF-IDF/SVD, không phải MiniLM'],
+        ['H3 · Tích hợp','Điểm H1/H2/popularity trên cùng ID','Tuyến gợi ý được chọn bằng validation','Trọng số hiện chọn content; chưa chứng minh cải thiện của hybrid'],
+        ['Lớp nghiệp vụ','Tồn kho, trạng thái bán, nhu cầu, giỏ','Danh sách được phép phục vụ và đơn thử','Chạy thật trong demo; cần thay adapter khi nối hệ thống doanh nghiệp'],
+        ['Lớp đo lường','request_id + impression/click/cart/purchase','Dashboard, truy vết, dữ liệu thử nghiệm A/B','Không suy ra tăng doanh thu từ số liệu mô phỏng'],
+    ],columns=['Thành phần','Đầu vào','Đầu ra dùng ở đâu','Giới hạn']),hide_index=True,width='stretch')
+    st.code('Catalog + sự kiện mua/xem\n       ↓ kiểm tra ID và thời gian\nH1: chuỗi ──┐\nH2: đồ thị ─┼→ H3: điểm gợi ý → luật bán hàng → danh sách có request_id\nNội dung ───┘                           ↓\n                                click → giỏ → đơn\n                                         ↓\n                               kho + log + dashboard',language=None)
+    st.subheader('Bằng chứng offline hiện có')
+    metrics=pd.read_csv(ROOT/'artifacts/metrics.csv');audit=json.loads((ROOT/'artifacts/audit.json').read_text())
+    protocol=st.radio('Không gian đánh giá',['Toàn bộ danh mục','100 ứng viên cố định'],horizontal=True,key='evaluation_space')
+    split='test_full_catalog' if protocol=='Toàn bộ danh mục' else 'test'
+    rows=metrics[(metrics.split==split)&(metrics.cohort=='all')]
+    st.dataframe(rows[['model','users','Recall@10','NDCG@10','Coverage@10']],hide_index=True,width='stretch')
+    st.warning('Validation đã chọn trọng số graph = 0 và H1 = 0. H2/H3 hiện trùng baseline nội dung. Chưa có bằng chứng mô hình lai tốt hơn; chưa thể gọi là mô hình đạt hiệu quả kinh doanh.')
+    st.caption('Báo cáo gốc có hai hướng; H3 là đề xuất tích hợp. Offline dùng dữ liệu Amazon, không phải khách hàng doanh nghiệp. Giá/tồn kho và đơn mô phỏng không tham gia huấn luyện hoặc bảng điểm này.')
+    with st.expander('Cấu hình và giới hạn nghiên cứu'):
+        st.json(audit)
+        st.write('Timestamp rút gọn chưa xác minh đơn vị. Đã bỏ các train event trùng/qua validation tương ứng, giữ split theo user; chưa có split thời gian toàn hệ thống. Catalog được giả định có sẵn trước mục tiêu. Một seed, chưa phải chứng minh tổng quát hóa.')
+    st.subheader('Ranh giới sẵn sàng triển khai')
+    st.dataframe(pd.DataFrame([
+        ['Đã chạy','Gợi ý theo nội dung/hồ sơ, luật tồn kho, giỏ, đơn mô phỏng, log truy vết, dashboard, CSV'],
+        ['Cần kết nối','Catalog/POS/CRM/OMS thật; timestamp gốc; đồng ý và phạm vi sử dụng dữ liệu'],
+        ['Cần hoàn thiện','API có xác thực, phân quyền quản trị, DB bền vững, giám sát, khôi phục và load test'],
+        ['Cần nghiệm thu','A/B có nhóm cố định, cỡ mẫu/MDE, KPI chính và guardrail thống nhất trước'],
+    ],columns=['Trạng thái','Phạm vi']),hide_index=True,width='stretch')
+    st.download_button('Tải kết quả offline',(ROOT/'artifacts/metrics.csv').read_bytes(),'metrics.csv','text/csv')
+    st.download_button('Tải đánh giá học thuật',(ROOT/'docs/REVIEW.md').read_bytes(),'REVIEW.md','text/markdown')
+
+if view=='Cửa hàng trải nghiệm':storefront()
+elif view=='Điều hành cửa hàng':operations()
+else:evidence()
 st.divider()
-st.caption('NHÓM 2 · Beauty Intelligence / Kết quả thực nghiệm có giới hạn · Không có số liệu kinh doanh giả lập')
+st.caption('NHÓM 2 · Kịch bản thí điểm cửa hàng mỹ phẩm · Đơn mô phỏng, không thanh toán · Số liệu vận hành lấy từ sự kiện trong demo')

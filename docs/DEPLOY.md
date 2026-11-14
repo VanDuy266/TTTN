@@ -30,3 +30,12 @@ python -m venv .venv
 Đặt phía sau reverse proxy có TLS và xác thực của doanh nghiệp. Demo chưa có cơ chế đăng nhập hoặc phân quyền riêng. Không đưa hệ thống có dữ liệu khách thật ra Internet trước khi tích hợp bảo vệ truy cập.
 
 Kiểm tra vận hành bằng `GET /_stcore/health`, sau đó kiểm tra chức năng; health endpoint riêng lẻ không chứng minh luồng gợi ý đã chạy.
+
+
+## Lưu trữ và quyền vận hành của bản thí điểm
+
+SQLite nằm tại `runtime/retail.sqlite` (gitignored); có thể đổi bằng `RETAIL_DB_PATH`. Đây là dữ liệu trên instance, Render Free có thể xóa khi restart/redeploy. Không gọi đó là lưu trữ production; cần adapter PostgreSQL/dịch vụ DB bền vững trước khi nhận dữ liệu doanh nghiệp.
+
+Có thể thêm `RETAIL_ADMIN_PASSWORD` trong Environment của Render để yêu cầu mật khẩu khi mở Điều hành cửa hàng. Không ghi mật khẩu vào repository. Nếu chưa đặt, chế độ trình diễn cho phép truy cập màn hình này; chưa có SSO/RBAC và không dùng cho dữ liệu khách thật.
+
+Sau deploy kiểm tra: thêm giỏ → tạo đơn thử → mở Điều hành đối chiếu đơn, tồn kho và sự kiện. Giá/tồn kho mặc định là minh họa và đơn không gọi thanh toán. Toàn bộ nghiệp vụ mới chỉ dùng thư viện chuẩn SQLite, không cần dependency bổ sung.
