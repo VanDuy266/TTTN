@@ -2,6 +2,10 @@
 
 Demo Streamlit cho đề tài Amazon All Beauty, nối mô hình tuần tự H1, đồ thị/nội dung H2 và hướng tích hợp H3. Báo cáo được cung cấp chỉ có H1 và H2; H3 là phần bổ sung trong sản phẩm này.
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/VanDuy266/TTTN)
+
+Render đọc cấu hình `render.yaml`, chạy gói Free và dùng cổng do nền tảng cấp. Cần đăng nhập tài khoản Render để tạo dịch vụ; chỉ có URL công khai sau khi deploy thành công.
+
 ## Chạy web
 
 Python 3.12:
