@@ -2152,12 +2152,158 @@ select {
   }
 }
 
-.dad-logo { display: block; width: 165px; max-width: 100%; height: auto; }
+.dad-logo {
+  display: block;
+  width: 165px;
+  max-width: 100%;
+  height: auto;
+}
 
 /* Technology logo accent; the requested serif text is preserved. */
-:root{--green:#214c72}
-.dad-brand-rule{background:#287aff}
-.sidebar nav>a[aria-current=page]{background:#edf3f8;color:#214c72;border-left-color:#287aff}
-.inline-link,.btn-outline{color:#214c72}
-.model-option:has(input:checked){background:#edf3f8;border-color:#b8cddd;color:#214c72}
-.model-option input{accent-color:#214c72}
+:root {
+  --green: #214c72;
+}
+.dad-brand-rule {
+  background: #287aff;
+}
+.sidebar nav > a[aria-current="page"] {
+  background: #edf3f8;
+  color: #214c72;
+  border-left-color: #287aff;
+}
+.inline-link,
+.btn-outline {
+  color: #214c72;
+}
+.model-option:has(input:checked) {
+  background: #edf3f8;
+  border-color: #b8cddd;
+  color: #214c72;
+}
+.model-option input {
+  accent-color: #214c72;
+}
+
+/* Silver-and-gold DAD identity on a quiet navy navigation rail. */
+:root {
+  --green: #173650;
+}
+.sidebar {
+  background: #071b31;
+  border-right: 1px solid #17334d;
+  padding: 18px 16px 22px;
+  overflow-y: auto;
+  color: #dce5ed;
+}
+.dad-brand {
+  align-items: center;
+  padding: 0 3px 5px;
+  gap: 10px;
+}
+.dad-logo {
+  width: 190px;
+  height: 190px;
+  object-fit: contain;
+  border-radius: 7px;
+}
+.dad-brand-rule {
+  width: 38px;
+  background: #cfaa72;
+  height: 1px;
+  margin-top: 0;
+}
+.dad-brand-caption {
+  color: #b3c0cc;
+  text-align: center;
+  font-size: 9px;
+  letter-spacing: 0.8px;
+  line-height: 1.7;
+}
+.nav-label {
+  color: #8fa2b5;
+  margin-top: 26px;
+  font-size: 10px;
+}
+.sidebar nav > a {
+  color: #c4d0dc;
+  font-size: 15px;
+}
+.sidebar nav > a:hover {
+  background: #102b43;
+  color: #fff;
+}
+.sidebar nav > a[aria-current="page"] {
+  background: #17334c;
+  color: #f3dfbc;
+  border-left-color: #d5b17b;
+}
+.sidebar .nav-icon {
+  color: inherit;
+}
+.sidebar-bottom {
+  padding-top: 24px;
+}
+.sidebar-bottom .dataset-badge {
+  color: #d8bd94;
+}
+.sidebar-bottom .dot {
+  background: #d5b17b;
+}
+.sidebar-bottom p {
+  color: #aabbca;
+}
+.sidebar-bottom small {
+  color: #8da1b4;
+}
+.sidebar .run-chip {
+  border-color: #294057;
+  background: #0b223a;
+  color: #9aafc1;
+}
+.sidebar .run-chip code {
+  color: #d9e2ea;
+}
+.panel-index,
+.model-family {
+  color: #8a6d44;
+}
+.btn-outline,
+.inline-link {
+  color: #244d70;
+}
+.bar-fill {
+  background: #577a98;
+}
+.bar-fill.focus {
+  background: #bfa16d;
+}
+@media (max-width: 800px) {
+  .sidebar {
+    box-shadow: 15px 0 45px #071b312b;
+  }
+  .dad-logo {
+    width: 165px;
+    height: 165px;
+  }
+  .dad-brand-caption {
+    font-size: 8px;
+  }
+  .nav-label {
+    margin-top: 20px;
+  }
+}
+@media (max-height: 740px) and (min-width: 801px) {
+  .dad-logo {
+    width: 145px;
+    height: 145px;
+  }
+  .sidebar {
+    padding-top: 12px;
+  }
+  .nav-label {
+    margin-top: 20px;
+  }
+  .sidebar-bottom {
+    padding-top: 18px;
+  }
+}

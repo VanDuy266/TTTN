@@ -67,3 +67,5 @@ API docs: `/api/docs`. Health check: `/healthz`. Web runtime đọc score bằng
 Giao diện hiện dùng Times New Roman (serif tương đương khi máy không có font), nhận diện chữ DAD và icon SVG nét đồng bộ. H3 có trong nhóm mô hình mặc định khi đối chiếu và bảng kết quả chính; trọng số/kết quả thực nghiệm giữ nguyên.
 
 Giao diện dùng tên chức năng tiếng Việt: So sánh dự đoán, Đánh giá mô hình, Nhận xét và cải tiến, Dữ liệu và phương pháp. Bảng kết quả hiển thị số người tìm trúng trên tổng số người dùng, tỷ lệ tìm trúng, điểm thứ hạng và độ phủ; khoảng tin cậy nằm trong phần chi tiết. Tên thuật toán chuẩn và tên sản phẩm trong dữ liệu gốc được giữ nguyên.
+
+Nhận diện hiện tại sử dụng logo DAD ánh kim bạc trên nền xanh đậm (`web/static/dad-logo-metallic.png`), thanh điều hướng xanh đậm và điểm nhấn vàng. Nội dung giữ Times New Roman; các chức năng và nhãn đánh giá sử dụng tiếng Việt.
