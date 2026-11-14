@@ -1,0 +1,3877 @@
+model,profile,hit,ndcg
+Popularity,KH-0001,0,0.0
+Popularity,KH-0002,0,0.0
+Popularity,KH-0003,0,0.0
+Popularity,KH-0004,0,0.0
+Popularity,KH-0005,0,0.0
+Popularity,KH-0006,0,0.0
+Popularity,KH-0007,0,0.0
+Popularity,KH-0008,0,0.0
+Popularity,KH-0009,0,0.0
+Popularity,KH-0010,0,0.0
+Popularity,KH-0011,0,0.0
+Popularity,KH-0012,0,0.0
+Popularity,KH-0013,0,0.0
+Popularity,KH-0014,0,0.0
+Popularity,KH-0015,0,0.0
+Popularity,KH-0016,0,0.0
+Popularity,KH-0017,1,1.0
+Popularity,KH-0018,0,0.0
+Popularity,KH-0019,0,0.0
+Popularity,KH-0020,0,0.0
+Popularity,KH-0021,0,0.0
+Popularity,KH-0022,0,0.0
+Popularity,KH-0023,0,0.0
+Popularity,KH-0024,0,0.0
+Popularity,KH-0025,0,0.0
+Popularity,KH-0026,1,0.31546487678572877
+Popularity,KH-0027,0,0.0
+Popularity,KH-0028,0,0.0
+Popularity,KH-0029,0,0.0
+Popularity,KH-0030,0,0.0
+Popularity,KH-0031,0,0.0
+Popularity,KH-0032,0,0.0
+Popularity,KH-0033,0,0.0
+Popularity,KH-0034,0,0.0
+Popularity,KH-0035,0,0.0
+Popularity,KH-0036,0,0.0
+Popularity,KH-0037,0,0.0
+Popularity,KH-0038,0,0.0
+Popularity,KH-0039,1,0.43067655807339306
+Popularity,KH-0040,0,0.0
+Popularity,KH-0041,0,0.0
+Popularity,KH-0042,0,0.0
+Popularity,KH-0043,0,0.0
+Popularity,KH-0044,0,0.0
+Popularity,KH-0045,0,0.0
+Popularity,KH-0046,0,0.0
+Popularity,KH-0047,0,0.0
+Popularity,KH-0048,0,0.0
+Popularity,KH-0049,0,0.0
+Popularity,KH-0050,0,0.0
+Popularity,KH-0051,0,0.0
+Popularity,KH-0052,0,0.0
+Popularity,KH-0053,0,0.0
+Popularity,KH-0054,0,0.0
+Popularity,KH-0055,0,0.0
+Popularity,KH-0056,0,0.0
+Popularity,KH-0057,0,0.0
+Popularity,KH-0058,0,0.0
+Popularity,KH-0059,0,0.0
+Popularity,KH-0060,0,0.0
+Popularity,KH-0061,0,0.0
+Popularity,KH-0062,0,0.0
+Popularity,KH-0063,0,0.0
+Popularity,KH-0064,0,0.0
+Popularity,KH-0065,0,0.0
+Popularity,KH-0066,0,0.0
+Popularity,KH-0067,0,0.0
+Popularity,KH-0068,0,0.0
+Popularity,KH-0069,0,0.0
+Popularity,KH-0070,0,0.0
+Popularity,KH-0071,0,0.0
+Popularity,KH-0072,0,0.0
+Popularity,KH-0073,0,0.0
+Popularity,KH-0074,0,0.0
+Popularity,KH-0075,0,0.0
+Popularity,KH-0076,0,0.0
+Popularity,KH-0077,0,0.0
+Popularity,KH-0078,0,0.0
+Popularity,KH-0079,0,0.0
+Popularity,KH-0080,1,0.3333333333333333
+Popularity,KH-0081,0,0.0
+Popularity,KH-0082,0,0.0
+Popularity,KH-0083,0,0.0
+Popularity,KH-0084,0,0.0
+Popularity,KH-0085,0,0.0
+Popularity,KH-0086,0,0.0
+Popularity,KH-0087,0,0.0
+Popularity,KH-0088,0,0.0
+Popularity,KH-0089,0,0.0
+Popularity,KH-0090,0,0.0
+Popularity,KH-0091,0,0.0
+Popularity,KH-0092,1,0.5
+Popularity,KH-0093,0,0.0
+Popularity,KH-0094,1,1.0
+Popularity,KH-0095,0,0.0
+Popularity,KH-0096,0,0.0
+Popularity,KH-0097,0,0.0
+Popularity,KH-0098,0,0.0
+Popularity,KH-0099,0,0.0
+Popularity,KH-0100,0,0.0
+Popularity,KH-0101,0,0.0
+Popularity,KH-0102,1,0.3333333333333333
+Popularity,KH-0103,0,0.0
+Popularity,KH-0104,0,0.0
+Popularity,KH-0105,0,0.0
+Popularity,KH-0106,0,0.0
+Popularity,KH-0107,0,0.0
+Popularity,KH-0108,0,0.0
+Popularity,KH-0109,0,0.0
+Popularity,KH-0110,0,0.0
+Popularity,KH-0111,0,0.0
+Popularity,KH-0112,0,0.0
+Popularity,KH-0113,0,0.0
+Popularity,KH-0114,0,0.0
+Popularity,KH-0115,0,0.0
+Popularity,KH-0116,0,0.0
+Popularity,KH-0117,0,0.0
+Popularity,KH-0118,0,0.0
+Popularity,KH-0119,0,0.0
+Popularity,KH-0120,0,0.0
+Popularity,KH-0121,0,0.0
+Popularity,KH-0122,1,0.38685280723454163
+Popularity,KH-0123,0,0.0
+Popularity,KH-0124,0,0.0
+Popularity,KH-0125,0,0.0
+Popularity,KH-0126,0,0.0
+Popularity,KH-0127,0,0.0
+Popularity,KH-0128,0,0.0
+Popularity,KH-0129,0,0.0
+Popularity,KH-0130,0,0.0
+Popularity,KH-0131,0,0.0
+Popularity,KH-0132,0,0.0
+Popularity,KH-0133,0,0.0
+Popularity,KH-0134,0,0.0
+Popularity,KH-0135,0,0.0
+Popularity,KH-0136,0,0.0
+Popularity,KH-0137,0,0.0
+Popularity,KH-0138,0,0.0
+Popularity,KH-0139,0,0.0
+Popularity,KH-0140,0,0.0
+Popularity,KH-0141,0,0.0
+Popularity,KH-0142,0,0.0
+Popularity,KH-0143,0,0.0
+Popularity,KH-0144,0,0.0
+Popularity,KH-0145,0,0.0
+Popularity,KH-0146,0,0.0
+Popularity,KH-0147,0,0.0
+Popularity,KH-0148,0,0.0
+Popularity,KH-0149,0,0.0
+Popularity,KH-0150,0,0.0
+Popularity,KH-0151,0,0.0
+Popularity,KH-0152,0,0.0
+Popularity,KH-0153,0,0.0
+Popularity,KH-0154,0,0.0
+Popularity,KH-0155,0,0.0
+Popularity,KH-0156,0,0.0
+Popularity,KH-0157,0,0.0
+Popularity,KH-0158,0,0.0
+Popularity,KH-0159,0,0.0
+Popularity,KH-0160,0,0.0
+Popularity,KH-0161,0,0.0
+Popularity,KH-0162,1,0.6309297535714575
+Popularity,KH-0163,0,0.0
+Popularity,KH-0164,0,0.0
+Popularity,KH-0165,0,0.0
+Popularity,KH-0166,0,0.0
+Popularity,KH-0167,0,0.0
+Popularity,KH-0168,0,0.0
+Popularity,KH-0169,0,0.0
+Popularity,KH-0170,0,0.0
+Popularity,KH-0171,0,0.0
+Popularity,KH-0172,0,0.0
+Popularity,KH-0173,0,0.0
+Popularity,KH-0174,0,0.0
+Popularity,KH-0175,0,0.0
+Popularity,KH-0176,0,0.0
+Popularity,KH-0177,0,0.0
+Popularity,KH-0178,0,0.0
+Popularity,KH-0179,0,0.0
+Popularity,KH-0180,1,1.0
+Popularity,KH-0181,0,0.0
+Popularity,KH-0182,0,0.0
+Popularity,KH-0183,0,0.0
+Popularity,KH-0184,0,0.0
+Popularity,KH-0185,0,0.0
+Popularity,KH-0186,0,0.0
+Popularity,KH-0187,0,0.0
+Popularity,KH-0188,0,0.0
+Popularity,KH-0189,0,0.0
+Popularity,KH-0190,0,0.0
+Popularity,KH-0191,0,0.0
+Popularity,KH-0192,0,0.0
+Popularity,KH-0193,0,0.0
+Popularity,KH-0194,0,0.0
+Popularity,KH-0195,0,0.0
+Popularity,KH-0196,0,0.0
+Popularity,KH-0197,1,0.5
+Popularity,KH-0198,0,0.0
+Popularity,KH-0199,0,0.0
+Popularity,KH-0200,0,0.0
+Popularity,KH-0201,0,0.0
+Popularity,KH-0202,0,0.0
+Popularity,KH-0203,0,0.0
+Popularity,KH-0204,0,0.0
+Popularity,KH-0205,0,0.0
+Popularity,KH-0206,0,0.0
+Popularity,KH-0207,0,0.0
+Popularity,KH-0208,0,0.0
+Popularity,KH-0209,0,0.0
+Popularity,KH-0210,0,0.0
+Popularity,KH-0211,0,0.0
+Popularity,KH-0212,0,0.0
+Popularity,KH-0213,0,0.0
+Popularity,KH-0214,0,0.0
+Popularity,KH-0215,0,0.0
+Popularity,KH-0216,0,0.0
+Popularity,KH-0217,0,0.0
+Popularity,KH-0218,0,0.0
+Popularity,KH-0219,0,0.0
+Popularity,KH-0220,0,0.0
+Popularity,KH-0221,1,0.3562071871080222
+Popularity,KH-0222,0,0.0
+Popularity,KH-0223,0,0.0
+Popularity,KH-0224,0,0.0
+Popularity,KH-0225,0,0.0
+Popularity,KH-0226,0,0.0
+Popularity,KH-0227,0,0.0
+Popularity,KH-0228,0,0.0
+Popularity,KH-0229,1,0.6309297535714575
+Popularity,KH-0230,0,0.0
+Popularity,KH-0231,0,0.0
+Popularity,KH-0232,0,0.0
+Popularity,KH-0233,0,0.0
+Popularity,KH-0234,0,0.0
+Popularity,KH-0235,0,0.0
+Popularity,KH-0236,0,0.0
+Popularity,KH-0237,0,0.0
+Popularity,KH-0238,0,0.0
+Popularity,KH-0239,0,0.0
+Popularity,KH-0240,0,0.0
+Popularity,KH-0241,0,0.0
+Popularity,KH-0242,0,0.0
+Popularity,KH-0243,0,0.0
+Popularity,KH-0244,0,0.0
+Popularity,KH-0245,0,0.0
+Popularity,KH-0246,0,0.0
+Popularity,KH-0247,0,0.0
+Popularity,KH-0248,0,0.0
+Popularity,KH-0249,0,0.0
+Popularity,KH-0250,0,0.0
+Popularity,KH-0251,0,0.0
+Popularity,KH-0252,0,0.0
+Popularity,KH-0253,0,0.0
+Popularity,KH-0254,0,0.0
+Popularity,KH-0255,0,0.0
+Popularity,KH-0256,0,0.0
+Popularity,KH-0257,0,0.0
+Popularity,KH-0258,0,0.0
+Popularity,KH-0259,0,0.0
+Popularity,KH-0260,0,0.0
+Popularity,KH-0261,0,0.0
+Popularity,KH-0262,0,0.0
+Popularity,KH-0263,0,0.0
+Popularity,KH-0264,0,0.0
+Popularity,KH-0265,0,0.0
+Popularity,KH-0266,0,0.0
+Popularity,KH-0267,0,0.0
+Popularity,KH-0268,0,0.0
+Popularity,KH-0269,0,0.0
+Popularity,KH-0270,0,0.0
+Popularity,KH-0271,0,0.0
+Popularity,KH-0272,0,0.0
+Popularity,KH-0273,0,0.0
+Popularity,KH-0274,0,0.0
+Popularity,KH-0275,0,0.0
+Popularity,KH-0276,0,0.0
+Popularity,KH-0277,0,0.0
+Popularity,KH-0278,0,0.0
+Popularity,KH-0279,0,0.0
+Popularity,KH-0280,0,0.0
+Popularity,KH-0281,1,0.31546487678572877
+Popularity,KH-0282,0,0.0
+Popularity,KH-0283,0,0.0
+Popularity,KH-0284,0,0.0
+Popularity,KH-0285,0,0.0
+Popularity,KH-0286,0,0.0
+Popularity,KH-0287,0,0.0
+Popularity,KH-0288,0,0.0
+Popularity,KH-0289,1,0.31546487678572877
+Popularity,KH-0290,0,0.0
+Popularity,KH-0291,0,0.0
+Popularity,KH-0292,0,0.0
+Popularity,KH-0293,0,0.0
+Popularity,KH-0294,0,0.0
+Popularity,KH-0295,0,0.0
+Popularity,KH-0296,0,0.0
+Popularity,KH-0297,0,0.0
+Popularity,KH-0298,0,0.0
+Popularity,KH-0299,0,0.0
+Popularity,KH-0300,0,0.0
+Popularity,KH-0301,0,0.0
+Popularity,KH-0302,0,0.0
+Popularity,KH-0303,0,0.0
+Popularity,KH-0304,0,0.0
+Popularity,KH-0305,0,0.0
+Popularity,KH-0306,0,0.0
+Popularity,KH-0307,0,0.0
+Popularity,KH-0308,0,0.0
+Popularity,KH-0309,0,0.0
+Popularity,KH-0310,0,0.0
+Popularity,KH-0311,0,0.0
+Popularity,KH-0312,0,0.0
+Popularity,KH-0313,0,0.0
+Popularity,KH-0314,0,0.0
+Popularity,KH-0315,0,0.0
+Popularity,KH-0316,0,0.0
+Popularity,KH-0317,0,0.0
+Popularity,KH-0318,0,0.0
+Popularity,KH-0319,0,0.0
+Popularity,KH-0320,0,0.0
+Popularity,KH-0321,0,0.0
+Popularity,KH-0322,0,0.0
+Popularity,KH-0323,0,0.0
+Popularity,KH-0324,0,0.0
+Popularity,KH-0325,0,0.0
+Popularity,KH-0326,0,0.0
+Popularity,KH-0327,0,0.0
+Popularity,KH-0328,0,0.0
+Popularity,KH-0329,0,0.0
+Popularity,KH-0330,0,0.0
+Popularity,KH-0331,0,0.0
+Popularity,KH-0332,0,0.0
+Popularity,KH-0333,0,0.0
+Popularity,KH-0334,0,0.0
+Popularity,KH-0335,0,0.0
+Popularity,KH-0336,0,0.0
+Popularity,KH-0337,0,0.0
+Popularity,KH-0338,0,0.0
+Popularity,KH-0339,0,0.0
+Popularity,KH-0340,0,0.0
+Popularity,KH-0341,0,0.0
+Popularity,KH-0342,0,0.0
+Popularity,KH-0343,0,0.0
+Popularity,KH-0344,0,0.0
+Popularity,KH-0345,0,0.0
+Popularity,KH-0346,0,0.0
+Popularity,KH-0347,0,0.0
+Popularity,KH-0348,0,0.0
+Popularity,KH-0349,0,0.0
+Popularity,KH-0350,0,0.0
+Popularity,KH-0351,0,0.0
+Popularity,KH-0352,0,0.0
+Popularity,KH-0353,0,0.0
+Popularity,KH-0354,0,0.0
+Popularity,KH-0355,0,0.0
+Popularity,KH-0356,0,0.0
+Popularity,KH-0357,0,0.0
+Popularity,KH-0358,0,0.0
+Popularity,KH-0359,1,0.6309297535714575
+Popularity,KH-0360,0,0.0
+Popularity,KH-0361,0,0.0
+Popularity,KH-0362,0,0.0
+Popularity,KH-0363,0,0.0
+Popularity,KH-0364,0,0.0
+Popularity,KH-0365,0,0.0
+Popularity,KH-0366,0,0.0
+Popularity,KH-0367,0,0.0
+Popularity,KH-0368,0,0.0
+Popularity,KH-0369,0,0.0
+Popularity,KH-0370,0,0.0
+Popularity,KH-0371,0,0.0
+Popularity,KH-0372,0,0.0
+Popularity,KH-0373,0,0.0
+Popularity,KH-0374,0,0.0
+Popularity,KH-0375,0,0.0
+Popularity,KH-0376,0,0.0
+Popularity,KH-0377,0,0.0
+Popularity,KH-0378,0,0.0
+Popularity,KH-0379,0,0.0
+Popularity,KH-0380,0,0.0
+Popularity,KH-0381,0,0.0
+Popularity,KH-0382,0,0.0
+Popularity,KH-0383,0,0.0
+Popularity,KH-0384,0,0.0
+Popularity,KH-0385,0,0.0
+Popularity,KH-0386,0,0.0
+Popularity,KH-0387,0,0.0
+Popularity,KH-0388,0,0.0
+Popularity,KH-0389,0,0.0
+Popularity,KH-0390,0,0.0
+Popularity,KH-0391,0,0.0
+Popularity,KH-0392,0,0.0
+Popularity,KH-0393,1,0.3010299956639812
+Popularity,KH-0394,0,0.0
+Popularity,KH-0395,0,0.0
+Popularity,KH-0396,0,0.0
+Popularity,KH-0397,0,0.0
+Popularity,KH-0398,0,0.0
+Popularity,KH-0399,0,0.0
+Popularity,KH-0400,0,0.0
+Popularity,KH-0401,0,0.0
+Popularity,KH-0402,0,0.0
+Popularity,KH-0403,0,0.0
+Popularity,KH-0404,0,0.0
+Popularity,KH-0405,0,0.0
+Popularity,KH-0406,0,0.0
+Popularity,KH-0407,1,0.2890648263178879
+Popularity,KH-0408,0,0.0
+Popularity,KH-0409,0,0.0
+Popularity,KH-0410,0,0.0
+Popularity,KH-0411,0,0.0
+Popularity,KH-0412,0,0.0
+Popularity,KH-0413,0,0.0
+Popularity,KH-0414,0,0.0
+Popularity,KH-0415,0,0.0
+Popularity,KH-0416,0,0.0
+Popularity,KH-0417,0,0.0
+Popularity,KH-0418,0,0.0
+Popularity,KH-0419,0,0.0
+Popularity,KH-0420,0,0.0
+Popularity,KH-0421,0,0.0
+Popularity,KH-0422,0,0.0
+Popularity,KH-0423,0,0.0
+Popularity,KH-0424,0,0.0
+Popularity,KH-0425,0,0.0
+Popularity,KH-0426,0,0.0
+Popularity,KH-0427,0,0.0
+Popularity,KH-0428,0,0.0
+Popularity,KH-0429,0,0.0
+Popularity,KH-0430,0,0.0
+Popularity,KH-0431,0,0.0
+Popularity,KH-0432,0,0.0
+Popularity,KH-0433,1,1.0
+Popularity,KH-0434,0,0.0
+Popularity,KH-0435,0,0.0
+Popularity,KH-0436,0,0.0
+Popularity,KH-0437,0,0.0
+Popularity,KH-0438,0,0.0
+Popularity,KH-0439,0,0.0
+Popularity,KH-0440,0,0.0
+Popularity,KH-0441,0,0.0
+Popularity,KH-0442,1,1.0
+Popularity,KH-0443,0,0.0
+Popularity,KH-0444,1,0.3010299956639812
+Popularity,KH-0445,0,0.0
+Popularity,KH-0446,0,0.0
+Popularity,KH-0447,0,0.0
+Popularity,KH-0448,0,0.0
+Popularity,KH-0449,0,0.0
+Popularity,KH-0450,0,0.0
+Popularity,KH-0451,1,0.3333333333333333
+Popularity,KH-0452,0,0.0
+Popularity,KH-0453,0,0.0
+Popularity,KH-0454,0,0.0
+Popularity,KH-0455,0,0.0
+Popularity,KH-0456,0,0.0
+Popularity,KH-0457,0,0.0
+Popularity,KH-0458,0,0.0
+Popularity,KH-0459,0,0.0
+Popularity,KH-0460,0,0.0
+Popularity,KH-0461,0,0.0
+Popularity,KH-0462,0,0.0
+Popularity,KH-0463,0,0.0
+Popularity,KH-0464,0,0.0
+Popularity,KH-0465,0,0.0
+Popularity,KH-0466,0,0.0
+Popularity,KH-0467,0,0.0
+Popularity,KH-0468,0,0.0
+Popularity,KH-0469,0,0.0
+Popularity,KH-0470,0,0.0
+Popularity,KH-0471,0,0.0
+Popularity,KH-0472,0,0.0
+Popularity,KH-0473,0,0.0
+Popularity,KH-0474,0,0.0
+Popularity,KH-0475,0,0.0
+Popularity,KH-0476,0,0.0
+Popularity,KH-0477,0,0.0
+Popularity,KH-0478,0,0.0
+Popularity,KH-0479,0,0.0
+Popularity,KH-0480,0,0.0
+Popularity,KH-0481,0,0.0
+Popularity,KH-0482,0,0.0
+Popularity,KH-0483,0,0.0
+Popularity,KH-0484,0,0.0
+Popularity,KH-0485,0,0.0
+Popularity,KH-0486,0,0.0
+Popularity,KH-0487,0,0.0
+Popularity,KH-0488,0,0.0
+Popularity,KH-0489,0,0.0
+Popularity,KH-0490,0,0.0
+Popularity,KH-0491,1,0.5
+Popularity,KH-0492,0,0.0
+Popularity,KH-0493,0,0.0
+Popularity,KH-0494,0,0.0
+Popularity,KH-0495,0,0.0
+Popularity,KH-0496,0,0.0
+Popularity,KH-0497,0,0.0
+Popularity,KH-0498,0,0.0
+Popularity,KH-0499,0,0.0
+Popularity,KH-0500,0,0.0
+Popularity,KH-0501,0,0.0
+Popularity,KH-0502,0,0.0
+Popularity,KH-0503,0,0.0
+Popularity,KH-0504,0,0.0
+Popularity,KH-0505,0,0.0
+Popularity,KH-0506,0,0.0
+Popularity,KH-0507,1,0.43067655807339306
+Popularity,KH-0508,0,0.0
+Popularity,KH-0509,0,0.0
+Popularity,KH-0510,0,0.0
+Popularity,KH-0511,0,0.0
+Popularity,KH-0512,0,0.0
+Popularity,KH-0513,0,0.0
+Popularity,KH-0514,1,0.6309297535714575
+Popularity,KH-0515,0,0.0
+Popularity,KH-0516,0,0.0
+Popularity,KH-0517,0,0.0
+Popularity,KH-0518,0,0.0
+Popularity,KH-0519,0,0.0
+Popularity,KH-0520,0,0.0
+Popularity,KH-0521,0,0.0
+Popularity,KH-0522,0,0.0
+Popularity,KH-0523,0,0.0
+Popularity,KH-0524,0,0.0
+Popularity,KH-0525,1,0.5
+Popularity,KH-0526,0,0.0
+Popularity,KH-0527,1,1.0
+Popularity,KH-0528,0,0.0
+Popularity,KH-0529,0,0.0
+Popularity,KH-0530,0,0.0
+Popularity,KH-0531,0,0.0
+Popularity,KH-0532,0,0.0
+Popularity,KH-0533,0,0.0
+Popularity,KH-0534,0,0.0
+Popularity,KH-0535,0,0.0
+Popularity,KH-0536,0,0.0
+Popularity,KH-0537,1,0.5
+Popularity,KH-0538,0,0.0
+Popularity,KH-0539,0,0.0
+Popularity,KH-0540,0,0.0
+Popularity,KH-0541,0,0.0
+Popularity,KH-0542,0,0.0
+Popularity,KH-0543,0,0.0
+Popularity,KH-0544,0,0.0
+Popularity,KH-0545,0,0.0
+Popularity,KH-0546,0,0.0
+Popularity,KH-0547,0,0.0
+Popularity,KH-0548,0,0.0
+Popularity,KH-0549,1,0.43067655807339306
+Popularity,KH-0550,0,0.0
+Popularity,KH-0551,0,0.0
+Popularity,KH-0552,0,0.0
+Popularity,KH-0553,0,0.0
+Popularity,KH-0554,0,0.0
+Popularity,KH-0555,0,0.0
+Popularity,KH-0556,0,0.0
+Popularity,KH-0557,0,0.0
+Popularity,KH-0558,0,0.0
+Popularity,KH-0559,0,0.0
+Popularity,KH-0560,0,0.0
+Popularity,KH-0561,0,0.0
+Popularity,KH-0562,0,0.0
+Popularity,KH-0563,0,0.0
+Popularity,KH-0564,0,0.0
+Popularity,KH-0565,0,0.0
+Popularity,KH-0566,0,0.0
+Popularity,KH-0567,0,0.0
+Popularity,KH-0568,0,0.0
+Popularity,KH-0569,0,0.0
+Popularity,KH-0570,0,0.0
+Popularity,KH-0571,0,0.0
+Popularity,KH-0572,0,0.0
+Popularity,KH-0573,0,0.0
+Popularity,KH-0574,0,0.0
+Popularity,KH-0575,0,0.0
+Popularity,KH-0576,0,0.0
+Popularity,KH-0577,0,0.0
+Popularity,KH-0578,0,0.0
+Popularity,KH-0579,0,0.0
+Popularity,KH-0580,0,0.0
+Popularity,KH-0581,0,0.0
+Popularity,KH-0582,0,0.0
+Popularity,KH-0583,0,0.0
+Popularity,KH-0584,0,0.0
+Popularity,KH-0585,0,0.0
+Popularity,KH-0586,0,0.0
+Popularity,KH-0587,1,0.3010299956639812
+Popularity,KH-0588,0,0.0
+Popularity,KH-0589,0,0.0
+Popularity,KH-0590,0,0.0
+Popularity,KH-0591,0,0.0
+Popularity,KH-0592,0,0.0
+Popularity,KH-0593,0,0.0
+Popularity,KH-0594,0,0.0
+Popularity,KH-0595,0,0.0
+Popularity,KH-0596,1,0.31546487678572877
+Popularity,KH-0597,0,0.0
+Popularity,KH-0598,0,0.0
+Popularity,KH-0599,0,0.0
+Popularity,KH-0600,0,0.0
+Popularity,KH-0601,0,0.0
+Popularity,KH-0602,0,0.0
+Popularity,KH-0603,0,0.0
+Popularity,KH-0604,0,0.0
+Popularity,KH-0605,0,0.0
+Popularity,KH-0606,0,0.0
+Popularity,KH-0607,0,0.0
+Popularity,KH-0608,0,0.0
+Popularity,KH-0609,0,0.0
+Popularity,KH-0610,0,0.0
+Popularity,KH-0611,0,0.0
+Popularity,KH-0612,0,0.0
+Popularity,KH-0613,0,0.0
+Popularity,KH-0614,0,0.0
+Popularity,KH-0615,0,0.0
+Popularity,KH-0616,0,0.0
+Popularity,KH-0617,0,0.0
+Popularity,KH-0618,0,0.0
+Popularity,KH-0619,0,0.0
+Popularity,KH-0620,0,0.0
+Popularity,KH-0621,0,0.0
+Popularity,KH-0622,0,0.0
+Popularity,KH-0623,0,0.0
+Popularity,KH-0624,0,0.0
+Popularity,KH-0625,0,0.0
+Popularity,KH-0626,0,0.0
+Popularity,KH-0627,0,0.0
+Popularity,KH-0628,0,0.0
+Popularity,KH-0629,0,0.0
+Popularity,KH-0630,0,0.0
+Popularity,KH-0631,0,0.0
+Popularity,KH-0632,0,0.0
+Popularity,KH-0633,0,0.0
+Popularity,KH-0634,0,0.0
+Popularity,KH-0635,0,0.0
+Popularity,KH-0636,0,0.0
+Popularity,KH-0637,0,0.0
+Popularity,KH-0638,0,0.0
+Popularity,KH-0639,0,0.0
+Popularity,KH-0640,0,0.0
+Popularity,KH-0641,0,0.0
+Popularity,KH-0642,0,0.0
+Popularity,KH-0643,0,0.0
+Popularity,KH-0644,0,0.0
+Popularity,KH-0645,0,0.0
+Popularity,KH-0646,0,0.0
+Content TF-IDF,KH-0001,0,0.0
+Content TF-IDF,KH-0002,0,0.0
+Content TF-IDF,KH-0003,0,0.0
+Content TF-IDF,KH-0004,0,0.0
+Content TF-IDF,KH-0005,0,0.0
+Content TF-IDF,KH-0006,1,0.31546487678572877
+Content TF-IDF,KH-0007,0,0.0
+Content TF-IDF,KH-0008,0,0.0
+Content TF-IDF,KH-0009,0,0.0
+Content TF-IDF,KH-0010,0,0.0
+Content TF-IDF,KH-0011,1,0.2890648263178879
+Content TF-IDF,KH-0012,0,0.0
+Content TF-IDF,KH-0013,1,0.3562071871080222
+Content TF-IDF,KH-0014,0,0.0
+Content TF-IDF,KH-0015,0,0.0
+Content TF-IDF,KH-0016,0,0.0
+Content TF-IDF,KH-0017,1,0.38685280723454163
+Content TF-IDF,KH-0018,0,0.0
+Content TF-IDF,KH-0019,0,0.0
+Content TF-IDF,KH-0020,0,0.0
+Content TF-IDF,KH-0021,0,0.0
+Content TF-IDF,KH-0022,0,0.0
+Content TF-IDF,KH-0023,0,0.0
+Content TF-IDF,KH-0024,1,0.6309297535714575
+Content TF-IDF,KH-0025,0,0.0
+Content TF-IDF,KH-0026,0,0.0
+Content TF-IDF,KH-0027,0,0.0
+Content TF-IDF,KH-0028,0,0.0
+Content TF-IDF,KH-0029,1,0.6309297535714575
+Content TF-IDF,KH-0030,1,0.6309297535714575
+Content TF-IDF,KH-0031,0,0.0
+Content TF-IDF,KH-0032,0,0.0
+Content TF-IDF,KH-0033,0,0.0
+Content TF-IDF,KH-0034,0,0.0
+Content TF-IDF,KH-0035,0,0.0
+Content TF-IDF,KH-0036,0,0.0
+Content TF-IDF,KH-0037,0,0.0
+Content TF-IDF,KH-0038,1,0.43067655807339306
+Content TF-IDF,KH-0039,1,1.0
+Content TF-IDF,KH-0040,0,0.0
+Content TF-IDF,KH-0041,0,0.0
+Content TF-IDF,KH-0042,0,0.0
+Content TF-IDF,KH-0043,0,0.0
+Content TF-IDF,KH-0044,0,0.0
+Content TF-IDF,KH-0045,0,0.0
+Content TF-IDF,KH-0046,0,0.0
+Content TF-IDF,KH-0047,0,0.0
+Content TF-IDF,KH-0048,0,0.0
+Content TF-IDF,KH-0049,0,0.0
+Content TF-IDF,KH-0050,0,0.0
+Content TF-IDF,KH-0051,0,0.0
+Content TF-IDF,KH-0052,1,1.0
+Content TF-IDF,KH-0053,0,0.0
+Content TF-IDF,KH-0054,0,0.0
+Content TF-IDF,KH-0055,0,0.0
+Content TF-IDF,KH-0056,0,0.0
+Content TF-IDF,KH-0057,0,0.0
+Content TF-IDF,KH-0058,0,0.0
+Content TF-IDF,KH-0059,0,0.0
+Content TF-IDF,KH-0060,0,0.0
+Content TF-IDF,KH-0061,1,1.0
+Content TF-IDF,KH-0062,0,0.0
+Content TF-IDF,KH-0063,0,0.0
+Content TF-IDF,KH-0064,1,1.0
+Content TF-IDF,KH-0065,0,0.0
+Content TF-IDF,KH-0066,0,0.0
+Content TF-IDF,KH-0067,0,0.0
+Content TF-IDF,KH-0068,0,0.0
+Content TF-IDF,KH-0069,0,0.0
+Content TF-IDF,KH-0070,0,0.0
+Content TF-IDF,KH-0071,0,0.0
+Content TF-IDF,KH-0072,0,0.0
+Content TF-IDF,KH-0073,0,0.0
+Content TF-IDF,KH-0074,1,0.5
+Content TF-IDF,KH-0075,0,0.0
+Content TF-IDF,KH-0076,0,0.0
+Content TF-IDF,KH-0077,0,0.0
+Content TF-IDF,KH-0078,0,0.0
+Content TF-IDF,KH-0079,0,0.0
+Content TF-IDF,KH-0080,1,0.2890648263178879
+Content TF-IDF,KH-0081,1,0.3010299956639812
+Content TF-IDF,KH-0082,0,0.0
+Content TF-IDF,KH-0083,0,0.0
+Content TF-IDF,KH-0084,0,0.0
+Content TF-IDF,KH-0085,0,0.0
+Content TF-IDF,KH-0086,0,0.0
+Content TF-IDF,KH-0087,1,0.2890648263178879
+Content TF-IDF,KH-0088,0,0.0
+Content TF-IDF,KH-0089,0,0.0
+Content TF-IDF,KH-0090,0,0.0
+Content TF-IDF,KH-0091,1,1.0
+Content TF-IDF,KH-0092,0,0.0
+Content TF-IDF,KH-0093,0,0.0
+Content TF-IDF,KH-0094,0,0.0
+Content TF-IDF,KH-0095,0,0.0
+Content TF-IDF,KH-0096,1,0.3333333333333333
+Content TF-IDF,KH-0097,0,0.0
+Content TF-IDF,KH-0098,1,0.5
+Content TF-IDF,KH-0099,1,0.6309297535714575
+Content TF-IDF,KH-0100,0,0.0
+Content TF-IDF,KH-0101,1,0.3333333333333333
+Content TF-IDF,KH-0102,0,0.0
+Content TF-IDF,KH-0103,1,0.38685280723454163
+Content TF-IDF,KH-0104,0,0.0
+Content TF-IDF,KH-0105,0,0.0
+Content TF-IDF,KH-0106,1,1.0
+Content TF-IDF,KH-0107,0,0.0
+Content TF-IDF,KH-0108,0,0.0
+Content TF-IDF,KH-0109,0,0.0
+Content TF-IDF,KH-0110,0,0.0
+Content TF-IDF,KH-0111,0,0.0
+Content TF-IDF,KH-0112,0,0.0
+Content TF-IDF,KH-0113,1,0.31546487678572877
+Content TF-IDF,KH-0114,0,0.0
+Content TF-IDF,KH-0115,1,0.5
+Content TF-IDF,KH-0116,0,0.0
+Content TF-IDF,KH-0117,1,1.0
+Content TF-IDF,KH-0118,0,0.0
+Content TF-IDF,KH-0119,0,0.0
+Content TF-IDF,KH-0120,1,0.38685280723454163
+Content TF-IDF,KH-0121,0,0.0
+Content TF-IDF,KH-0122,0,0.0
+Content TF-IDF,KH-0123,0,0.0
+Content TF-IDF,KH-0124,0,0.0
+Content TF-IDF,KH-0125,0,0.0
+Content TF-IDF,KH-0126,0,0.0
+Content TF-IDF,KH-0127,1,1.0
+Content TF-IDF,KH-0128,1,1.0
+Content TF-IDF,KH-0129,0,0.0
+Content TF-IDF,KH-0130,1,1.0
+Content TF-IDF,KH-0131,0,0.0
+Content TF-IDF,KH-0132,0,0.0
+Content TF-IDF,KH-0133,0,0.0
+Content TF-IDF,KH-0134,0,0.0
+Content TF-IDF,KH-0135,1,1.0
+Content TF-IDF,KH-0136,0,0.0
+Content TF-IDF,KH-0137,0,0.0
+Content TF-IDF,KH-0138,0,0.0
+Content TF-IDF,KH-0139,0,0.0
+Content TF-IDF,KH-0140,0,0.0
+Content TF-IDF,KH-0141,0,0.0
+Content TF-IDF,KH-0142,0,0.0
+Content TF-IDF,KH-0143,1,0.3010299956639812
+Content TF-IDF,KH-0144,0,0.0
+Content TF-IDF,KH-0145,0,0.0
+Content TF-IDF,KH-0146,0,0.0
+Content TF-IDF,KH-0147,0,0.0
+Content TF-IDF,KH-0148,0,0.0
+Content TF-IDF,KH-0149,0,0.0
+Content TF-IDF,KH-0150,0,0.0
+Content TF-IDF,KH-0151,0,0.0
+Content TF-IDF,KH-0152,1,0.3010299956639812
+Content TF-IDF,KH-0153,0,0.0
+Content TF-IDF,KH-0154,0,0.0
+Content TF-IDF,KH-0155,0,0.0
+Content TF-IDF,KH-0156,0,0.0
+Content TF-IDF,KH-0157,0,0.0
+Content TF-IDF,KH-0158,0,0.0
+Content TF-IDF,KH-0159,0,0.0
+Content TF-IDF,KH-0160,0,0.0
+Content TF-IDF,KH-0161,0,0.0
+Content TF-IDF,KH-0162,0,0.0
+Content TF-IDF,KH-0163,0,0.0
+Content TF-IDF,KH-0164,1,0.3010299956639812
+Content TF-IDF,KH-0165,0,0.0
+Content TF-IDF,KH-0166,0,0.0
+Content TF-IDF,KH-0167,0,0.0
+Content TF-IDF,KH-0168,1,1.0
+Content TF-IDF,KH-0169,0,0.0
+Content TF-IDF,KH-0170,0,0.0
+Content TF-IDF,KH-0171,0,0.0
+Content TF-IDF,KH-0172,0,0.0
+Content TF-IDF,KH-0173,1,0.3562071871080222
+Content TF-IDF,KH-0174,0,0.0
+Content TF-IDF,KH-0175,0,0.0
+Content TF-IDF,KH-0176,0,0.0
+Content TF-IDF,KH-0177,0,0.0
+Content TF-IDF,KH-0178,0,0.0
+Content TF-IDF,KH-0179,0,0.0
+Content TF-IDF,KH-0180,0,0.0
+Content TF-IDF,KH-0181,1,0.2890648263178879
+Content TF-IDF,KH-0182,0,0.0
+Content TF-IDF,KH-0183,0,0.0
+Content TF-IDF,KH-0184,0,0.0
+Content TF-IDF,KH-0185,1,0.43067655807339306
+Content TF-IDF,KH-0186,0,0.0
+Content TF-IDF,KH-0187,0,0.0
+Content TF-IDF,KH-0188,0,0.0
+Content TF-IDF,KH-0189,1,1.0
+Content TF-IDF,KH-0190,1,1.0
+Content TF-IDF,KH-0191,0,0.0
+Content TF-IDF,KH-0192,0,0.0
+Content TF-IDF,KH-0193,1,0.38685280723454163
+Content TF-IDF,KH-0194,0,0.0
+Content TF-IDF,KH-0195,0,0.0
+Content TF-IDF,KH-0196,0,0.0
+Content TF-IDF,KH-0197,1,0.31546487678572877
+Content TF-IDF,KH-0198,0,0.0
+Content TF-IDF,KH-0199,1,0.31546487678572877
+Content TF-IDF,KH-0200,0,0.0
+Content TF-IDF,KH-0201,1,0.43067655807339306
+Content TF-IDF,KH-0202,0,0.0
+Content TF-IDF,KH-0203,1,0.2890648263178879
+Content TF-IDF,KH-0204,0,0.0
+Content TF-IDF,KH-0205,1,0.5
+Content TF-IDF,KH-0206,0,0.0
+Content TF-IDF,KH-0207,0,0.0
+Content TF-IDF,KH-0208,0,0.0
+Content TF-IDF,KH-0209,0,0.0
+Content TF-IDF,KH-0210,0,0.0
+Content TF-IDF,KH-0211,0,0.0
+Content TF-IDF,KH-0212,0,0.0
+Content TF-IDF,KH-0213,0,0.0
+Content TF-IDF,KH-0214,0,0.0
+Content TF-IDF,KH-0215,0,0.0
+Content TF-IDF,KH-0216,0,0.0
+Content TF-IDF,KH-0217,0,0.0
+Content TF-IDF,KH-0218,0,0.0
+Content TF-IDF,KH-0219,0,0.0
+Content TF-IDF,KH-0220,0,0.0
+Content TF-IDF,KH-0221,0,0.0
+Content TF-IDF,KH-0222,0,0.0
+Content TF-IDF,KH-0223,0,0.0
+Content TF-IDF,KH-0224,0,0.0
+Content TF-IDF,KH-0225,0,0.0
+Content TF-IDF,KH-0226,1,1.0
+Content TF-IDF,KH-0227,1,1.0
+Content TF-IDF,KH-0228,0,0.0
+Content TF-IDF,KH-0229,1,0.6309297535714575
+Content TF-IDF,KH-0230,1,0.38685280723454163
+Content TF-IDF,KH-0231,0,0.0
+Content TF-IDF,KH-0232,1,1.0
+Content TF-IDF,KH-0233,0,0.0
+Content TF-IDF,KH-0234,0,0.0
+Content TF-IDF,KH-0235,1,0.38685280723454163
+Content TF-IDF,KH-0236,0,0.0
+Content TF-IDF,KH-0237,0,0.0
+Content TF-IDF,KH-0238,0,0.0
+Content TF-IDF,KH-0239,0,0.0
+Content TF-IDF,KH-0240,1,0.6309297535714575
+Content TF-IDF,KH-0241,1,0.3562071871080222
+Content TF-IDF,KH-0242,1,0.5
+Content TF-IDF,KH-0243,0,0.0
+Content TF-IDF,KH-0244,0,0.0
+Content TF-IDF,KH-0245,1,0.31546487678572877
+Content TF-IDF,KH-0246,0,0.0
+Content TF-IDF,KH-0247,1,0.38685280723454163
+Content TF-IDF,KH-0248,0,0.0
+Content TF-IDF,KH-0249,1,0.43067655807339306
+Content TF-IDF,KH-0250,0,0.0
+Content TF-IDF,KH-0251,1,0.43067655807339306
+Content TF-IDF,KH-0252,1,0.5
+Content TF-IDF,KH-0253,0,0.0
+Content TF-IDF,KH-0254,0,0.0
+Content TF-IDF,KH-0255,0,0.0
+Content TF-IDF,KH-0256,1,0.3010299956639812
+Content TF-IDF,KH-0257,0,0.0
+Content TF-IDF,KH-0258,0,0.0
+Content TF-IDF,KH-0259,0,0.0
+Content TF-IDF,KH-0260,0,0.0
+Content TF-IDF,KH-0261,0,0.0
+Content TF-IDF,KH-0262,1,0.6309297535714575
+Content TF-IDF,KH-0263,0,0.0
+Content TF-IDF,KH-0264,1,1.0
+Content TF-IDF,KH-0265,0,0.0
+Content TF-IDF,KH-0266,0,0.0
+Content TF-IDF,KH-0267,0,0.0
+Content TF-IDF,KH-0268,1,0.43067655807339306
+Content TF-IDF,KH-0269,0,0.0
+Content TF-IDF,KH-0270,0,0.0
+Content TF-IDF,KH-0271,0,0.0
+Content TF-IDF,KH-0272,0,0.0
+Content TF-IDF,KH-0273,0,0.0
+Content TF-IDF,KH-0274,0,0.0
+Content TF-IDF,KH-0275,0,0.0
+Content TF-IDF,KH-0276,0,0.0
+Content TF-IDF,KH-0277,1,0.5
+Content TF-IDF,KH-0278,0,0.0
+Content TF-IDF,KH-0279,0,0.0
+Content TF-IDF,KH-0280,1,1.0
+Content TF-IDF,KH-0281,1,0.6309297535714575
+Content TF-IDF,KH-0282,0,0.0
+Content TF-IDF,KH-0283,0,0.0
+Content TF-IDF,KH-0284,0,0.0
+Content TF-IDF,KH-0285,0,0.0
+Content TF-IDF,KH-0286,0,0.0
+Content TF-IDF,KH-0287,0,0.0
+Content TF-IDF,KH-0288,1,1.0
+Content TF-IDF,KH-0289,0,0.0
+Content TF-IDF,KH-0290,1,0.6309297535714575
+Content TF-IDF,KH-0291,1,0.38685280723454163
+Content TF-IDF,KH-0292,0,0.0
+Content TF-IDF,KH-0293,0,0.0
+Content TF-IDF,KH-0294,1,0.3010299956639812
+Content TF-IDF,KH-0295,0,0.0
+Content TF-IDF,KH-0296,0,0.0
+Content TF-IDF,KH-0297,1,0.6309297535714575
+Content TF-IDF,KH-0298,1,1.0
+Content TF-IDF,KH-0299,0,0.0
+Content TF-IDF,KH-0300,0,0.0
+Content TF-IDF,KH-0301,1,0.43067655807339306
+Content TF-IDF,KH-0302,0,0.0
+Content TF-IDF,KH-0303,0,0.0
+Content TF-IDF,KH-0304,0,0.0
+Content TF-IDF,KH-0305,0,0.0
+Content TF-IDF,KH-0306,0,0.0
+Content TF-IDF,KH-0307,0,0.0
+Content TF-IDF,KH-0308,0,0.0
+Content TF-IDF,KH-0309,0,0.0
+Content TF-IDF,KH-0310,0,0.0
+Content TF-IDF,KH-0311,0,0.0
+Content TF-IDF,KH-0312,0,0.0
+Content TF-IDF,KH-0313,0,0.0
+Content TF-IDF,KH-0314,1,0.6309297535714575
+Content TF-IDF,KH-0315,0,0.0
+Content TF-IDF,KH-0316,0,0.0
+Content TF-IDF,KH-0317,1,1.0
+Content TF-IDF,KH-0318,0,0.0
+Content TF-IDF,KH-0319,1,0.3333333333333333
+Content TF-IDF,KH-0320,0,0.0
+Content TF-IDF,KH-0321,0,0.0
+Content TF-IDF,KH-0322,1,0.38685280723454163
+Content TF-IDF,KH-0323,0,0.0
+Content TF-IDF,KH-0324,0,0.0
+Content TF-IDF,KH-0325,0,0.0
+Content TF-IDF,KH-0326,1,0.6309297535714575
+Content TF-IDF,KH-0327,0,0.0
+Content TF-IDF,KH-0328,1,0.3562071871080222
+Content TF-IDF,KH-0329,0,0.0
+Content TF-IDF,KH-0330,0,0.0
+Content TF-IDF,KH-0331,1,0.38685280723454163
+Content TF-IDF,KH-0332,1,1.0
+Content TF-IDF,KH-0333,1,0.31546487678572877
+Content TF-IDF,KH-0334,0,0.0
+Content TF-IDF,KH-0335,0,0.0
+Content TF-IDF,KH-0336,0,0.0
+Content TF-IDF,KH-0337,0,0.0
+Content TF-IDF,KH-0338,0,0.0
+Content TF-IDF,KH-0339,0,0.0
+Content TF-IDF,KH-0340,0,0.0
+Content TF-IDF,KH-0341,0,0.0
+Content TF-IDF,KH-0342,0,0.0
+Content TF-IDF,KH-0343,0,0.0
+Content TF-IDF,KH-0344,0,0.0
+Content TF-IDF,KH-0345,0,0.0
+Content TF-IDF,KH-0346,0,0.0
+Content TF-IDF,KH-0347,0,0.0
+Content TF-IDF,KH-0348,1,0.3562071871080222
+Content TF-IDF,KH-0349,0,0.0
+Content TF-IDF,KH-0350,0,0.0
+Content TF-IDF,KH-0351,0,0.0
+Content TF-IDF,KH-0352,0,0.0
+Content TF-IDF,KH-0353,1,0.6309297535714575
+Content TF-IDF,KH-0354,0,0.0
+Content TF-IDF,KH-0355,0,0.0
+Content TF-IDF,KH-0356,1,0.3333333333333333
+Content TF-IDF,KH-0357,0,0.0
+Content TF-IDF,KH-0358,0,0.0
+Content TF-IDF,KH-0359,0,0.0
+Content TF-IDF,KH-0360,0,0.0
+Content TF-IDF,KH-0361,0,0.0
+Content TF-IDF,KH-0362,0,0.0
+Content TF-IDF,KH-0363,0,0.0
+Content TF-IDF,KH-0364,0,0.0
+Content TF-IDF,KH-0365,0,0.0
+Content TF-IDF,KH-0366,1,0.2890648263178879
+Content TF-IDF,KH-0367,1,0.2890648263178879
+Content TF-IDF,KH-0368,1,0.6309297535714575
+Content TF-IDF,KH-0369,0,0.0
+Content TF-IDF,KH-0370,1,0.3562071871080222
+Content TF-IDF,KH-0371,1,0.5
+Content TF-IDF,KH-0372,0,0.0
+Content TF-IDF,KH-0373,0,0.0
+Content TF-IDF,KH-0374,1,0.43067655807339306
+Content TF-IDF,KH-0375,0,0.0
+Content TF-IDF,KH-0376,0,0.0
+Content TF-IDF,KH-0377,0,0.0
+Content TF-IDF,KH-0378,1,0.31546487678572877
+Content TF-IDF,KH-0379,0,0.0
+Content TF-IDF,KH-0380,0,0.0
+Content TF-IDF,KH-0381,1,0.2890648263178879
+Content TF-IDF,KH-0382,0,0.0
+Content TF-IDF,KH-0383,0,0.0
+Content TF-IDF,KH-0384,0,0.0
+Content TF-IDF,KH-0385,0,0.0
+Content TF-IDF,KH-0386,1,0.5
+Content TF-IDF,KH-0387,0,0.0
+Content TF-IDF,KH-0388,0,0.0
+Content TF-IDF,KH-0389,0,0.0
+Content TF-IDF,KH-0390,0,0.0
+Content TF-IDF,KH-0391,1,0.2890648263178879
+Content TF-IDF,KH-0392,1,0.38685280723454163
+Content TF-IDF,KH-0393,0,0.0
+Content TF-IDF,KH-0394,1,1.0
+Content TF-IDF,KH-0395,0,0.0
+Content TF-IDF,KH-0396,1,1.0
+Content TF-IDF,KH-0397,0,0.0
+Content TF-IDF,KH-0398,0,0.0
+Content TF-IDF,KH-0399,0,0.0
+Content TF-IDF,KH-0400,0,0.0
+Content TF-IDF,KH-0401,0,0.0
+Content TF-IDF,KH-0402,0,0.0
+Content TF-IDF,KH-0403,0,0.0
+Content TF-IDF,KH-0404,0,0.0
+Content TF-IDF,KH-0405,0,0.0
+Content TF-IDF,KH-0406,1,0.3010299956639812
+Content TF-IDF,KH-0407,0,0.0
+Content TF-IDF,KH-0408,1,1.0
+Content TF-IDF,KH-0409,0,0.0
+Content TF-IDF,KH-0410,1,0.5
+Content TF-IDF,KH-0411,1,0.3562071871080222
+Content TF-IDF,KH-0412,0,0.0
+Content TF-IDF,KH-0413,0,0.0
+Content TF-IDF,KH-0414,0,0.0
+Content TF-IDF,KH-0415,1,0.6309297535714575
+Content TF-IDF,KH-0416,0,0.0
+Content TF-IDF,KH-0417,0,0.0
+Content TF-IDF,KH-0418,0,0.0
+Content TF-IDF,KH-0419,0,0.0
+Content TF-IDF,KH-0420,1,0.6309297535714575
+Content TF-IDF,KH-0421,1,0.31546487678572877
+Content TF-IDF,KH-0422,1,0.3333333333333333
+Content TF-IDF,KH-0423,0,0.0
+Content TF-IDF,KH-0424,1,0.5
+Content TF-IDF,KH-0425,0,0.0
+Content TF-IDF,KH-0426,0,0.0
+Content TF-IDF,KH-0427,0,0.0
+Content TF-IDF,KH-0428,1,0.3562071871080222
+Content TF-IDF,KH-0429,1,1.0
+Content TF-IDF,KH-0430,0,0.0
+Content TF-IDF,KH-0431,1,0.6309297535714575
+Content TF-IDF,KH-0432,0,0.0
+Content TF-IDF,KH-0433,0,0.0
+Content TF-IDF,KH-0434,1,1.0
+Content TF-IDF,KH-0435,0,0.0
+Content TF-IDF,KH-0436,0,0.0
+Content TF-IDF,KH-0437,1,0.5
+Content TF-IDF,KH-0438,1,0.43067655807339306
+Content TF-IDF,KH-0439,0,0.0
+Content TF-IDF,KH-0440,0,0.0
+Content TF-IDF,KH-0441,0,0.0
+Content TF-IDF,KH-0442,0,0.0
+Content TF-IDF,KH-0443,0,0.0
+Content TF-IDF,KH-0444,1,1.0
+Content TF-IDF,KH-0445,1,1.0
+Content TF-IDF,KH-0446,0,0.0
+Content TF-IDF,KH-0447,0,0.0
+Content TF-IDF,KH-0448,0,0.0
+Content TF-IDF,KH-0449,1,0.6309297535714575
+Content TF-IDF,KH-0450,1,0.3010299956639812
+Content TF-IDF,KH-0451,0,0.0
+Content TF-IDF,KH-0452,0,0.0
+Content TF-IDF,KH-0453,0,0.0
+Content TF-IDF,KH-0454,0,0.0
+Content TF-IDF,KH-0455,0,0.0
+Content TF-IDF,KH-0456,0,0.0
+Content TF-IDF,KH-0457,0,0.0
+Content TF-IDF,KH-0458,0,0.0
+Content TF-IDF,KH-0459,0,0.0
+Content TF-IDF,KH-0460,0,0.0
+Content TF-IDF,KH-0461,1,0.5
+Content TF-IDF,KH-0462,0,0.0
+Content TF-IDF,KH-0463,1,0.31546487678572877
+Content TF-IDF,KH-0464,0,0.0
+Content TF-IDF,KH-0465,0,0.0
+Content TF-IDF,KH-0466,1,0.5
+Content TF-IDF,KH-0467,0,0.0
+Content TF-IDF,KH-0468,0,0.0
+Content TF-IDF,KH-0469,0,0.0
+Content TF-IDF,KH-0470,0,0.0
+Content TF-IDF,KH-0471,0,0.0
+Content TF-IDF,KH-0472,1,0.31546487678572877
+Content TF-IDF,KH-0473,0,0.0
+Content TF-IDF,KH-0474,0,0.0
+Content TF-IDF,KH-0475,0,0.0
+Content TF-IDF,KH-0476,1,0.3010299956639812
+Content TF-IDF,KH-0477,0,0.0
+Content TF-IDF,KH-0478,0,0.0
+Content TF-IDF,KH-0479,1,0.43067655807339306
+Content TF-IDF,KH-0480,0,0.0
+Content TF-IDF,KH-0481,0,0.0
+Content TF-IDF,KH-0482,0,0.0
+Content TF-IDF,KH-0483,0,0.0
+Content TF-IDF,KH-0484,0,0.0
+Content TF-IDF,KH-0485,0,0.0
+Content TF-IDF,KH-0486,0,0.0
+Content TF-IDF,KH-0487,0,0.0
+Content TF-IDF,KH-0488,0,0.0
+Content TF-IDF,KH-0489,1,0.5
+Content TF-IDF,KH-0490,0,0.0
+Content TF-IDF,KH-0491,0,0.0
+Content TF-IDF,KH-0492,0,0.0
+Content TF-IDF,KH-0493,0,0.0
+Content TF-IDF,KH-0494,0,0.0
+Content TF-IDF,KH-0495,0,0.0
+Content TF-IDF,KH-0496,0,0.0
+Content TF-IDF,KH-0497,1,0.3333333333333333
+Content TF-IDF,KH-0498,1,0.31546487678572877
+Content TF-IDF,KH-0499,0,0.0
+Content TF-IDF,KH-0500,0,0.0
+Content TF-IDF,KH-0501,1,0.3333333333333333
+Content TF-IDF,KH-0502,1,0.3333333333333333
+Content TF-IDF,KH-0503,0,0.0
+Content TF-IDF,KH-0504,0,0.0
+Content TF-IDF,KH-0505,1,0.38685280723454163
+Content TF-IDF,KH-0506,0,0.0
+Content TF-IDF,KH-0507,0,0.0
+Content TF-IDF,KH-0508,1,1.0
+Content TF-IDF,KH-0509,1,1.0
+Content TF-IDF,KH-0510,0,0.0
+Content TF-IDF,KH-0511,0,0.0
+Content TF-IDF,KH-0512,0,0.0
+Content TF-IDF,KH-0513,0,0.0
+Content TF-IDF,KH-0514,0,0.0
+Content TF-IDF,KH-0515,0,0.0
+Content TF-IDF,KH-0516,0,0.0
+Content TF-IDF,KH-0517,0,0.0
+Content TF-IDF,KH-0518,0,0.0
+Content TF-IDF,KH-0519,0,0.0
+Content TF-IDF,KH-0520,0,0.0
+Content TF-IDF,KH-0521,0,0.0
+Content TF-IDF,KH-0522,0,0.0
+Content TF-IDF,KH-0523,0,0.0
+Content TF-IDF,KH-0524,0,0.0
+Content TF-IDF,KH-0525,0,0.0
+Content TF-IDF,KH-0526,1,1.0
+Content TF-IDF,KH-0527,0,0.0
+Content TF-IDF,KH-0528,1,0.38685280723454163
+Content TF-IDF,KH-0529,0,0.0
+Content TF-IDF,KH-0530,0,0.0
+Content TF-IDF,KH-0531,0,0.0
+Content TF-IDF,KH-0532,0,0.0
+Content TF-IDF,KH-0533,0,0.0
+Content TF-IDF,KH-0534,0,0.0
+Content TF-IDF,KH-0535,0,0.0
+Content TF-IDF,KH-0536,1,0.6309297535714575
+Content TF-IDF,KH-0537,0,0.0
+Content TF-IDF,KH-0538,0,0.0
+Content TF-IDF,KH-0539,0,0.0
+Content TF-IDF,KH-0540,0,0.0
+Content TF-IDF,KH-0541,0,0.0
+Content TF-IDF,KH-0542,0,0.0
+Content TF-IDF,KH-0543,0,0.0
+Content TF-IDF,KH-0544,0,0.0
+Content TF-IDF,KH-0545,0,0.0
+Content TF-IDF,KH-0546,0,0.0
+Content TF-IDF,KH-0547,0,0.0
+Content TF-IDF,KH-0548,1,0.6309297535714575
+Content TF-IDF,KH-0549,1,0.3333333333333333
+Content TF-IDF,KH-0550,0,0.0
+Content TF-IDF,KH-0551,0,0.0
+Content TF-IDF,KH-0552,0,0.0
+Content TF-IDF,KH-0553,1,0.6309297535714575
+Content TF-IDF,KH-0554,0,0.0
+Content TF-IDF,KH-0555,1,0.3010299956639812
+Content TF-IDF,KH-0556,1,0.6309297535714575
+Content TF-IDF,KH-0557,0,0.0
+Content TF-IDF,KH-0558,0,0.0
+Content TF-IDF,KH-0559,0,0.0
+Content TF-IDF,KH-0560,0,0.0
+Content TF-IDF,KH-0561,1,1.0
+Content TF-IDF,KH-0562,0,0.0
+Content TF-IDF,KH-0563,0,0.0
+Content TF-IDF,KH-0564,1,0.6309297535714575
+Content TF-IDF,KH-0565,0,0.0
+Content TF-IDF,KH-0566,0,0.0
+Content TF-IDF,KH-0567,0,0.0
+Content TF-IDF,KH-0568,0,0.0
+Content TF-IDF,KH-0569,1,0.43067655807339306
+Content TF-IDF,KH-0570,0,0.0
+Content TF-IDF,KH-0571,0,0.0
+Content TF-IDF,KH-0572,0,0.0
+Content TF-IDF,KH-0573,0,0.0
+Content TF-IDF,KH-0574,0,0.0
+Content TF-IDF,KH-0575,0,0.0
+Content TF-IDF,KH-0576,0,0.0
+Content TF-IDF,KH-0577,0,0.0
+Content TF-IDF,KH-0578,1,0.5
+Content TF-IDF,KH-0579,0,0.0
+Content TF-IDF,KH-0580,0,0.0
+Content TF-IDF,KH-0581,0,0.0
+Content TF-IDF,KH-0582,1,0.43067655807339306
+Content TF-IDF,KH-0583,1,0.43067655807339306
+Content TF-IDF,KH-0584,0,0.0
+Content TF-IDF,KH-0585,1,0.5
+Content TF-IDF,KH-0586,0,0.0
+Content TF-IDF,KH-0587,0,0.0
+Content TF-IDF,KH-0588,1,0.5
+Content TF-IDF,KH-0589,0,0.0
+Content TF-IDF,KH-0590,0,0.0
+Content TF-IDF,KH-0591,1,0.6309297535714575
+Content TF-IDF,KH-0592,0,0.0
+Content TF-IDF,KH-0593,0,0.0
+Content TF-IDF,KH-0594,0,0.0
+Content TF-IDF,KH-0595,0,0.0
+Content TF-IDF,KH-0596,1,0.3010299956639812
+Content TF-IDF,KH-0597,0,0.0
+Content TF-IDF,KH-0598,0,0.0
+Content TF-IDF,KH-0599,0,0.0
+Content TF-IDF,KH-0600,0,0.0
+Content TF-IDF,KH-0601,1,0.43067655807339306
+Content TF-IDF,KH-0602,0,0.0
+Content TF-IDF,KH-0603,0,0.0
+Content TF-IDF,KH-0604,1,0.38685280723454163
+Content TF-IDF,KH-0605,1,0.6309297535714575
+Content TF-IDF,KH-0606,0,0.0
+Content TF-IDF,KH-0607,0,0.0
+Content TF-IDF,KH-0608,0,0.0
+Content TF-IDF,KH-0609,0,0.0
+Content TF-IDF,KH-0610,0,0.0
+Content TF-IDF,KH-0611,0,0.0
+Content TF-IDF,KH-0612,0,0.0
+Content TF-IDF,KH-0613,1,1.0
+Content TF-IDF,KH-0614,1,1.0
+Content TF-IDF,KH-0615,1,1.0
+Content TF-IDF,KH-0616,0,0.0
+Content TF-IDF,KH-0617,1,0.6309297535714575
+Content TF-IDF,KH-0618,0,0.0
+Content TF-IDF,KH-0619,0,0.0
+Content TF-IDF,KH-0620,0,0.0
+Content TF-IDF,KH-0621,0,0.0
+Content TF-IDF,KH-0622,1,0.3562071871080222
+Content TF-IDF,KH-0623,0,0.0
+Content TF-IDF,KH-0624,1,0.6309297535714575
+Content TF-IDF,KH-0625,1,0.3010299956639812
+Content TF-IDF,KH-0626,0,0.0
+Content TF-IDF,KH-0627,0,0.0
+Content TF-IDF,KH-0628,0,0.0
+Content TF-IDF,KH-0629,0,0.0
+Content TF-IDF,KH-0630,0,0.0
+Content TF-IDF,KH-0631,0,0.0
+Content TF-IDF,KH-0632,0,0.0
+Content TF-IDF,KH-0633,1,1.0
+Content TF-IDF,KH-0634,0,0.0
+Content TF-IDF,KH-0635,0,0.0
+Content TF-IDF,KH-0636,0,0.0
+Content TF-IDF,KH-0637,1,1.0
+Content TF-IDF,KH-0638,0,0.0
+Content TF-IDF,KH-0639,0,0.0
+Content TF-IDF,KH-0640,1,0.38685280723454163
+Content TF-IDF,KH-0641,1,1.0
+Content TF-IDF,KH-0642,0,0.0
+Content TF-IDF,KH-0643,0,0.0
+Content TF-IDF,KH-0644,0,0.0
+Content TF-IDF,KH-0645,1,1.0
+Content TF-IDF,KH-0646,0,0.0
+Graph branch,KH-0001,0,0.0
+Graph branch,KH-0002,0,0.0
+Graph branch,KH-0003,0,0.0
+Graph branch,KH-0004,0,0.0
+Graph branch,KH-0005,0,0.0
+Graph branch,KH-0006,0,0.0
+Graph branch,KH-0007,0,0.0
+Graph branch,KH-0008,0,0.0
+Graph branch,KH-0009,0,0.0
+Graph branch,KH-0010,0,0.0
+Graph branch,KH-0011,1,0.3010299956639812
+Graph branch,KH-0012,0,0.0
+Graph branch,KH-0013,0,0.0
+Graph branch,KH-0014,0,0.0
+Graph branch,KH-0015,0,0.0
+Graph branch,KH-0016,0,0.0
+Graph branch,KH-0017,0,0.0
+Graph branch,KH-0018,0,0.0
+Graph branch,KH-0019,0,0.0
+Graph branch,KH-0020,0,0.0
+Graph branch,KH-0021,0,0.0
+Graph branch,KH-0022,0,0.0
+Graph branch,KH-0023,0,0.0
+Graph branch,KH-0024,0,0.0
+Graph branch,KH-0025,0,0.0
+Graph branch,KH-0026,0,0.0
+Graph branch,KH-0027,0,0.0
+Graph branch,KH-0028,0,0.0
+Graph branch,KH-0029,1,0.5
+Graph branch,KH-0030,0,0.0
+Graph branch,KH-0031,0,0.0
+Graph branch,KH-0032,0,0.0
+Graph branch,KH-0033,0,0.0
+Graph branch,KH-0034,1,0.2890648263178879
+Graph branch,KH-0035,0,0.0
+Graph branch,KH-0036,0,0.0
+Graph branch,KH-0037,0,0.0
+Graph branch,KH-0038,0,0.0
+Graph branch,KH-0039,1,0.5
+Graph branch,KH-0040,0,0.0
+Graph branch,KH-0041,0,0.0
+Graph branch,KH-0042,0,0.0
+Graph branch,KH-0043,0,0.0
+Graph branch,KH-0044,1,0.2890648263178879
+Graph branch,KH-0045,0,0.0
+Graph branch,KH-0046,0,0.0
+Graph branch,KH-0047,1,0.3333333333333333
+Graph branch,KH-0048,0,0.0
+Graph branch,KH-0049,0,0.0
+Graph branch,KH-0050,0,0.0
+Graph branch,KH-0051,0,0.0
+Graph branch,KH-0052,0,0.0
+Graph branch,KH-0053,0,0.0
+Graph branch,KH-0054,0,0.0
+Graph branch,KH-0055,0,0.0
+Graph branch,KH-0056,0,0.0
+Graph branch,KH-0057,0,0.0
+Graph branch,KH-0058,0,0.0
+Graph branch,KH-0059,0,0.0
+Graph branch,KH-0060,0,0.0
+Graph branch,KH-0061,0,0.0
+Graph branch,KH-0062,0,0.0
+Graph branch,KH-0063,0,0.0
+Graph branch,KH-0064,0,0.0
+Graph branch,KH-0065,0,0.0
+Graph branch,KH-0066,1,0.2890648263178879
+Graph branch,KH-0067,0,0.0
+Graph branch,KH-0068,0,0.0
+Graph branch,KH-0069,0,0.0
+Graph branch,KH-0070,0,0.0
+Graph branch,KH-0071,0,0.0
+Graph branch,KH-0072,0,0.0
+Graph branch,KH-0073,0,0.0
+Graph branch,KH-0074,0,0.0
+Graph branch,KH-0075,0,0.0
+Graph branch,KH-0076,0,0.0
+Graph branch,KH-0077,0,0.0
+Graph branch,KH-0078,0,0.0
+Graph branch,KH-0079,0,0.0
+Graph branch,KH-0080,0,0.0
+Graph branch,KH-0081,0,0.0
+Graph branch,KH-0082,0,0.0
+Graph branch,KH-0083,0,0.0
+Graph branch,KH-0084,0,0.0
+Graph branch,KH-0085,0,0.0
+Graph branch,KH-0086,0,0.0
+Graph branch,KH-0087,0,0.0
+Graph branch,KH-0088,0,0.0
+Graph branch,KH-0089,0,0.0
+Graph branch,KH-0090,0,0.0
+Graph branch,KH-0091,1,0.6309297535714575
+Graph branch,KH-0092,1,0.5
+Graph branch,KH-0093,0,0.0
+Graph branch,KH-0094,0,0.0
+Graph branch,KH-0095,0,0.0
+Graph branch,KH-0096,0,0.0
+Graph branch,KH-0097,0,0.0
+Graph branch,KH-0098,1,0.38685280723454163
+Graph branch,KH-0099,1,0.43067655807339306
+Graph branch,KH-0100,0,0.0
+Graph branch,KH-0101,0,0.0
+Graph branch,KH-0102,0,0.0
+Graph branch,KH-0103,0,0.0
+Graph branch,KH-0104,0,0.0
+Graph branch,KH-0105,0,0.0
+Graph branch,KH-0106,0,0.0
+Graph branch,KH-0107,0,0.0
+Graph branch,KH-0108,0,0.0
+Graph branch,KH-0109,0,0.0
+Graph branch,KH-0110,0,0.0
+Graph branch,KH-0111,0,0.0
+Graph branch,KH-0112,0,0.0
+Graph branch,KH-0113,0,0.0
+Graph branch,KH-0114,0,0.0
+Graph branch,KH-0115,1,0.3010299956639812
+Graph branch,KH-0116,0,0.0
+Graph branch,KH-0117,1,1.0
+Graph branch,KH-0118,0,0.0
+Graph branch,KH-0119,0,0.0
+Graph branch,KH-0120,0,0.0
+Graph branch,KH-0121,0,0.0
+Graph branch,KH-0122,0,0.0
+Graph branch,KH-0123,0,0.0
+Graph branch,KH-0124,0,0.0
+Graph branch,KH-0125,0,0.0
+Graph branch,KH-0126,0,0.0
+Graph branch,KH-0127,0,0.0
+Graph branch,KH-0128,0,0.0
+Graph branch,KH-0129,0,0.0
+Graph branch,KH-0130,0,0.0
+Graph branch,KH-0131,0,0.0
+Graph branch,KH-0132,0,0.0
+Graph branch,KH-0133,0,0.0
+Graph branch,KH-0134,0,0.0
+Graph branch,KH-0135,1,1.0
+Graph branch,KH-0136,0,0.0
+Graph branch,KH-0137,0,0.0
+Graph branch,KH-0138,0,0.0
+Graph branch,KH-0139,0,0.0
+Graph branch,KH-0140,0,0.0
+Graph branch,KH-0141,0,0.0
+Graph branch,KH-0142,0,0.0
+Graph branch,KH-0143,0,0.0
+Graph branch,KH-0144,0,0.0
+Graph branch,KH-0145,0,0.0
+Graph branch,KH-0146,0,0.0
+Graph branch,KH-0147,0,0.0
+Graph branch,KH-0148,0,0.0
+Graph branch,KH-0149,0,0.0
+Graph branch,KH-0150,0,0.0
+Graph branch,KH-0151,0,0.0
+Graph branch,KH-0152,0,0.0
+Graph branch,KH-0153,0,0.0
+Graph branch,KH-0154,0,0.0
+Graph branch,KH-0155,0,0.0
+Graph branch,KH-0156,1,0.2890648263178879
+Graph branch,KH-0157,0,0.0
+Graph branch,KH-0158,0,0.0
+Graph branch,KH-0159,0,0.0
+Graph branch,KH-0160,0,0.0
+Graph branch,KH-0161,0,0.0
+Graph branch,KH-0162,1,0.43067655807339306
+Graph branch,KH-0163,0,0.0
+Graph branch,KH-0164,1,0.3333333333333333
+Graph branch,KH-0165,0,0.0
+Graph branch,KH-0166,0,0.0
+Graph branch,KH-0167,0,0.0
+Graph branch,KH-0168,1,0.5
+Graph branch,KH-0169,0,0.0
+Graph branch,KH-0170,0,0.0
+Graph branch,KH-0171,0,0.0
+Graph branch,KH-0172,0,0.0
+Graph branch,KH-0173,0,0.0
+Graph branch,KH-0174,0,0.0
+Graph branch,KH-0175,0,0.0
+Graph branch,KH-0176,0,0.0
+Graph branch,KH-0177,0,0.0
+Graph branch,KH-0178,0,0.0
+Graph branch,KH-0179,0,0.0
+Graph branch,KH-0180,0,0.0
+Graph branch,KH-0181,0,0.0
+Graph branch,KH-0182,0,0.0
+Graph branch,KH-0183,0,0.0
+Graph branch,KH-0184,0,0.0
+Graph branch,KH-0185,1,0.3333333333333333
+Graph branch,KH-0186,0,0.0
+Graph branch,KH-0187,0,0.0
+Graph branch,KH-0188,0,0.0
+Graph branch,KH-0189,1,0.31546487678572877
+Graph branch,KH-0190,0,0.0
+Graph branch,KH-0191,0,0.0
+Graph branch,KH-0192,0,0.0
+Graph branch,KH-0193,0,0.0
+Graph branch,KH-0194,1,0.3562071871080222
+Graph branch,KH-0195,0,0.0
+Graph branch,KH-0196,0,0.0
+Graph branch,KH-0197,0,0.0
+Graph branch,KH-0198,0,0.0
+Graph branch,KH-0199,0,0.0
+Graph branch,KH-0200,0,0.0
+Graph branch,KH-0201,0,0.0
+Graph branch,KH-0202,0,0.0
+Graph branch,KH-0203,0,0.0
+Graph branch,KH-0204,0,0.0
+Graph branch,KH-0205,0,0.0
+Graph branch,KH-0206,0,0.0
+Graph branch,KH-0207,0,0.0
+Graph branch,KH-0208,0,0.0
+Graph branch,KH-0209,0,0.0
+Graph branch,KH-0210,0,0.0
+Graph branch,KH-0211,1,0.5
+Graph branch,KH-0212,0,0.0
+Graph branch,KH-0213,0,0.0
+Graph branch,KH-0214,0,0.0
+Graph branch,KH-0215,0,0.0
+Graph branch,KH-0216,0,0.0
+Graph branch,KH-0217,0,0.0
+Graph branch,KH-0218,0,0.0
+Graph branch,KH-0219,0,0.0
+Graph branch,KH-0220,0,0.0
+Graph branch,KH-0221,1,0.2890648263178879
+Graph branch,KH-0222,0,0.0
+Graph branch,KH-0223,0,0.0
+Graph branch,KH-0224,0,0.0
+Graph branch,KH-0225,0,0.0
+Graph branch,KH-0226,0,0.0
+Graph branch,KH-0227,0,0.0
+Graph branch,KH-0228,0,0.0
+Graph branch,KH-0229,1,0.6309297535714575
+Graph branch,KH-0230,0,0.0
+Graph branch,KH-0231,0,0.0
+Graph branch,KH-0232,0,0.0
+Graph branch,KH-0233,0,0.0
+Graph branch,KH-0234,0,0.0
+Graph branch,KH-0235,0,0.0
+Graph branch,KH-0236,0,0.0
+Graph branch,KH-0237,0,0.0
+Graph branch,KH-0238,0,0.0
+Graph branch,KH-0239,0,0.0
+Graph branch,KH-0240,0,0.0
+Graph branch,KH-0241,0,0.0
+Graph branch,KH-0242,0,0.0
+Graph branch,KH-0243,0,0.0
+Graph branch,KH-0244,0,0.0
+Graph branch,KH-0245,0,0.0
+Graph branch,KH-0246,0,0.0
+Graph branch,KH-0247,0,0.0
+Graph branch,KH-0248,0,0.0
+Graph branch,KH-0249,0,0.0
+Graph branch,KH-0250,0,0.0
+Graph branch,KH-0251,0,0.0
+Graph branch,KH-0252,1,0.3562071871080222
+Graph branch,KH-0253,0,0.0
+Graph branch,KH-0254,1,0.43067655807339306
+Graph branch,KH-0255,0,0.0
+Graph branch,KH-0256,0,0.0
+Graph branch,KH-0257,0,0.0
+Graph branch,KH-0258,0,0.0
+Graph branch,KH-0259,0,0.0
+Graph branch,KH-0260,0,0.0
+Graph branch,KH-0261,0,0.0
+Graph branch,KH-0262,0,0.0
+Graph branch,KH-0263,0,0.0
+Graph branch,KH-0264,0,0.0
+Graph branch,KH-0265,0,0.0
+Graph branch,KH-0266,0,0.0
+Graph branch,KH-0267,0,0.0
+Graph branch,KH-0268,0,0.0
+Graph branch,KH-0269,0,0.0
+Graph branch,KH-0270,0,0.0
+Graph branch,KH-0271,0,0.0
+Graph branch,KH-0272,0,0.0
+Graph branch,KH-0273,0,0.0
+Graph branch,KH-0274,0,0.0
+Graph branch,KH-0275,0,0.0
+Graph branch,KH-0276,0,0.0
+Graph branch,KH-0277,0,0.0
+Graph branch,KH-0278,1,0.2890648263178879
+Graph branch,KH-0279,0,0.0
+Graph branch,KH-0280,1,0.3333333333333333
+Graph branch,KH-0281,0,0.0
+Graph branch,KH-0282,0,0.0
+Graph branch,KH-0283,0,0.0
+Graph branch,KH-0284,0,0.0
+Graph branch,KH-0285,0,0.0
+Graph branch,KH-0286,0,0.0
+Graph branch,KH-0287,0,0.0
+Graph branch,KH-0288,1,0.38685280723454163
+Graph branch,KH-0289,0,0.0
+Graph branch,KH-0290,1,0.5
+Graph branch,KH-0291,1,0.2890648263178879
+Graph branch,KH-0292,0,0.0
+Graph branch,KH-0293,1,0.31546487678572877
+Graph branch,KH-0294,0,0.0
+Graph branch,KH-0295,0,0.0
+Graph branch,KH-0296,0,0.0
+Graph branch,KH-0297,0,0.0
+Graph branch,KH-0298,1,0.6309297535714575
+Graph branch,KH-0299,0,0.0
+Graph branch,KH-0300,0,0.0
+Graph branch,KH-0301,0,0.0
+Graph branch,KH-0302,0,0.0
+Graph branch,KH-0303,0,0.0
+Graph branch,KH-0304,0,0.0
+Graph branch,KH-0305,0,0.0
+Graph branch,KH-0306,0,0.0
+Graph branch,KH-0307,0,0.0
+Graph branch,KH-0308,0,0.0
+Graph branch,KH-0309,0,0.0
+Graph branch,KH-0310,0,0.0
+Graph branch,KH-0311,0,0.0
+Graph branch,KH-0312,0,0.0
+Graph branch,KH-0313,0,0.0
+Graph branch,KH-0314,0,0.0
+Graph branch,KH-0315,0,0.0
+Graph branch,KH-0316,0,0.0
+Graph branch,KH-0317,0,0.0
+Graph branch,KH-0318,0,0.0
+Graph branch,KH-0319,0,0.0
+Graph branch,KH-0320,0,0.0
+Graph branch,KH-0321,0,0.0
+Graph branch,KH-0322,0,0.0
+Graph branch,KH-0323,0,0.0
+Graph branch,KH-0324,0,0.0
+Graph branch,KH-0325,0,0.0
+Graph branch,KH-0326,1,0.43067655807339306
+Graph branch,KH-0327,0,0.0
+Graph branch,KH-0328,0,0.0
+Graph branch,KH-0329,0,0.0
+Graph branch,KH-0330,0,0.0
+Graph branch,KH-0331,0,0.0
+Graph branch,KH-0332,0,0.0
+Graph branch,KH-0333,0,0.0
+Graph branch,KH-0334,1,0.2890648263178879
+Graph branch,KH-0335,0,0.0
+Graph branch,KH-0336,0,0.0
+Graph branch,KH-0337,0,0.0
+Graph branch,KH-0338,0,0.0
+Graph branch,KH-0339,0,0.0
+Graph branch,KH-0340,0,0.0
+Graph branch,KH-0341,0,0.0
+Graph branch,KH-0342,1,0.3562071871080222
+Graph branch,KH-0343,0,0.0
+Graph branch,KH-0344,1,0.6309297535714575
+Graph branch,KH-0345,1,0.5
+Graph branch,KH-0346,0,0.0
+Graph branch,KH-0347,0,0.0
+Graph branch,KH-0348,0,0.0
+Graph branch,KH-0349,0,0.0
+Graph branch,KH-0350,0,0.0
+Graph branch,KH-0351,0,0.0
+Graph branch,KH-0352,0,0.0
+Graph branch,KH-0353,0,0.0
+Graph branch,KH-0354,0,0.0
+Graph branch,KH-0355,0,0.0
+Graph branch,KH-0356,0,0.0
+Graph branch,KH-0357,0,0.0
+Graph branch,KH-0358,0,0.0
+Graph branch,KH-0359,1,0.5
+Graph branch,KH-0360,0,0.0
+Graph branch,KH-0361,0,0.0
+Graph branch,KH-0362,0,0.0
+Graph branch,KH-0363,0,0.0
+Graph branch,KH-0364,0,0.0
+Graph branch,KH-0365,0,0.0
+Graph branch,KH-0366,1,0.38685280723454163
+Graph branch,KH-0367,0,0.0
+Graph branch,KH-0368,0,0.0
+Graph branch,KH-0369,0,0.0
+Graph branch,KH-0370,1,1.0
+Graph branch,KH-0371,0,0.0
+Graph branch,KH-0372,0,0.0
+Graph branch,KH-0373,0,0.0
+Graph branch,KH-0374,0,0.0
+Graph branch,KH-0375,0,0.0
+Graph branch,KH-0376,0,0.0
+Graph branch,KH-0377,0,0.0
+Graph branch,KH-0378,0,0.0
+Graph branch,KH-0379,0,0.0
+Graph branch,KH-0380,0,0.0
+Graph branch,KH-0381,0,0.0
+Graph branch,KH-0382,0,0.0
+Graph branch,KH-0383,0,0.0
+Graph branch,KH-0384,0,0.0
+Graph branch,KH-0385,0,0.0
+Graph branch,KH-0386,0,0.0
+Graph branch,KH-0387,0,0.0
+Graph branch,KH-0388,0,0.0
+Graph branch,KH-0389,0,0.0
+Graph branch,KH-0390,0,0.0
+Graph branch,KH-0391,0,0.0
+Graph branch,KH-0392,1,0.3010299956639812
+Graph branch,KH-0393,0,0.0
+Graph branch,KH-0394,0,0.0
+Graph branch,KH-0395,0,0.0
+Graph branch,KH-0396,1,1.0
+Graph branch,KH-0397,0,0.0
+Graph branch,KH-0398,0,0.0
+Graph branch,KH-0399,0,0.0
+Graph branch,KH-0400,0,0.0
+Graph branch,KH-0401,0,0.0
+Graph branch,KH-0402,0,0.0
+Graph branch,KH-0403,0,0.0
+Graph branch,KH-0404,0,0.0
+Graph branch,KH-0405,0,0.0
+Graph branch,KH-0406,0,0.0
+Graph branch,KH-0407,0,0.0
+Graph branch,KH-0408,1,0.3333333333333333
+Graph branch,KH-0409,0,0.0
+Graph branch,KH-0410,0,0.0
+Graph branch,KH-0411,0,0.0
+Graph branch,KH-0412,0,0.0
+Graph branch,KH-0413,0,0.0
+Graph branch,KH-0414,0,0.0
+Graph branch,KH-0415,0,0.0
+Graph branch,KH-0416,0,0.0
+Graph branch,KH-0417,0,0.0
+Graph branch,KH-0418,0,0.0
+Graph branch,KH-0419,0,0.0
+Graph branch,KH-0420,1,0.3562071871080222
+Graph branch,KH-0421,0,0.0
+Graph branch,KH-0422,0,0.0
+Graph branch,KH-0423,0,0.0
+Graph branch,KH-0424,0,0.0
+Graph branch,KH-0425,0,0.0
+Graph branch,KH-0426,0,0.0
+Graph branch,KH-0427,0,0.0
+Graph branch,KH-0428,0,0.0
+Graph branch,KH-0429,0,0.0
+Graph branch,KH-0430,0,0.0
+Graph branch,KH-0431,0,0.0
+Graph branch,KH-0432,0,0.0
+Graph branch,KH-0433,0,0.0
+Graph branch,KH-0434,0,0.0
+Graph branch,KH-0435,0,0.0
+Graph branch,KH-0436,0,0.0
+Graph branch,KH-0437,0,0.0
+Graph branch,KH-0438,0,0.0
+Graph branch,KH-0439,0,0.0
+Graph branch,KH-0440,0,0.0
+Graph branch,KH-0441,0,0.0
+Graph branch,KH-0442,0,0.0
+Graph branch,KH-0443,0,0.0
+Graph branch,KH-0444,0,0.0
+Graph branch,KH-0445,0,0.0
+Graph branch,KH-0446,0,0.0
+Graph branch,KH-0447,0,0.0
+Graph branch,KH-0448,0,0.0
+Graph branch,KH-0449,1,0.3562071871080222
+Graph branch,KH-0450,0,0.0
+Graph branch,KH-0451,0,0.0
+Graph branch,KH-0452,0,0.0
+Graph branch,KH-0453,0,0.0
+Graph branch,KH-0454,0,0.0
+Graph branch,KH-0455,0,0.0
+Graph branch,KH-0456,0,0.0
+Graph branch,KH-0457,0,0.0
+Graph branch,KH-0458,0,0.0
+Graph branch,KH-0459,0,0.0
+Graph branch,KH-0460,0,0.0
+Graph branch,KH-0461,0,0.0
+Graph branch,KH-0462,0,0.0
+Graph branch,KH-0463,0,0.0
+Graph branch,KH-0464,0,0.0
+Graph branch,KH-0465,0,0.0
+Graph branch,KH-0466,0,0.0
+Graph branch,KH-0467,0,0.0
+Graph branch,KH-0468,0,0.0
+Graph branch,KH-0469,0,0.0
+Graph branch,KH-0470,0,0.0
+Graph branch,KH-0471,0,0.0
+Graph branch,KH-0472,0,0.0
+Graph branch,KH-0473,0,0.0
+Graph branch,KH-0474,0,0.0
+Graph branch,KH-0475,0,0.0
+Graph branch,KH-0476,0,0.0
+Graph branch,KH-0477,0,0.0
+Graph branch,KH-0478,0,0.0
+Graph branch,KH-0479,0,0.0
+Graph branch,KH-0480,0,0.0
+Graph branch,KH-0481,0,0.0
+Graph branch,KH-0482,0,0.0
+Graph branch,KH-0483,0,0.0
+Graph branch,KH-0484,0,0.0
+Graph branch,KH-0485,0,0.0
+Graph branch,KH-0486,0,0.0
+Graph branch,KH-0487,0,0.0
+Graph branch,KH-0488,0,0.0
+Graph branch,KH-0489,1,0.3010299956639812
+Graph branch,KH-0490,0,0.0
+Graph branch,KH-0491,1,0.43067655807339306
+Graph branch,KH-0492,0,0.0
+Graph branch,KH-0493,0,0.0
+Graph branch,KH-0494,0,0.0
+Graph branch,KH-0495,0,0.0
+Graph branch,KH-0496,0,0.0
+Graph branch,KH-0497,0,0.0
+Graph branch,KH-0498,0,0.0
+Graph branch,KH-0499,0,0.0
+Graph branch,KH-0500,0,0.0
+Graph branch,KH-0501,0,0.0
+Graph branch,KH-0502,0,0.0
+Graph branch,KH-0503,0,0.0
+Graph branch,KH-0504,0,0.0
+Graph branch,KH-0505,1,0.31546487678572877
+Graph branch,KH-0506,0,0.0
+Graph branch,KH-0507,0,0.0
+Graph branch,KH-0508,0,0.0
+Graph branch,KH-0509,1,0.43067655807339306
+Graph branch,KH-0510,0,0.0
+Graph branch,KH-0511,0,0.0
+Graph branch,KH-0512,0,0.0
+Graph branch,KH-0513,0,0.0
+Graph branch,KH-0514,0,0.0
+Graph branch,KH-0515,0,0.0
+Graph branch,KH-0516,0,0.0
+Graph branch,KH-0517,0,0.0
+Graph branch,KH-0518,0,0.0
+Graph branch,KH-0519,0,0.0
+Graph branch,KH-0520,0,0.0
+Graph branch,KH-0521,0,0.0
+Graph branch,KH-0522,0,0.0
+Graph branch,KH-0523,0,0.0
+Graph branch,KH-0524,0,0.0
+Graph branch,KH-0525,0,0.0
+Graph branch,KH-0526,1,0.6309297535714575
+Graph branch,KH-0527,1,0.43067655807339306
+Graph branch,KH-0528,0,0.0
+Graph branch,KH-0529,0,0.0
+Graph branch,KH-0530,0,0.0
+Graph branch,KH-0531,0,0.0
+Graph branch,KH-0532,0,0.0
+Graph branch,KH-0533,0,0.0
+Graph branch,KH-0534,1,0.31546487678572877
+Graph branch,KH-0535,0,0.0
+Graph branch,KH-0536,0,0.0
+Graph branch,KH-0537,0,0.0
+Graph branch,KH-0538,0,0.0
+Graph branch,KH-0539,0,0.0
+Graph branch,KH-0540,1,0.31546487678572877
+Graph branch,KH-0541,0,0.0
+Graph branch,KH-0542,0,0.0
+Graph branch,KH-0543,0,0.0
+Graph branch,KH-0544,1,0.3010299956639812
+Graph branch,KH-0545,1,0.6309297535714575
+Graph branch,KH-0546,0,0.0
+Graph branch,KH-0547,0,0.0
+Graph branch,KH-0548,0,0.0
+Graph branch,KH-0549,1,0.3010299956639812
+Graph branch,KH-0550,0,0.0
+Graph branch,KH-0551,0,0.0
+Graph branch,KH-0552,0,0.0
+Graph branch,KH-0553,0,0.0
+Graph branch,KH-0554,0,0.0
+Graph branch,KH-0555,0,0.0
+Graph branch,KH-0556,0,0.0
+Graph branch,KH-0557,0,0.0
+Graph branch,KH-0558,0,0.0
+Graph branch,KH-0559,0,0.0
+Graph branch,KH-0560,0,0.0
+Graph branch,KH-0561,0,0.0
+Graph branch,KH-0562,0,0.0
+Graph branch,KH-0563,0,0.0
+Graph branch,KH-0564,1,0.31546487678572877
+Graph branch,KH-0565,0,0.0
+Graph branch,KH-0566,0,0.0
+Graph branch,KH-0567,0,0.0
+Graph branch,KH-0568,0,0.0
+Graph branch,KH-0569,0,0.0
+Graph branch,KH-0570,0,0.0
+Graph branch,KH-0571,1,0.43067655807339306
+Graph branch,KH-0572,0,0.0
+Graph branch,KH-0573,0,0.0
+Graph branch,KH-0574,0,0.0
+Graph branch,KH-0575,0,0.0
+Graph branch,KH-0576,0,0.0
+Graph branch,KH-0577,0,0.0
+Graph branch,KH-0578,1,0.38685280723454163
+Graph branch,KH-0579,0,0.0
+Graph branch,KH-0580,0,0.0
+Graph branch,KH-0581,0,0.0
+Graph branch,KH-0582,0,0.0
+Graph branch,KH-0583,0,0.0
+Graph branch,KH-0584,0,0.0
+Graph branch,KH-0585,0,0.0
+Graph branch,KH-0586,0,0.0
+Graph branch,KH-0587,0,0.0
+Graph branch,KH-0588,0,0.0
+Graph branch,KH-0589,0,0.0
+Graph branch,KH-0590,0,0.0
+Graph branch,KH-0591,1,0.31546487678572877
+Graph branch,KH-0592,0,0.0
+Graph branch,KH-0593,0,0.0
+Graph branch,KH-0594,0,0.0
+Graph branch,KH-0595,0,0.0
+Graph branch,KH-0596,0,0.0
+Graph branch,KH-0597,0,0.0
+Graph branch,KH-0598,0,0.0
+Graph branch,KH-0599,0,0.0
+Graph branch,KH-0600,0,0.0
+Graph branch,KH-0601,0,0.0
+Graph branch,KH-0602,0,0.0
+Graph branch,KH-0603,0,0.0
+Graph branch,KH-0604,0,0.0
+Graph branch,KH-0605,0,0.0
+Graph branch,KH-0606,0,0.0
+Graph branch,KH-0607,0,0.0
+Graph branch,KH-0608,0,0.0
+Graph branch,KH-0609,0,0.0
+Graph branch,KH-0610,0,0.0
+Graph branch,KH-0611,0,0.0
+Graph branch,KH-0612,0,0.0
+Graph branch,KH-0613,1,0.5
+Graph branch,KH-0614,1,0.43067655807339306
+Graph branch,KH-0615,1,0.43067655807339306
+Graph branch,KH-0616,0,0.0
+Graph branch,KH-0617,1,0.31546487678572877
+Graph branch,KH-0618,0,0.0
+Graph branch,KH-0619,0,0.0
+Graph branch,KH-0620,0,0.0
+Graph branch,KH-0621,0,0.0
+Graph branch,KH-0622,0,0.0
+Graph branch,KH-0623,0,0.0
+Graph branch,KH-0624,0,0.0
+Graph branch,KH-0625,0,0.0
+Graph branch,KH-0626,0,0.0
+Graph branch,KH-0627,0,0.0
+Graph branch,KH-0628,0,0.0
+Graph branch,KH-0629,0,0.0
+Graph branch,KH-0630,0,0.0
+Graph branch,KH-0631,0,0.0
+Graph branch,KH-0632,0,0.0
+Graph branch,KH-0633,0,0.0
+Graph branch,KH-0634,0,0.0
+Graph branch,KH-0635,0,0.0
+Graph branch,KH-0636,0,0.0
+Graph branch,KH-0637,1,0.31546487678572877
+Graph branch,KH-0638,0,0.0
+Graph branch,KH-0639,0,0.0
+Graph branch,KH-0640,0,0.0
+Graph branch,KH-0641,0,0.0
+Graph branch,KH-0642,0,0.0
+Graph branch,KH-0643,0,0.0
+Graph branch,KH-0644,0,0.0
+Graph branch,KH-0645,0,0.0
+Graph branch,KH-0646,0,0.0
+H1 GRU,KH-0001,0,0.0
+H1 GRU,KH-0002,0,0.0
+H1 GRU,KH-0003,0,0.0
+H1 GRU,KH-0004,0,0.0
+H1 GRU,KH-0005,0,0.0
+H1 GRU,KH-0006,0,0.0
+H1 GRU,KH-0007,0,0.0
+H1 GRU,KH-0008,0,0.0
+H1 GRU,KH-0009,0,0.0
+H1 GRU,KH-0010,0,0.0
+H1 GRU,KH-0011,0,0.0
+H1 GRU,KH-0012,0,0.0
+H1 GRU,KH-0013,0,0.0
+H1 GRU,KH-0014,0,0.0
+H1 GRU,KH-0015,0,0.0
+H1 GRU,KH-0016,0,0.0
+H1 GRU,KH-0017,0,0.0
+H1 GRU,KH-0018,0,0.0
+H1 GRU,KH-0019,0,0.0
+H1 GRU,KH-0020,0,0.0
+H1 GRU,KH-0021,0,0.0
+H1 GRU,KH-0022,0,0.0
+H1 GRU,KH-0023,0,0.0
+H1 GRU,KH-0024,0,0.0
+H1 GRU,KH-0025,0,0.0
+H1 GRU,KH-0026,0,0.0
+H1 GRU,KH-0027,0,0.0
+H1 GRU,KH-0028,0,0.0
+H1 GRU,KH-0029,0,0.0
+H1 GRU,KH-0030,0,0.0
+H1 GRU,KH-0031,0,0.0
+H1 GRU,KH-0032,0,0.0
+H1 GRU,KH-0033,0,0.0
+H1 GRU,KH-0034,0,0.0
+H1 GRU,KH-0035,0,0.0
+H1 GRU,KH-0036,0,0.0
+H1 GRU,KH-0037,0,0.0
+H1 GRU,KH-0038,0,0.0
+H1 GRU,KH-0039,0,0.0
+H1 GRU,KH-0040,0,0.0
+H1 GRU,KH-0041,0,0.0
+H1 GRU,KH-0042,0,0.0
+H1 GRU,KH-0043,0,0.0
+H1 GRU,KH-0044,0,0.0
+H1 GRU,KH-0045,0,0.0
+H1 GRU,KH-0046,0,0.0
+H1 GRU,KH-0047,0,0.0
+H1 GRU,KH-0048,0,0.0
+H1 GRU,KH-0049,0,0.0
+H1 GRU,KH-0050,0,0.0
+H1 GRU,KH-0051,0,0.0
+H1 GRU,KH-0052,0,0.0
+H1 GRU,KH-0053,0,0.0
+H1 GRU,KH-0054,0,0.0
+H1 GRU,KH-0055,0,0.0
+H1 GRU,KH-0056,0,0.0
+H1 GRU,KH-0057,0,0.0
+H1 GRU,KH-0058,0,0.0
+H1 GRU,KH-0059,0,0.0
+H1 GRU,KH-0060,0,0.0
+H1 GRU,KH-0061,0,0.0
+H1 GRU,KH-0062,1,0.2890648263178879
+H1 GRU,KH-0063,0,0.0
+H1 GRU,KH-0064,0,0.0
+H1 GRU,KH-0065,0,0.0
+H1 GRU,KH-0066,0,0.0
+H1 GRU,KH-0067,0,0.0
+H1 GRU,KH-0068,0,0.0
+H1 GRU,KH-0069,0,0.0
+H1 GRU,KH-0070,0,0.0
+H1 GRU,KH-0071,0,0.0
+H1 GRU,KH-0072,0,0.0
+H1 GRU,KH-0073,0,0.0
+H1 GRU,KH-0074,0,0.0
+H1 GRU,KH-0075,0,0.0
+H1 GRU,KH-0076,0,0.0
+H1 GRU,KH-0077,0,0.0
+H1 GRU,KH-0078,0,0.0
+H1 GRU,KH-0079,0,0.0
+H1 GRU,KH-0080,0,0.0
+H1 GRU,KH-0081,0,0.0
+H1 GRU,KH-0082,0,0.0
+H1 GRU,KH-0083,0,0.0
+H1 GRU,KH-0084,0,0.0
+H1 GRU,KH-0085,0,0.0
+H1 GRU,KH-0086,0,0.0
+H1 GRU,KH-0087,0,0.0
+H1 GRU,KH-0088,0,0.0
+H1 GRU,KH-0089,0,0.0
+H1 GRU,KH-0090,0,0.0
+H1 GRU,KH-0091,0,0.0
+H1 GRU,KH-0092,1,0.31546487678572877
+H1 GRU,KH-0093,0,0.0
+H1 GRU,KH-0094,1,1.0
+H1 GRU,KH-0095,0,0.0
+H1 GRU,KH-0096,0,0.0
+H1 GRU,KH-0097,0,0.0
+H1 GRU,KH-0098,0,0.0
+H1 GRU,KH-0099,0,0.0
+H1 GRU,KH-0100,0,0.0
+H1 GRU,KH-0101,0,0.0
+H1 GRU,KH-0102,0,0.0
+H1 GRU,KH-0103,0,0.0
+H1 GRU,KH-0104,0,0.0
+H1 GRU,KH-0105,0,0.0
+H1 GRU,KH-0106,0,0.0
+H1 GRU,KH-0107,0,0.0
+H1 GRU,KH-0108,0,0.0
+H1 GRU,KH-0109,0,0.0
+H1 GRU,KH-0110,0,0.0
+H1 GRU,KH-0111,0,0.0
+H1 GRU,KH-0112,0,0.0
+H1 GRU,KH-0113,0,0.0
+H1 GRU,KH-0114,0,0.0
+H1 GRU,KH-0115,0,0.0
+H1 GRU,KH-0116,0,0.0
+H1 GRU,KH-0117,0,0.0
+H1 GRU,KH-0118,0,0.0
+H1 GRU,KH-0119,0,0.0
+H1 GRU,KH-0120,0,0.0
+H1 GRU,KH-0121,0,0.0
+H1 GRU,KH-0122,0,0.0
+H1 GRU,KH-0123,0,0.0
+H1 GRU,KH-0124,0,0.0
+H1 GRU,KH-0125,0,0.0
+H1 GRU,KH-0126,0,0.0
+H1 GRU,KH-0127,0,0.0
+H1 GRU,KH-0128,0,0.0
+H1 GRU,KH-0129,0,0.0
+H1 GRU,KH-0130,0,0.0
+H1 GRU,KH-0131,0,0.0
+H1 GRU,KH-0132,0,0.0
+H1 GRU,KH-0133,0,0.0
+H1 GRU,KH-0134,0,0.0
+H1 GRU,KH-0135,0,0.0
+H1 GRU,KH-0136,0,0.0
+H1 GRU,KH-0137,0,0.0
+H1 GRU,KH-0138,0,0.0
+H1 GRU,KH-0139,0,0.0
+H1 GRU,KH-0140,0,0.0
+H1 GRU,KH-0141,0,0.0
+H1 GRU,KH-0142,0,0.0
+H1 GRU,KH-0143,0,0.0
+H1 GRU,KH-0144,0,0.0
+H1 GRU,KH-0145,0,0.0
+H1 GRU,KH-0146,0,0.0
+H1 GRU,KH-0147,0,0.0
+H1 GRU,KH-0148,0,0.0
+H1 GRU,KH-0149,0,0.0
+H1 GRU,KH-0150,0,0.0
+H1 GRU,KH-0151,0,0.0
+H1 GRU,KH-0152,0,0.0
+H1 GRU,KH-0153,0,0.0
+H1 GRU,KH-0154,0,0.0
+H1 GRU,KH-0155,0,0.0
+H1 GRU,KH-0156,0,0.0
+H1 GRU,KH-0157,0,0.0
+H1 GRU,KH-0158,0,0.0
+H1 GRU,KH-0159,0,0.0
+H1 GRU,KH-0160,0,0.0
+H1 GRU,KH-0161,0,0.0
+H1 GRU,KH-0162,0,0.0
+H1 GRU,KH-0163,0,0.0
+H1 GRU,KH-0164,1,0.38685280723454163
+H1 GRU,KH-0165,0,0.0
+H1 GRU,KH-0166,0,0.0
+H1 GRU,KH-0167,0,0.0
+H1 GRU,KH-0168,0,0.0
+H1 GRU,KH-0169,0,0.0
+H1 GRU,KH-0170,0,0.0
+H1 GRU,KH-0171,0,0.0
+H1 GRU,KH-0172,0,0.0
+H1 GRU,KH-0173,0,0.0
+H1 GRU,KH-0174,0,0.0
+H1 GRU,KH-0175,0,0.0
+H1 GRU,KH-0176,0,0.0
+H1 GRU,KH-0177,0,0.0
+H1 GRU,KH-0178,1,1.0
+H1 GRU,KH-0179,0,0.0
+H1 GRU,KH-0180,1,0.43067655807339306
+H1 GRU,KH-0181,0,0.0
+H1 GRU,KH-0182,0,0.0
+H1 GRU,KH-0183,0,0.0
+H1 GRU,KH-0184,0,0.0
+H1 GRU,KH-0185,0,0.0
+H1 GRU,KH-0186,0,0.0
+H1 GRU,KH-0187,0,0.0
+H1 GRU,KH-0188,1,0.3010299956639812
+H1 GRU,KH-0189,0,0.0
+H1 GRU,KH-0190,0,0.0
+H1 GRU,KH-0191,0,0.0
+H1 GRU,KH-0192,0,0.0
+H1 GRU,KH-0193,0,0.0
+H1 GRU,KH-0194,0,0.0
+H1 GRU,KH-0195,0,0.0
+H1 GRU,KH-0196,0,0.0
+H1 GRU,KH-0197,0,0.0
+H1 GRU,KH-0198,0,0.0
+H1 GRU,KH-0199,0,0.0
+H1 GRU,KH-0200,0,0.0
+H1 GRU,KH-0201,0,0.0
+H1 GRU,KH-0202,0,0.0
+H1 GRU,KH-0203,0,0.0
+H1 GRU,KH-0204,0,0.0
+H1 GRU,KH-0205,0,0.0
+H1 GRU,KH-0206,0,0.0
+H1 GRU,KH-0207,0,0.0
+H1 GRU,KH-0208,0,0.0
+H1 GRU,KH-0209,0,0.0
+H1 GRU,KH-0210,0,0.0
+H1 GRU,KH-0211,0,0.0
+H1 GRU,KH-0212,0,0.0
+H1 GRU,KH-0213,0,0.0
+H1 GRU,KH-0214,0,0.0
+H1 GRU,KH-0215,0,0.0
+H1 GRU,KH-0216,0,0.0
+H1 GRU,KH-0217,0,0.0
+H1 GRU,KH-0218,0,0.0
+H1 GRU,KH-0219,0,0.0
+H1 GRU,KH-0220,0,0.0
+H1 GRU,KH-0221,1,0.38685280723454163
+H1 GRU,KH-0222,0,0.0
+H1 GRU,KH-0223,0,0.0
+H1 GRU,KH-0224,0,0.0
+H1 GRU,KH-0225,0,0.0
+H1 GRU,KH-0226,0,0.0
+H1 GRU,KH-0227,0,0.0
+H1 GRU,KH-0228,0,0.0
+H1 GRU,KH-0229,1,0.6309297535714575
+H1 GRU,KH-0230,0,0.0
+H1 GRU,KH-0231,0,0.0
+H1 GRU,KH-0232,0,0.0
+H1 GRU,KH-0233,0,0.0
+H1 GRU,KH-0234,0,0.0
+H1 GRU,KH-0235,0,0.0
+H1 GRU,KH-0236,0,0.0
+H1 GRU,KH-0237,0,0.0
+H1 GRU,KH-0238,0,0.0
+H1 GRU,KH-0239,0,0.0
+H1 GRU,KH-0240,0,0.0
+H1 GRU,KH-0241,0,0.0
+H1 GRU,KH-0242,0,0.0
+H1 GRU,KH-0243,0,0.0
+H1 GRU,KH-0244,0,0.0
+H1 GRU,KH-0245,0,0.0
+H1 GRU,KH-0246,0,0.0
+H1 GRU,KH-0247,0,0.0
+H1 GRU,KH-0248,0,0.0
+H1 GRU,KH-0249,0,0.0
+H1 GRU,KH-0250,0,0.0
+H1 GRU,KH-0251,0,0.0
+H1 GRU,KH-0252,0,0.0
+H1 GRU,KH-0253,0,0.0
+H1 GRU,KH-0254,0,0.0
+H1 GRU,KH-0255,0,0.0
+H1 GRU,KH-0256,0,0.0
+H1 GRU,KH-0257,0,0.0
+H1 GRU,KH-0258,0,0.0
+H1 GRU,KH-0259,0,0.0
+H1 GRU,KH-0260,0,0.0
+H1 GRU,KH-0261,0,0.0
+H1 GRU,KH-0262,0,0.0
+H1 GRU,KH-0263,0,0.0
+H1 GRU,KH-0264,0,0.0
+H1 GRU,KH-0265,0,0.0
+H1 GRU,KH-0266,0,0.0
+H1 GRU,KH-0267,0,0.0
+H1 GRU,KH-0268,0,0.0
+H1 GRU,KH-0269,0,0.0
+H1 GRU,KH-0270,0,0.0
+H1 GRU,KH-0271,0,0.0
+H1 GRU,KH-0272,0,0.0
+H1 GRU,KH-0273,1,0.3010299956639812
+H1 GRU,KH-0274,0,0.0
+H1 GRU,KH-0275,0,0.0
+H1 GRU,KH-0276,0,0.0
+H1 GRU,KH-0277,0,0.0
+H1 GRU,KH-0278,0,0.0
+H1 GRU,KH-0279,0,0.0
+H1 GRU,KH-0280,0,0.0
+H1 GRU,KH-0281,1,0.2890648263178879
+H1 GRU,KH-0282,0,0.0
+H1 GRU,KH-0283,0,0.0
+H1 GRU,KH-0284,0,0.0
+H1 GRU,KH-0285,0,0.0
+H1 GRU,KH-0286,0,0.0
+H1 GRU,KH-0287,0,0.0
+H1 GRU,KH-0288,0,0.0
+H1 GRU,KH-0289,0,0.0
+H1 GRU,KH-0290,0,0.0
+H1 GRU,KH-0291,0,0.0
+H1 GRU,KH-0292,0,0.0
+H1 GRU,KH-0293,0,0.0
+H1 GRU,KH-0294,0,0.0
+H1 GRU,KH-0295,0,0.0
+H1 GRU,KH-0296,0,0.0
+H1 GRU,KH-0297,0,0.0
+H1 GRU,KH-0298,0,0.0
+H1 GRU,KH-0299,0,0.0
+H1 GRU,KH-0300,0,0.0
+H1 GRU,KH-0301,0,0.0
+H1 GRU,KH-0302,0,0.0
+H1 GRU,KH-0303,0,0.0
+H1 GRU,KH-0304,0,0.0
+H1 GRU,KH-0305,0,0.0
+H1 GRU,KH-0306,0,0.0
+H1 GRU,KH-0307,0,0.0
+H1 GRU,KH-0308,0,0.0
+H1 GRU,KH-0309,0,0.0
+H1 GRU,KH-0310,0,0.0
+H1 GRU,KH-0311,0,0.0
+H1 GRU,KH-0312,0,0.0
+H1 GRU,KH-0313,0,0.0
+H1 GRU,KH-0314,0,0.0
+H1 GRU,KH-0315,0,0.0
+H1 GRU,KH-0316,0,0.0
+H1 GRU,KH-0317,0,0.0
+H1 GRU,KH-0318,0,0.0
+H1 GRU,KH-0319,0,0.0
+H1 GRU,KH-0320,0,0.0
+H1 GRU,KH-0321,0,0.0
+H1 GRU,KH-0322,0,0.0
+H1 GRU,KH-0323,0,0.0
+H1 GRU,KH-0324,0,0.0
+H1 GRU,KH-0325,0,0.0
+H1 GRU,KH-0326,0,0.0
+H1 GRU,KH-0327,0,0.0
+H1 GRU,KH-0328,0,0.0
+H1 GRU,KH-0329,0,0.0
+H1 GRU,KH-0330,0,0.0
+H1 GRU,KH-0331,0,0.0
+H1 GRU,KH-0332,0,0.0
+H1 GRU,KH-0333,0,0.0
+H1 GRU,KH-0334,0,0.0
+H1 GRU,KH-0335,0,0.0
+H1 GRU,KH-0336,0,0.0
+H1 GRU,KH-0337,0,0.0
+H1 GRU,KH-0338,0,0.0
+H1 GRU,KH-0339,0,0.0
+H1 GRU,KH-0340,0,0.0
+H1 GRU,KH-0341,0,0.0
+H1 GRU,KH-0342,0,0.0
+H1 GRU,KH-0343,0,0.0
+H1 GRU,KH-0344,0,0.0
+H1 GRU,KH-0345,0,0.0
+H1 GRU,KH-0346,0,0.0
+H1 GRU,KH-0347,0,0.0
+H1 GRU,KH-0348,0,0.0
+H1 GRU,KH-0349,0,0.0
+H1 GRU,KH-0350,0,0.0
+H1 GRU,KH-0351,0,0.0
+H1 GRU,KH-0352,0,0.0
+H1 GRU,KH-0353,0,0.0
+H1 GRU,KH-0354,0,0.0
+H1 GRU,KH-0355,0,0.0
+H1 GRU,KH-0356,0,0.0
+H1 GRU,KH-0357,0,0.0
+H1 GRU,KH-0358,0,0.0
+H1 GRU,KH-0359,0,0.0
+H1 GRU,KH-0360,0,0.0
+H1 GRU,KH-0361,0,0.0
+H1 GRU,KH-0362,0,0.0
+H1 GRU,KH-0363,0,0.0
+H1 GRU,KH-0364,0,0.0
+H1 GRU,KH-0365,0,0.0
+H1 GRU,KH-0366,0,0.0
+H1 GRU,KH-0367,0,0.0
+H1 GRU,KH-0368,0,0.0
+H1 GRU,KH-0369,0,0.0
+H1 GRU,KH-0370,0,0.0
+H1 GRU,KH-0371,0,0.0
+H1 GRU,KH-0372,0,0.0
+H1 GRU,KH-0373,0,0.0
+H1 GRU,KH-0374,0,0.0
+H1 GRU,KH-0375,0,0.0
+H1 GRU,KH-0376,0,0.0
+H1 GRU,KH-0377,0,0.0
+H1 GRU,KH-0378,0,0.0
+H1 GRU,KH-0379,0,0.0
+H1 GRU,KH-0380,0,0.0
+H1 GRU,KH-0381,0,0.0
+H1 GRU,KH-0382,0,0.0
+H1 GRU,KH-0383,0,0.0
+H1 GRU,KH-0384,0,0.0
+H1 GRU,KH-0385,0,0.0
+H1 GRU,KH-0386,0,0.0
+H1 GRU,KH-0387,0,0.0
+H1 GRU,KH-0388,0,0.0
+H1 GRU,KH-0389,0,0.0
+H1 GRU,KH-0390,0,0.0
+H1 GRU,KH-0391,0,0.0
+H1 GRU,KH-0392,0,0.0
+H1 GRU,KH-0393,0,0.0
+H1 GRU,KH-0394,0,0.0
+H1 GRU,KH-0395,0,0.0
+H1 GRU,KH-0396,0,0.0
+H1 GRU,KH-0397,0,0.0
+H1 GRU,KH-0398,0,0.0
+H1 GRU,KH-0399,0,0.0
+H1 GRU,KH-0400,0,0.0
+H1 GRU,KH-0401,0,0.0
+H1 GRU,KH-0402,0,0.0
+H1 GRU,KH-0403,0,0.0
+H1 GRU,KH-0404,0,0.0
+H1 GRU,KH-0405,0,0.0
+H1 GRU,KH-0406,0,0.0
+H1 GRU,KH-0407,0,0.0
+H1 GRU,KH-0408,0,0.0
+H1 GRU,KH-0409,0,0.0
+H1 GRU,KH-0410,0,0.0
+H1 GRU,KH-0411,0,0.0
+H1 GRU,KH-0412,0,0.0
+H1 GRU,KH-0413,0,0.0
+H1 GRU,KH-0414,0,0.0
+H1 GRU,KH-0415,0,0.0
+H1 GRU,KH-0416,0,0.0
+H1 GRU,KH-0417,0,0.0
+H1 GRU,KH-0418,0,0.0
+H1 GRU,KH-0419,0,0.0
+H1 GRU,KH-0420,0,0.0
+H1 GRU,KH-0421,0,0.0
+H1 GRU,KH-0422,0,0.0
+H1 GRU,KH-0423,0,0.0
+H1 GRU,KH-0424,0,0.0
+H1 GRU,KH-0425,0,0.0
+H1 GRU,KH-0426,0,0.0
+H1 GRU,KH-0427,0,0.0
+H1 GRU,KH-0428,0,0.0
+H1 GRU,KH-0429,0,0.0
+H1 GRU,KH-0430,0,0.0
+H1 GRU,KH-0431,0,0.0
+H1 GRU,KH-0432,0,0.0
+H1 GRU,KH-0433,0,0.0
+H1 GRU,KH-0434,0,0.0
+H1 GRU,KH-0435,0,0.0
+H1 GRU,KH-0436,0,0.0
+H1 GRU,KH-0437,0,0.0
+H1 GRU,KH-0438,0,0.0
+H1 GRU,KH-0439,0,0.0
+H1 GRU,KH-0440,0,0.0
+H1 GRU,KH-0441,0,0.0
+H1 GRU,KH-0442,0,0.0
+H1 GRU,KH-0443,0,0.0
+H1 GRU,KH-0444,1,1.0
+H1 GRU,KH-0445,0,0.0
+H1 GRU,KH-0446,0,0.0
+H1 GRU,KH-0447,0,0.0
+H1 GRU,KH-0448,0,0.0
+H1 GRU,KH-0449,0,0.0
+H1 GRU,KH-0450,0,0.0
+H1 GRU,KH-0451,0,0.0
+H1 GRU,KH-0452,0,0.0
+H1 GRU,KH-0453,0,0.0
+H1 GRU,KH-0454,0,0.0
+H1 GRU,KH-0455,0,0.0
+H1 GRU,KH-0456,0,0.0
+H1 GRU,KH-0457,0,0.0
+H1 GRU,KH-0458,0,0.0
+H1 GRU,KH-0459,0,0.0
+H1 GRU,KH-0460,0,0.0
+H1 GRU,KH-0461,0,0.0
+H1 GRU,KH-0462,0,0.0
+H1 GRU,KH-0463,0,0.0
+H1 GRU,KH-0464,0,0.0
+H1 GRU,KH-0465,0,0.0
+H1 GRU,KH-0466,0,0.0
+H1 GRU,KH-0467,0,0.0
+H1 GRU,KH-0468,0,0.0
+H1 GRU,KH-0469,0,0.0
+H1 GRU,KH-0470,0,0.0
+H1 GRU,KH-0471,0,0.0
+H1 GRU,KH-0472,0,0.0
+H1 GRU,KH-0473,0,0.0
+H1 GRU,KH-0474,0,0.0
+H1 GRU,KH-0475,0,0.0
+H1 GRU,KH-0476,0,0.0
+H1 GRU,KH-0477,0,0.0
+H1 GRU,KH-0478,0,0.0
+H1 GRU,KH-0479,0,0.0
+H1 GRU,KH-0480,0,0.0
+H1 GRU,KH-0481,0,0.0
+H1 GRU,KH-0482,0,0.0
+H1 GRU,KH-0483,0,0.0
+H1 GRU,KH-0484,0,0.0
+H1 GRU,KH-0485,0,0.0
+H1 GRU,KH-0486,0,0.0
+H1 GRU,KH-0487,0,0.0
+H1 GRU,KH-0488,0,0.0
+H1 GRU,KH-0489,0,0.0
+H1 GRU,KH-0490,0,0.0
+H1 GRU,KH-0491,1,0.5
+H1 GRU,KH-0492,0,0.0
+H1 GRU,KH-0493,0,0.0
+H1 GRU,KH-0494,0,0.0
+H1 GRU,KH-0495,0,0.0
+H1 GRU,KH-0496,0,0.0
+H1 GRU,KH-0497,1,0.6309297535714575
+H1 GRU,KH-0498,0,0.0
+H1 GRU,KH-0499,0,0.0
+H1 GRU,KH-0500,0,0.0
+H1 GRU,KH-0501,0,0.0
+H1 GRU,KH-0502,0,0.0
+H1 GRU,KH-0503,0,0.0
+H1 GRU,KH-0504,0,0.0
+H1 GRU,KH-0505,0,0.0
+H1 GRU,KH-0506,0,0.0
+H1 GRU,KH-0507,0,0.0
+H1 GRU,KH-0508,0,0.0
+H1 GRU,KH-0509,0,0.0
+H1 GRU,KH-0510,0,0.0
+H1 GRU,KH-0511,0,0.0
+H1 GRU,KH-0512,0,0.0
+H1 GRU,KH-0513,0,0.0
+H1 GRU,KH-0514,0,0.0
+H1 GRU,KH-0515,0,0.0
+H1 GRU,KH-0516,0,0.0
+H1 GRU,KH-0517,0,0.0
+H1 GRU,KH-0518,0,0.0
+H1 GRU,KH-0519,0,0.0
+H1 GRU,KH-0520,0,0.0
+H1 GRU,KH-0521,0,0.0
+H1 GRU,KH-0522,0,0.0
+H1 GRU,KH-0523,0,0.0
+H1 GRU,KH-0524,0,0.0
+H1 GRU,KH-0525,1,0.6309297535714575
+H1 GRU,KH-0526,0,0.0
+H1 GRU,KH-0527,1,0.31546487678572877
+H1 GRU,KH-0528,0,0.0
+H1 GRU,KH-0529,0,0.0
+H1 GRU,KH-0530,0,0.0
+H1 GRU,KH-0531,0,0.0
+H1 GRU,KH-0532,0,0.0
+H1 GRU,KH-0533,0,0.0
+H1 GRU,KH-0534,0,0.0
+H1 GRU,KH-0535,0,0.0
+H1 GRU,KH-0536,0,0.0
+H1 GRU,KH-0537,1,1.0
+H1 GRU,KH-0538,0,0.0
+H1 GRU,KH-0539,0,0.0
+H1 GRU,KH-0540,0,0.0
+H1 GRU,KH-0541,0,0.0
+H1 GRU,KH-0542,0,0.0
+H1 GRU,KH-0543,0,0.0
+H1 GRU,KH-0544,0,0.0
+H1 GRU,KH-0545,0,0.0
+H1 GRU,KH-0546,0,0.0
+H1 GRU,KH-0547,0,0.0
+H1 GRU,KH-0548,0,0.0
+H1 GRU,KH-0549,1,0.6309297535714575
+H1 GRU,KH-0550,0,0.0
+H1 GRU,KH-0551,0,0.0
+H1 GRU,KH-0552,0,0.0
+H1 GRU,KH-0553,0,0.0
+H1 GRU,KH-0554,0,0.0
+H1 GRU,KH-0555,0,0.0
+H1 GRU,KH-0556,0,0.0
+H1 GRU,KH-0557,0,0.0
+H1 GRU,KH-0558,0,0.0
+H1 GRU,KH-0559,0,0.0
+H1 GRU,KH-0560,0,0.0
+H1 GRU,KH-0561,0,0.0
+H1 GRU,KH-0562,0,0.0
+H1 GRU,KH-0563,0,0.0
+H1 GRU,KH-0564,0,0.0
+H1 GRU,KH-0565,0,0.0
+H1 GRU,KH-0566,0,0.0
+H1 GRU,KH-0567,0,0.0
+H1 GRU,KH-0568,0,0.0
+H1 GRU,KH-0569,0,0.0
+H1 GRU,KH-0570,0,0.0
+H1 GRU,KH-0571,0,0.0
+H1 GRU,KH-0572,0,0.0
+H1 GRU,KH-0573,0,0.0
+H1 GRU,KH-0574,0,0.0
+H1 GRU,KH-0575,0,0.0
+H1 GRU,KH-0576,0,0.0
+H1 GRU,KH-0577,0,0.0
+H1 GRU,KH-0578,0,0.0
+H1 GRU,KH-0579,0,0.0
+H1 GRU,KH-0580,0,0.0
+H1 GRU,KH-0581,0,0.0
+H1 GRU,KH-0582,0,0.0
+H1 GRU,KH-0583,0,0.0
+H1 GRU,KH-0584,0,0.0
+H1 GRU,KH-0585,0,0.0
+H1 GRU,KH-0586,0,0.0
+H1 GRU,KH-0587,0,0.0
+H1 GRU,KH-0588,0,0.0
+H1 GRU,KH-0589,0,0.0
+H1 GRU,KH-0590,0,0.0
+H1 GRU,KH-0591,0,0.0
+H1 GRU,KH-0592,0,0.0
+H1 GRU,KH-0593,0,0.0
+H1 GRU,KH-0594,0,0.0
+H1 GRU,KH-0595,0,0.0
+H1 GRU,KH-0596,0,0.0
+H1 GRU,KH-0597,0,0.0
+H1 GRU,KH-0598,0,0.0
+H1 GRU,KH-0599,0,0.0
+H1 GRU,KH-0600,0,0.0
+H1 GRU,KH-0601,0,0.0
+H1 GRU,KH-0602,0,0.0
+H1 GRU,KH-0603,0,0.0
+H1 GRU,KH-0604,0,0.0
+H1 GRU,KH-0605,0,0.0
+H1 GRU,KH-0606,0,0.0
+H1 GRU,KH-0607,0,0.0
+H1 GRU,KH-0608,0,0.0
+H1 GRU,KH-0609,0,0.0
+H1 GRU,KH-0610,0,0.0
+H1 GRU,KH-0611,0,0.0
+H1 GRU,KH-0612,0,0.0
+H1 GRU,KH-0613,0,0.0
+H1 GRU,KH-0614,0,0.0
+H1 GRU,KH-0615,0,0.0
+H1 GRU,KH-0616,0,0.0
+H1 GRU,KH-0617,0,0.0
+H1 GRU,KH-0618,0,0.0
+H1 GRU,KH-0619,0,0.0
+H1 GRU,KH-0620,0,0.0
+H1 GRU,KH-0621,0,0.0
+H1 GRU,KH-0622,0,0.0
+H1 GRU,KH-0623,0,0.0
+H1 GRU,KH-0624,0,0.0
+H1 GRU,KH-0625,0,0.0
+H1 GRU,KH-0626,0,0.0
+H1 GRU,KH-0627,0,0.0
+H1 GRU,KH-0628,0,0.0
+H1 GRU,KH-0629,0,0.0
+H1 GRU,KH-0630,0,0.0
+H1 GRU,KH-0631,0,0.0
+H1 GRU,KH-0632,0,0.0
+H1 GRU,KH-0633,0,0.0
+H1 GRU,KH-0634,0,0.0
+H1 GRU,KH-0635,0,0.0
+H1 GRU,KH-0636,0,0.0
+H1 GRU,KH-0637,0,0.0
+H1 GRU,KH-0638,0,0.0
+H1 GRU,KH-0639,0,0.0
+H1 GRU,KH-0640,0,0.0
+H1 GRU,KH-0641,0,0.0
+H1 GRU,KH-0642,0,0.0
+H1 GRU,KH-0643,0,0.0
+H1 GRU,KH-0644,0,0.0
+H1 GRU,KH-0645,0,0.0
+H1 GRU,KH-0646,0,0.0
+H2 Graph + Text,KH-0001,0,0.0
+H2 Graph + Text,KH-0002,0,0.0
+H2 Graph + Text,KH-0003,0,0.0
+H2 Graph + Text,KH-0004,0,0.0
+H2 Graph + Text,KH-0005,0,0.0
+H2 Graph + Text,KH-0006,1,0.31546487678572877
+H2 Graph + Text,KH-0007,0,0.0
+H2 Graph + Text,KH-0008,0,0.0
+H2 Graph + Text,KH-0009,0,0.0
+H2 Graph + Text,KH-0010,0,0.0
+H2 Graph + Text,KH-0011,1,0.2890648263178879
+H2 Graph + Text,KH-0012,0,0.0
+H2 Graph + Text,KH-0013,1,0.3562071871080222
+H2 Graph + Text,KH-0014,0,0.0
+H2 Graph + Text,KH-0015,0,0.0
+H2 Graph + Text,KH-0016,0,0.0
+H2 Graph + Text,KH-0017,1,0.38685280723454163
+H2 Graph + Text,KH-0018,0,0.0
+H2 Graph + Text,KH-0019,0,0.0
+H2 Graph + Text,KH-0020,0,0.0
+H2 Graph + Text,KH-0021,0,0.0
+H2 Graph + Text,KH-0022,0,0.0
+H2 Graph + Text,KH-0023,0,0.0
+H2 Graph + Text,KH-0024,1,0.6309297535714575
+H2 Graph + Text,KH-0025,0,0.0
+H2 Graph + Text,KH-0026,0,0.0
+H2 Graph + Text,KH-0027,0,0.0
+H2 Graph + Text,KH-0028,0,0.0
+H2 Graph + Text,KH-0029,1,0.6309297535714575
+H2 Graph + Text,KH-0030,1,0.6309297535714575
+H2 Graph + Text,KH-0031,0,0.0
+H2 Graph + Text,KH-0032,0,0.0
+H2 Graph + Text,KH-0033,0,0.0
+H2 Graph + Text,KH-0034,0,0.0
+H2 Graph + Text,KH-0035,0,0.0
+H2 Graph + Text,KH-0036,0,0.0
+H2 Graph + Text,KH-0037,0,0.0
+H2 Graph + Text,KH-0038,1,0.43067655807339306
+H2 Graph + Text,KH-0039,1,1.0
+H2 Graph + Text,KH-0040,0,0.0
+H2 Graph + Text,KH-0041,0,0.0
+H2 Graph + Text,KH-0042,0,0.0
+H2 Graph + Text,KH-0043,0,0.0
+H2 Graph + Text,KH-0044,0,0.0
+H2 Graph + Text,KH-0045,0,0.0
+H2 Graph + Text,KH-0046,0,0.0
+H2 Graph + Text,KH-0047,0,0.0
+H2 Graph + Text,KH-0048,0,0.0
+H2 Graph + Text,KH-0049,0,0.0
+H2 Graph + Text,KH-0050,0,0.0
+H2 Graph + Text,KH-0051,0,0.0
+H2 Graph + Text,KH-0052,1,1.0
+H2 Graph + Text,KH-0053,0,0.0
+H2 Graph + Text,KH-0054,0,0.0
+H2 Graph + Text,KH-0055,0,0.0
+H2 Graph + Text,KH-0056,0,0.0
+H2 Graph + Text,KH-0057,0,0.0
+H2 Graph + Text,KH-0058,0,0.0
+H2 Graph + Text,KH-0059,0,0.0
+H2 Graph + Text,KH-0060,0,0.0
+H2 Graph + Text,KH-0061,1,1.0
+H2 Graph + Text,KH-0062,0,0.0
+H2 Graph + Text,KH-0063,0,0.0
+H2 Graph + Text,KH-0064,1,1.0
+H2 Graph + Text,KH-0065,0,0.0
+H2 Graph + Text,KH-0066,0,0.0
+H2 Graph + Text,KH-0067,0,0.0
+H2 Graph + Text,KH-0068,0,0.0
+H2 Graph + Text,KH-0069,0,0.0
+H2 Graph + Text,KH-0070,0,0.0
+H2 Graph + Text,KH-0071,0,0.0
+H2 Graph + Text,KH-0072,0,0.0
+H2 Graph + Text,KH-0073,0,0.0
+H2 Graph + Text,KH-0074,1,0.5
+H2 Graph + Text,KH-0075,0,0.0
+H2 Graph + Text,KH-0076,0,0.0
+H2 Graph + Text,KH-0077,0,0.0
+H2 Graph + Text,KH-0078,0,0.0
+H2 Graph + Text,KH-0079,0,0.0
+H2 Graph + Text,KH-0080,1,0.2890648263178879
+H2 Graph + Text,KH-0081,1,0.3010299956639812
+H2 Graph + Text,KH-0082,0,0.0
+H2 Graph + Text,KH-0083,0,0.0
+H2 Graph + Text,KH-0084,0,0.0
+H2 Graph + Text,KH-0085,0,0.0
+H2 Graph + Text,KH-0086,0,0.0
+H2 Graph + Text,KH-0087,1,0.2890648263178879
+H2 Graph + Text,KH-0088,0,0.0
+H2 Graph + Text,KH-0089,0,0.0
+H2 Graph + Text,KH-0090,0,0.0
+H2 Graph + Text,KH-0091,1,1.0
+H2 Graph + Text,KH-0092,0,0.0
+H2 Graph + Text,KH-0093,0,0.0
+H2 Graph + Text,KH-0094,0,0.0
+H2 Graph + Text,KH-0095,0,0.0
+H2 Graph + Text,KH-0096,1,0.3333333333333333
+H2 Graph + Text,KH-0097,0,0.0
+H2 Graph + Text,KH-0098,1,0.5
+H2 Graph + Text,KH-0099,1,0.6309297535714575
+H2 Graph + Text,KH-0100,0,0.0
+H2 Graph + Text,KH-0101,1,0.3333333333333333
+H2 Graph + Text,KH-0102,0,0.0
+H2 Graph + Text,KH-0103,1,0.38685280723454163
+H2 Graph + Text,KH-0104,0,0.0
+H2 Graph + Text,KH-0105,0,0.0
+H2 Graph + Text,KH-0106,1,1.0
+H2 Graph + Text,KH-0107,0,0.0
+H2 Graph + Text,KH-0108,0,0.0
+H2 Graph + Text,KH-0109,0,0.0
+H2 Graph + Text,KH-0110,0,0.0
+H2 Graph + Text,KH-0111,0,0.0
+H2 Graph + Text,KH-0112,0,0.0
+H2 Graph + Text,KH-0113,1,0.31546487678572877
+H2 Graph + Text,KH-0114,0,0.0
+H2 Graph + Text,KH-0115,1,0.5
+H2 Graph + Text,KH-0116,0,0.0
+H2 Graph + Text,KH-0117,1,1.0
+H2 Graph + Text,KH-0118,0,0.0
+H2 Graph + Text,KH-0119,0,0.0
+H2 Graph + Text,KH-0120,1,0.38685280723454163
+H2 Graph + Text,KH-0121,0,0.0
+H2 Graph + Text,KH-0122,0,0.0
+H2 Graph + Text,KH-0123,0,0.0
+H2 Graph + Text,KH-0124,0,0.0
+H2 Graph + Text,KH-0125,0,0.0
+H2 Graph + Text,KH-0126,0,0.0
+H2 Graph + Text,KH-0127,1,1.0
+H2 Graph + Text,KH-0128,1,1.0
+H2 Graph + Text,KH-0129,0,0.0
+H2 Graph + Text,KH-0130,1,1.0
+H2 Graph + Text,KH-0131,0,0.0
+H2 Graph + Text,KH-0132,0,0.0
+H2 Graph + Text,KH-0133,0,0.0
+H2 Graph + Text,KH-0134,0,0.0
+H2 Graph + Text,KH-0135,1,1.0
+H2 Graph + Text,KH-0136,0,0.0
+H2 Graph + Text,KH-0137,0,0.0
+H2 Graph + Text,KH-0138,0,0.0
+H2 Graph + Text,KH-0139,0,0.0
+H2 Graph + Text,KH-0140,0,0.0
+H2 Graph + Text,KH-0141,0,0.0
+H2 Graph + Text,KH-0142,0,0.0
+H2 Graph + Text,KH-0143,1,0.3010299956639812
+H2 Graph + Text,KH-0144,0,0.0
+H2 Graph + Text,KH-0145,0,0.0
+H2 Graph + Text,KH-0146,0,0.0
+H2 Graph + Text,KH-0147,0,0.0
+H2 Graph + Text,KH-0148,0,0.0
+H2 Graph + Text,KH-0149,0,0.0
+H2 Graph + Text,KH-0150,0,0.0
+H2 Graph + Text,KH-0151,0,0.0
+H2 Graph + Text,KH-0152,1,0.3010299956639812
+H2 Graph + Text,KH-0153,0,0.0
+H2 Graph + Text,KH-0154,0,0.0
+H2 Graph + Text,KH-0155,0,0.0
+H2 Graph + Text,KH-0156,0,0.0
+H2 Graph + Text,KH-0157,0,0.0
+H2 Graph + Text,KH-0158,0,0.0
+H2 Graph + Text,KH-0159,0,0.0
+H2 Graph + Text,KH-0160,0,0.0
+H2 Graph + Text,KH-0161,0,0.0
+H2 Graph + Text,KH-0162,0,0.0
+H2 Graph + Text,KH-0163,0,0.0
+H2 Graph + Text,KH-0164,1,0.3010299956639812
+H2 Graph + Text,KH-0165,0,0.0
+H2 Graph + Text,KH-0166,0,0.0
+H2 Graph + Text,KH-0167,0,0.0
+H2 Graph + Text,KH-0168,1,1.0
+H2 Graph + Text,KH-0169,0,0.0
+H2 Graph + Text,KH-0170,0,0.0
+H2 Graph + Text,KH-0171,0,0.0
+H2 Graph + Text,KH-0172,0,0.0
+H2 Graph + Text,KH-0173,1,0.3562071871080222
+H2 Graph + Text,KH-0174,0,0.0
+H2 Graph + Text,KH-0175,0,0.0
+H2 Graph + Text,KH-0176,0,0.0
+H2 Graph + Text,KH-0177,0,0.0
+H2 Graph + Text,KH-0178,0,0.0
+H2 Graph + Text,KH-0179,0,0.0
+H2 Graph + Text,KH-0180,0,0.0
+H2 Graph + Text,KH-0181,1,0.2890648263178879
+H2 Graph + Text,KH-0182,0,0.0
+H2 Graph + Text,KH-0183,0,0.0
+H2 Graph + Text,KH-0184,0,0.0
+H2 Graph + Text,KH-0185,1,0.43067655807339306
+H2 Graph + Text,KH-0186,0,0.0
+H2 Graph + Text,KH-0187,0,0.0
+H2 Graph + Text,KH-0188,0,0.0
+H2 Graph + Text,KH-0189,1,1.0
+H2 Graph + Text,KH-0190,1,1.0
+H2 Graph + Text,KH-0191,0,0.0
+H2 Graph + Text,KH-0192,0,0.0
+H2 Graph + Text,KH-0193,1,0.38685280723454163
+H2 Graph + Text,KH-0194,0,0.0
+H2 Graph + Text,KH-0195,0,0.0
+H2 Graph + Text,KH-0196,0,0.0
+H2 Graph + Text,KH-0197,1,0.31546487678572877
+H2 Graph + Text,KH-0198,0,0.0
+H2 Graph + Text,KH-0199,1,0.31546487678572877
+H2 Graph + Text,KH-0200,0,0.0
+H2 Graph + Text,KH-0201,1,0.43067655807339306
+H2 Graph + Text,KH-0202,0,0.0
+H2 Graph + Text,KH-0203,1,0.2890648263178879
+H2 Graph + Text,KH-0204,0,0.0
+H2 Graph + Text,KH-0205,1,0.5
+H2 Graph + Text,KH-0206,0,0.0
+H2 Graph + Text,KH-0207,0,0.0
+H2 Graph + Text,KH-0208,0,0.0
+H2 Graph + Text,KH-0209,0,0.0
+H2 Graph + Text,KH-0210,0,0.0
+H2 Graph + Text,KH-0211,0,0.0
+H2 Graph + Text,KH-0212,0,0.0
+H2 Graph + Text,KH-0213,0,0.0
+H2 Graph + Text,KH-0214,0,0.0
+H2 Graph + Text,KH-0215,0,0.0
+H2 Graph + Text,KH-0216,0,0.0
+H2 Graph + Text,KH-0217,0,0.0
+H2 Graph + Text,KH-0218,0,0.0
+H2 Graph + Text,KH-0219,0,0.0
+H2 Graph + Text,KH-0220,0,0.0
+H2 Graph + Text,KH-0221,0,0.0
+H2 Graph + Text,KH-0222,0,0.0
+H2 Graph + Text,KH-0223,0,0.0
+H2 Graph + Text,KH-0224,0,0.0
+H2 Graph + Text,KH-0225,0,0.0
+H2 Graph + Text,KH-0226,1,1.0
+H2 Graph + Text,KH-0227,1,1.0
+H2 Graph + Text,KH-0228,0,0.0
+H2 Graph + Text,KH-0229,1,0.6309297535714575
+H2 Graph + Text,KH-0230,1,0.38685280723454163
+H2 Graph + Text,KH-0231,0,0.0
+H2 Graph + Text,KH-0232,1,1.0
+H2 Graph + Text,KH-0233,0,0.0
+H2 Graph + Text,KH-0234,0,0.0
+H2 Graph + Text,KH-0235,1,0.38685280723454163
+H2 Graph + Text,KH-0236,0,0.0
+H2 Graph + Text,KH-0237,0,0.0
+H2 Graph + Text,KH-0238,0,0.0
+H2 Graph + Text,KH-0239,0,0.0
+H2 Graph + Text,KH-0240,1,0.6309297535714575
+H2 Graph + Text,KH-0241,1,0.3562071871080222
+H2 Graph + Text,KH-0242,1,0.5
+H2 Graph + Text,KH-0243,0,0.0
+H2 Graph + Text,KH-0244,0,0.0
+H2 Graph + Text,KH-0245,1,0.31546487678572877
+H2 Graph + Text,KH-0246,0,0.0
+H2 Graph + Text,KH-0247,1,0.38685280723454163
+H2 Graph + Text,KH-0248,0,0.0
+H2 Graph + Text,KH-0249,1,0.43067655807339306
+H2 Graph + Text,KH-0250,0,0.0
+H2 Graph + Text,KH-0251,1,0.43067655807339306
+H2 Graph + Text,KH-0252,1,0.5
+H2 Graph + Text,KH-0253,0,0.0
+H2 Graph + Text,KH-0254,0,0.0
+H2 Graph + Text,KH-0255,0,0.0
+H2 Graph + Text,KH-0256,1,0.3010299956639812
+H2 Graph + Text,KH-0257,0,0.0
+H2 Graph + Text,KH-0258,0,0.0
+H2 Graph + Text,KH-0259,0,0.0
+H2 Graph + Text,KH-0260,0,0.0
+H2 Graph + Text,KH-0261,0,0.0
+H2 Graph + Text,KH-0262,1,0.6309297535714575
+H2 Graph + Text,KH-0263,0,0.0
+H2 Graph + Text,KH-0264,1,1.0
+H2 Graph + Text,KH-0265,0,0.0
+H2 Graph + Text,KH-0266,0,0.0
+H2 Graph + Text,KH-0267,0,0.0
+H2 Graph + Text,KH-0268,1,0.43067655807339306
+H2 Graph + Text,KH-0269,0,0.0
+H2 Graph + Text,KH-0270,0,0.0
+H2 Graph + Text,KH-0271,0,0.0
+H2 Graph + Text,KH-0272,0,0.0
+H2 Graph + Text,KH-0273,0,0.0
+H2 Graph + Text,KH-0274,0,0.0
+H2 Graph + Text,KH-0275,0,0.0
+H2 Graph + Text,KH-0276,0,0.0
+H2 Graph + Text,KH-0277,1,0.5
+H2 Graph + Text,KH-0278,0,0.0
+H2 Graph + Text,KH-0279,0,0.0
+H2 Graph + Text,KH-0280,1,1.0
+H2 Graph + Text,KH-0281,1,0.6309297535714575
+H2 Graph + Text,KH-0282,0,0.0
+H2 Graph + Text,KH-0283,0,0.0
+H2 Graph + Text,KH-0284,0,0.0
+H2 Graph + Text,KH-0285,0,0.0
+H2 Graph + Text,KH-0286,0,0.0
+H2 Graph + Text,KH-0287,0,0.0
+H2 Graph + Text,KH-0288,1,1.0
+H2 Graph + Text,KH-0289,0,0.0
+H2 Graph + Text,KH-0290,1,0.6309297535714575
+H2 Graph + Text,KH-0291,1,0.38685280723454163
+H2 Graph + Text,KH-0292,0,0.0
+H2 Graph + Text,KH-0293,0,0.0
+H2 Graph + Text,KH-0294,1,0.3010299956639812
+H2 Graph + Text,KH-0295,0,0.0
+H2 Graph + Text,KH-0296,0,0.0
+H2 Graph + Text,KH-0297,1,0.6309297535714575
+H2 Graph + Text,KH-0298,1,1.0
+H2 Graph + Text,KH-0299,0,0.0
+H2 Graph + Text,KH-0300,0,0.0
+H2 Graph + Text,KH-0301,1,0.43067655807339306
+H2 Graph + Text,KH-0302,0,0.0
+H2 Graph + Text,KH-0303,0,0.0
+H2 Graph + Text,KH-0304,0,0.0
+H2 Graph + Text,KH-0305,0,0.0
+H2 Graph + Text,KH-0306,0,0.0
+H2 Graph + Text,KH-0307,0,0.0
+H2 Graph + Text,KH-0308,0,0.0
+H2 Graph + Text,KH-0309,0,0.0
+H2 Graph + Text,KH-0310,0,0.0
+H2 Graph + Text,KH-0311,0,0.0
+H2 Graph + Text,KH-0312,0,0.0
+H2 Graph + Text,KH-0313,0,0.0
+H2 Graph + Text,KH-0314,1,0.6309297535714575
+H2 Graph + Text,KH-0315,0,0.0
+H2 Graph + Text,KH-0316,0,0.0
+H2 Graph + Text,KH-0317,1,1.0
+H2 Graph + Text,KH-0318,0,0.0
+H2 Graph + Text,KH-0319,1,0.3333333333333333
+H2 Graph + Text,KH-0320,0,0.0
+H2 Graph + Text,KH-0321,0,0.0
+H2 Graph + Text,KH-0322,1,0.38685280723454163
+H2 Graph + Text,KH-0323,0,0.0
+H2 Graph + Text,KH-0324,0,0.0
+H2 Graph + Text,KH-0325,0,0.0
+H2 Graph + Text,KH-0326,1,0.6309297535714575
+H2 Graph + Text,KH-0327,0,0.0
+H2 Graph + Text,KH-0328,1,0.3562071871080222
+H2 Graph + Text,KH-0329,0,0.0
+H2 Graph + Text,KH-0330,0,0.0
+H2 Graph + Text,KH-0331,1,0.38685280723454163
+H2 Graph + Text,KH-0332,1,1.0
+H2 Graph + Text,KH-0333,1,0.31546487678572877
+H2 Graph + Text,KH-0334,0,0.0
+H2 Graph + Text,KH-0335,0,0.0
+H2 Graph + Text,KH-0336,0,0.0
+H2 Graph + Text,KH-0337,0,0.0
+H2 Graph + Text,KH-0338,0,0.0
+H2 Graph + Text,KH-0339,0,0.0
+H2 Graph + Text,KH-0340,0,0.0
+H2 Graph + Text,KH-0341,0,0.0
+H2 Graph + Text,KH-0342,0,0.0
+H2 Graph + Text,KH-0343,0,0.0
+H2 Graph + Text,KH-0344,0,0.0
+H2 Graph + Text,KH-0345,0,0.0
+H2 Graph + Text,KH-0346,0,0.0
+H2 Graph + Text,KH-0347,0,0.0
+H2 Graph + Text,KH-0348,1,0.3562071871080222
+H2 Graph + Text,KH-0349,0,0.0
+H2 Graph + Text,KH-0350,0,0.0
+H2 Graph + Text,KH-0351,0,0.0
+H2 Graph + Text,KH-0352,0,0.0
+H2 Graph + Text,KH-0353,1,0.6309297535714575
+H2 Graph + Text,KH-0354,0,0.0
+H2 Graph + Text,KH-0355,0,0.0
+H2 Graph + Text,KH-0356,1,0.3333333333333333
+H2 Graph + Text,KH-0357,0,0.0
+H2 Graph + Text,KH-0358,0,0.0
+H2 Graph + Text,KH-0359,0,0.0
+H2 Graph + Text,KH-0360,0,0.0
+H2 Graph + Text,KH-0361,0,0.0
+H2 Graph + Text,KH-0362,0,0.0
+H2 Graph + Text,KH-0363,0,0.0
+H2 Graph + Text,KH-0364,0,0.0
+H2 Graph + Text,KH-0365,0,0.0
+H2 Graph + Text,KH-0366,1,0.2890648263178879
+H2 Graph + Text,KH-0367,1,0.2890648263178879
+H2 Graph + Text,KH-0368,1,0.6309297535714575
+H2 Graph + Text,KH-0369,0,0.0
+H2 Graph + Text,KH-0370,1,0.3562071871080222
+H2 Graph + Text,KH-0371,1,0.5
+H2 Graph + Text,KH-0372,0,0.0
+H2 Graph + Text,KH-0373,0,0.0
+H2 Graph + Text,KH-0374,1,0.43067655807339306
+H2 Graph + Text,KH-0375,0,0.0
+H2 Graph + Text,KH-0376,0,0.0
+H2 Graph + Text,KH-0377,0,0.0
+H2 Graph + Text,KH-0378,1,0.31546487678572877
+H2 Graph + Text,KH-0379,0,0.0
+H2 Graph + Text,KH-0380,0,0.0
+H2 Graph + Text,KH-0381,1,0.2890648263178879
+H2 Graph + Text,KH-0382,0,0.0
+H2 Graph + Text,KH-0383,0,0.0
+H2 Graph + Text,KH-0384,0,0.0
+H2 Graph + Text,KH-0385,0,0.0
+H2 Graph + Text,KH-0386,1,0.5
+H2 Graph + Text,KH-0387,0,0.0
+H2 Graph + Text,KH-0388,0,0.0
+H2 Graph + Text,KH-0389,0,0.0
+H2 Graph + Text,KH-0390,0,0.0
+H2 Graph + Text,KH-0391,1,0.2890648263178879
+H2 Graph + Text,KH-0392,1,0.38685280723454163
+H2 Graph + Text,KH-0393,0,0.0
+H2 Graph + Text,KH-0394,1,1.0
+H2 Graph + Text,KH-0395,0,0.0
+H2 Graph + Text,KH-0396,1,1.0
+H2 Graph + Text,KH-0397,0,0.0
+H2 Graph + Text,KH-0398,0,0.0
+H2 Graph + Text,KH-0399,0,0.0
+H2 Graph + Text,KH-0400,0,0.0
+H2 Graph + Text,KH-0401,0,0.0
+H2 Graph + Text,KH-0402,0,0.0
+H2 Graph + Text,KH-0403,0,0.0
+H2 Graph + Text,KH-0404,0,0.0
+H2 Graph + Text,KH-0405,0,0.0
+H2 Graph + Text,KH-0406,1,0.3010299956639812
+H2 Graph + Text,KH-0407,0,0.0
+H2 Graph + Text,KH-0408,1,1.0
+H2 Graph + Text,KH-0409,0,0.0
+H2 Graph + Text,KH-0410,1,0.5
+H2 Graph + Text,KH-0411,1,0.3562071871080222
+H2 Graph + Text,KH-0412,0,0.0
+H2 Graph + Text,KH-0413,0,0.0
+H2 Graph + Text,KH-0414,0,0.0
+H2 Graph + Text,KH-0415,1,0.6309297535714575
+H2 Graph + Text,KH-0416,0,0.0
+H2 Graph + Text,KH-0417,0,0.0
+H2 Graph + Text,KH-0418,0,0.0
+H2 Graph + Text,KH-0419,0,0.0
+H2 Graph + Text,KH-0420,1,0.6309297535714575
+H2 Graph + Text,KH-0421,1,0.31546487678572877
+H2 Graph + Text,KH-0422,1,0.3333333333333333
+H2 Graph + Text,KH-0423,0,0.0
+H2 Graph + Text,KH-0424,1,0.5
+H2 Graph + Text,KH-0425,0,0.0
+H2 Graph + Text,KH-0426,0,0.0
+H2 Graph + Text,KH-0427,0,0.0
+H2 Graph + Text,KH-0428,1,0.3562071871080222
+H2 Graph + Text,KH-0429,1,1.0
+H2 Graph + Text,KH-0430,0,0.0
+H2 Graph + Text,KH-0431,1,0.6309297535714575
+H2 Graph + Text,KH-0432,0,0.0
+H2 Graph + Text,KH-0433,0,0.0
+H2 Graph + Text,KH-0434,1,1.0
+H2 Graph + Text,KH-0435,0,0.0
+H2 Graph + Text,KH-0436,0,0.0
+H2 Graph + Text,KH-0437,1,0.5
+H2 Graph + Text,KH-0438,1,0.43067655807339306
+H2 Graph + Text,KH-0439,0,0.0
+H2 Graph + Text,KH-0440,0,0.0
+H2 Graph + Text,KH-0441,0,0.0
+H2 Graph + Text,KH-0442,0,0.0
+H2 Graph + Text,KH-0443,0,0.0
+H2 Graph + Text,KH-0444,1,1.0
+H2 Graph + Text,KH-0445,1,1.0
+H2 Graph + Text,KH-0446,0,0.0
+H2 Graph + Text,KH-0447,0,0.0
+H2 Graph + Text,KH-0448,0,0.0
+H2 Graph + Text,KH-0449,1,0.6309297535714575
+H2 Graph + Text,KH-0450,1,0.3010299956639812
+H2 Graph + Text,KH-0451,0,0.0
+H2 Graph + Text,KH-0452,0,0.0
+H2 Graph + Text,KH-0453,0,0.0
+H2 Graph + Text,KH-0454,0,0.0
+H2 Graph + Text,KH-0455,0,0.0
+H2 Graph + Text,KH-0456,0,0.0
+H2 Graph + Text,KH-0457,0,0.0
+H2 Graph + Text,KH-0458,0,0.0
+H2 Graph + Text,KH-0459,0,0.0
+H2 Graph + Text,KH-0460,0,0.0
+H2 Graph + Text,KH-0461,1,0.5
+H2 Graph + Text,KH-0462,0,0.0
+H2 Graph + Text,KH-0463,1,0.31546487678572877
+H2 Graph + Text,KH-0464,0,0.0
+H2 Graph + Text,KH-0465,0,0.0
+H2 Graph + Text,KH-0466,1,0.5
+H2 Graph + Text,KH-0467,0,0.0
+H2 Graph + Text,KH-0468,0,0.0
+H2 Graph + Text,KH-0469,0,0.0
+H2 Graph + Text,KH-0470,0,0.0
+H2 Graph + Text,KH-0471,0,0.0
+H2 Graph + Text,KH-0472,1,0.31546487678572877
+H2 Graph + Text,KH-0473,0,0.0
+H2 Graph + Text,KH-0474,0,0.0
+H2 Graph + Text,KH-0475,0,0.0
+H2 Graph + Text,KH-0476,1,0.3010299956639812
+H2 Graph + Text,KH-0477,0,0.0
+H2 Graph + Text,KH-0478,0,0.0
+H2 Graph + Text,KH-0479,1,0.43067655807339306
+H2 Graph + Text,KH-0480,0,0.0
+H2 Graph + Text,KH-0481,0,0.0
+H2 Graph + Text,KH-0482,0,0.0
+H2 Graph + Text,KH-0483,0,0.0
+H2 Graph + Text,KH-0484,0,0.0
+H2 Graph + Text,KH-0485,0,0.0
+H2 Graph + Text,KH-0486,0,0.0
+H2 Graph + Text,KH-0487,0,0.0
+H2 Graph + Text,KH-0488,0,0.0
+H2 Graph + Text,KH-0489,1,0.5
+H2 Graph + Text,KH-0490,0,0.0
+H2 Graph + Text,KH-0491,0,0.0
+H2 Graph + Text,KH-0492,0,0.0
+H2 Graph + Text,KH-0493,0,0.0
+H2 Graph + Text,KH-0494,0,0.0
+H2 Graph + Text,KH-0495,0,0.0
+H2 Graph + Text,KH-0496,0,0.0
+H2 Graph + Text,KH-0497,1,0.3333333333333333
+H2 Graph + Text,KH-0498,1,0.31546487678572877
+H2 Graph + Text,KH-0499,0,0.0
+H2 Graph + Text,KH-0500,0,0.0
+H2 Graph + Text,KH-0501,1,0.3333333333333333
+H2 Graph + Text,KH-0502,1,0.3333333333333333
+H2 Graph + Text,KH-0503,0,0.0
+H2 Graph + Text,KH-0504,0,0.0
+H2 Graph + Text,KH-0505,1,0.38685280723454163
+H2 Graph + Text,KH-0506,0,0.0
+H2 Graph + Text,KH-0507,0,0.0
+H2 Graph + Text,KH-0508,1,1.0
+H2 Graph + Text,KH-0509,1,1.0
+H2 Graph + Text,KH-0510,0,0.0
+H2 Graph + Text,KH-0511,0,0.0
+H2 Graph + Text,KH-0512,0,0.0
+H2 Graph + Text,KH-0513,0,0.0
+H2 Graph + Text,KH-0514,0,0.0
+H2 Graph + Text,KH-0515,0,0.0
+H2 Graph + Text,KH-0516,0,0.0
+H2 Graph + Text,KH-0517,0,0.0
+H2 Graph + Text,KH-0518,0,0.0
+H2 Graph + Text,KH-0519,0,0.0
+H2 Graph + Text,KH-0520,0,0.0
+H2 Graph + Text,KH-0521,0,0.0
+H2 Graph + Text,KH-0522,0,0.0
+H2 Graph + Text,KH-0523,0,0.0
+H2 Graph + Text,KH-0524,0,0.0
+H2 Graph + Text,KH-0525,0,0.0
+H2 Graph + Text,KH-0526,1,1.0
+H2 Graph + Text,KH-0527,0,0.0
+H2 Graph + Text,KH-0528,1,0.38685280723454163
+H2 Graph + Text,KH-0529,0,0.0
+H2 Graph + Text,KH-0530,0,0.0
+H2 Graph + Text,KH-0531,0,0.0
+H2 Graph + Text,KH-0532,0,0.0
+H2 Graph + Text,KH-0533,0,0.0
+H2 Graph + Text,KH-0534,0,0.0
+H2 Graph + Text,KH-0535,0,0.0
+H2 Graph + Text,KH-0536,1,0.6309297535714575
+H2 Graph + Text,KH-0537,0,0.0
+H2 Graph + Text,KH-0538,0,0.0
+H2 Graph + Text,KH-0539,0,0.0
+H2 Graph + Text,KH-0540,0,0.0
+H2 Graph + Text,KH-0541,0,0.0
+H2 Graph + Text,KH-0542,0,0.0
+H2 Graph + Text,KH-0543,0,0.0
+H2 Graph + Text,KH-0544,0,0.0
+H2 Graph + Text,KH-0545,0,0.0
+H2 Graph + Text,KH-0546,0,0.0
+H2 Graph + Text,KH-0547,0,0.0
+H2 Graph + Text,KH-0548,1,0.6309297535714575
+H2 Graph + Text,KH-0549,1,0.3333333333333333
+H2 Graph + Text,KH-0550,0,0.0
+H2 Graph + Text,KH-0551,0,0.0
+H2 Graph + Text,KH-0552,0,0.0
+H2 Graph + Text,KH-0553,1,0.6309297535714575
+H2 Graph + Text,KH-0554,0,0.0
+H2 Graph + Text,KH-0555,1,0.3010299956639812
+H2 Graph + Text,KH-0556,1,0.6309297535714575
+H2 Graph + Text,KH-0557,0,0.0
+H2 Graph + Text,KH-0558,0,0.0
+H2 Graph + Text,KH-0559,0,0.0
+H2 Graph + Text,KH-0560,0,0.0
+H2 Graph + Text,KH-0561,1,1.0
+H2 Graph + Text,KH-0562,0,0.0
+H2 Graph + Text,KH-0563,0,0.0
+H2 Graph + Text,KH-0564,1,0.6309297535714575
+H2 Graph + Text,KH-0565,0,0.0
+H2 Graph + Text,KH-0566,0,0.0
+H2 Graph + Text,KH-0567,0,0.0
+H2 Graph + Text,KH-0568,0,0.0
+H2 Graph + Text,KH-0569,1,0.43067655807339306
+H2 Graph + Text,KH-0570,0,0.0
+H2 Graph + Text,KH-0571,0,0.0
+H2 Graph + Text,KH-0572,0,0.0
+H2 Graph + Text,KH-0573,0,0.0
+H2 Graph + Text,KH-0574,0,0.0
+H2 Graph + Text,KH-0575,0,0.0
+H2 Graph + Text,KH-0576,0,0.0
+H2 Graph + Text,KH-0577,0,0.0
+H2 Graph + Text,KH-0578,1,0.5
+H2 Graph + Text,KH-0579,0,0.0
+H2 Graph + Text,KH-0580,0,0.0
+H2 Graph + Text,KH-0581,0,0.0
+H2 Graph + Text,KH-0582,1,0.43067655807339306
+H2 Graph + Text,KH-0583,1,0.43067655807339306
+H2 Graph + Text,KH-0584,0,0.0
+H2 Graph + Text,KH-0585,1,0.5
+H2 Graph + Text,KH-0586,0,0.0
+H2 Graph + Text,KH-0587,0,0.0
+H2 Graph + Text,KH-0588,1,0.5
+H2 Graph + Text,KH-0589,0,0.0
+H2 Graph + Text,KH-0590,0,0.0
+H2 Graph + Text,KH-0591,1,0.6309297535714575
+H2 Graph + Text,KH-0592,0,0.0
+H2 Graph + Text,KH-0593,0,0.0
+H2 Graph + Text,KH-0594,0,0.0
+H2 Graph + Text,KH-0595,0,0.0
+H2 Graph + Text,KH-0596,1,0.3010299956639812
+H2 Graph + Text,KH-0597,0,0.0
+H2 Graph + Text,KH-0598,0,0.0
+H2 Graph + Text,KH-0599,0,0.0
+H2 Graph + Text,KH-0600,0,0.0
+H2 Graph + Text,KH-0601,1,0.43067655807339306
+H2 Graph + Text,KH-0602,0,0.0
+H2 Graph + Text,KH-0603,0,0.0
+H2 Graph + Text,KH-0604,1,0.38685280723454163
+H2 Graph + Text,KH-0605,1,0.6309297535714575
+H2 Graph + Text,KH-0606,0,0.0
+H2 Graph + Text,KH-0607,0,0.0
+H2 Graph + Text,KH-0608,0,0.0
+H2 Graph + Text,KH-0609,0,0.0
+H2 Graph + Text,KH-0610,0,0.0
+H2 Graph + Text,KH-0611,0,0.0
+H2 Graph + Text,KH-0612,0,0.0
+H2 Graph + Text,KH-0613,1,1.0
+H2 Graph + Text,KH-0614,1,1.0
+H2 Graph + Text,KH-0615,1,1.0
+H2 Graph + Text,KH-0616,0,0.0
+H2 Graph + Text,KH-0617,1,0.6309297535714575
+H2 Graph + Text,KH-0618,0,0.0
+H2 Graph + Text,KH-0619,0,0.0
+H2 Graph + Text,KH-0620,0,0.0
+H2 Graph + Text,KH-0621,0,0.0
+H2 Graph + Text,KH-0622,1,0.3562071871080222
+H2 Graph + Text,KH-0623,0,0.0
+H2 Graph + Text,KH-0624,1,0.6309297535714575
+H2 Graph + Text,KH-0625,1,0.3010299956639812
+H2 Graph + Text,KH-0626,0,0.0
+H2 Graph + Text,KH-0627,0,0.0
+H2 Graph + Text,KH-0628,0,0.0
+H2 Graph + Text,KH-0629,0,0.0
+H2 Graph + Text,KH-0630,0,0.0
+H2 Graph + Text,KH-0631,0,0.0
+H2 Graph + Text,KH-0632,0,0.0
+H2 Graph + Text,KH-0633,1,1.0
+H2 Graph + Text,KH-0634,0,0.0
+H2 Graph + Text,KH-0635,0,0.0
+H2 Graph + Text,KH-0636,0,0.0
+H2 Graph + Text,KH-0637,1,1.0
+H2 Graph + Text,KH-0638,0,0.0
+H2 Graph + Text,KH-0639,0,0.0
+H2 Graph + Text,KH-0640,1,0.38685280723454163
+H2 Graph + Text,KH-0641,1,1.0
+H2 Graph + Text,KH-0642,0,0.0
+H2 Graph + Text,KH-0643,0,0.0
+H2 Graph + Text,KH-0644,0,0.0
+H2 Graph + Text,KH-0645,1,1.0
+H2 Graph + Text,KH-0646,0,0.0
+H3 Hybrid,KH-0001,0,0.0
+H3 Hybrid,KH-0002,0,0.0
+H3 Hybrid,KH-0003,0,0.0
+H3 Hybrid,KH-0004,0,0.0
+H3 Hybrid,KH-0005,0,0.0
+H3 Hybrid,KH-0006,1,0.31546487678572877
+H3 Hybrid,KH-0007,0,0.0
+H3 Hybrid,KH-0008,0,0.0
+H3 Hybrid,KH-0009,0,0.0
+H3 Hybrid,KH-0010,0,0.0
+H3 Hybrid,KH-0011,1,0.2890648263178879
+H3 Hybrid,KH-0012,0,0.0
+H3 Hybrid,KH-0013,1,0.3562071871080222
+H3 Hybrid,KH-0014,0,0.0
+H3 Hybrid,KH-0015,0,0.0
+H3 Hybrid,KH-0016,0,0.0
+H3 Hybrid,KH-0017,1,0.38685280723454163
+H3 Hybrid,KH-0018,0,0.0
+H3 Hybrid,KH-0019,0,0.0
+H3 Hybrid,KH-0020,0,0.0
+H3 Hybrid,KH-0021,0,0.0
+H3 Hybrid,KH-0022,0,0.0
+H3 Hybrid,KH-0023,0,0.0
+H3 Hybrid,KH-0024,1,0.6309297535714575
+H3 Hybrid,KH-0025,0,0.0
+H3 Hybrid,KH-0026,0,0.0
+H3 Hybrid,KH-0027,0,0.0
+H3 Hybrid,KH-0028,0,0.0
+H3 Hybrid,KH-0029,1,0.6309297535714575
+H3 Hybrid,KH-0030,1,0.6309297535714575
+H3 Hybrid,KH-0031,0,0.0
+H3 Hybrid,KH-0032,0,0.0
+H3 Hybrid,KH-0033,0,0.0
+H3 Hybrid,KH-0034,0,0.0
+H3 Hybrid,KH-0035,0,0.0
+H3 Hybrid,KH-0036,0,0.0
+H3 Hybrid,KH-0037,0,0.0
+H3 Hybrid,KH-0038,1,0.43067655807339306
+H3 Hybrid,KH-0039,1,1.0
+H3 Hybrid,KH-0040,0,0.0
+H3 Hybrid,KH-0041,0,0.0
+H3 Hybrid,KH-0042,0,0.0
+H3 Hybrid,KH-0043,0,0.0
+H3 Hybrid,KH-0044,0,0.0
+H3 Hybrid,KH-0045,0,0.0
+H3 Hybrid,KH-0046,0,0.0
+H3 Hybrid,KH-0047,0,0.0
+H3 Hybrid,KH-0048,0,0.0
+H3 Hybrid,KH-0049,0,0.0
+H3 Hybrid,KH-0050,0,0.0
+H3 Hybrid,KH-0051,0,0.0
+H3 Hybrid,KH-0052,1,1.0
+H3 Hybrid,KH-0053,0,0.0
+H3 Hybrid,KH-0054,0,0.0
+H3 Hybrid,KH-0055,0,0.0
+H3 Hybrid,KH-0056,0,0.0
+H3 Hybrid,KH-0057,0,0.0
+H3 Hybrid,KH-0058,0,0.0
+H3 Hybrid,KH-0059,0,0.0
+H3 Hybrid,KH-0060,0,0.0
+H3 Hybrid,KH-0061,1,1.0
+H3 Hybrid,KH-0062,0,0.0
+H3 Hybrid,KH-0063,0,0.0
+H3 Hybrid,KH-0064,1,1.0
+H3 Hybrid,KH-0065,0,0.0
+H3 Hybrid,KH-0066,0,0.0
+H3 Hybrid,KH-0067,0,0.0
+H3 Hybrid,KH-0068,0,0.0
+H3 Hybrid,KH-0069,0,0.0
+H3 Hybrid,KH-0070,0,0.0
+H3 Hybrid,KH-0071,0,0.0
+H3 Hybrid,KH-0072,0,0.0
+H3 Hybrid,KH-0073,0,0.0
+H3 Hybrid,KH-0074,1,0.5
+H3 Hybrid,KH-0075,0,0.0
+H3 Hybrid,KH-0076,0,0.0
+H3 Hybrid,KH-0077,0,0.0
+H3 Hybrid,KH-0078,0,0.0
+H3 Hybrid,KH-0079,0,0.0
+H3 Hybrid,KH-0080,1,0.2890648263178879
+H3 Hybrid,KH-0081,1,0.3010299956639812
+H3 Hybrid,KH-0082,0,0.0
+H3 Hybrid,KH-0083,0,0.0
+H3 Hybrid,KH-0084,0,0.0
+H3 Hybrid,KH-0085,0,0.0
+H3 Hybrid,KH-0086,0,0.0
+H3 Hybrid,KH-0087,1,0.2890648263178879
+H3 Hybrid,KH-0088,0,0.0
+H3 Hybrid,KH-0089,0,0.0
+H3 Hybrid,KH-0090,0,0.0
+H3 Hybrid,KH-0091,1,1.0
+H3 Hybrid,KH-0092,0,0.0
+H3 Hybrid,KH-0093,0,0.0
+H3 Hybrid,KH-0094,0,0.0
+H3 Hybrid,KH-0095,0,0.0
+H3 Hybrid,KH-0096,1,0.3333333333333333
+H3 Hybrid,KH-0097,0,0.0
+H3 Hybrid,KH-0098,1,0.5
+H3 Hybrid,KH-0099,1,0.6309297535714575
+H3 Hybrid,KH-0100,0,0.0
+H3 Hybrid,KH-0101,1,0.3333333333333333
+H3 Hybrid,KH-0102,0,0.0
+H3 Hybrid,KH-0103,1,0.38685280723454163
+H3 Hybrid,KH-0104,0,0.0
+H3 Hybrid,KH-0105,0,0.0
+H3 Hybrid,KH-0106,1,1.0
+H3 Hybrid,KH-0107,0,0.0
+H3 Hybrid,KH-0108,0,0.0
+H3 Hybrid,KH-0109,0,0.0
+H3 Hybrid,KH-0110,0,0.0
+H3 Hybrid,KH-0111,0,0.0
+H3 Hybrid,KH-0112,0,0.0
+H3 Hybrid,KH-0113,1,0.31546487678572877
+H3 Hybrid,KH-0114,0,0.0
+H3 Hybrid,KH-0115,1,0.5
+H3 Hybrid,KH-0116,0,0.0
+H3 Hybrid,KH-0117,1,1.0
+H3 Hybrid,KH-0118,0,0.0
+H3 Hybrid,KH-0119,0,0.0
+H3 Hybrid,KH-0120,1,0.38685280723454163
+H3 Hybrid,KH-0121,0,0.0
+H3 Hybrid,KH-0122,0,0.0
+H3 Hybrid,KH-0123,0,0.0
+H3 Hybrid,KH-0124,0,0.0
+H3 Hybrid,KH-0125,0,0.0
+H3 Hybrid,KH-0126,0,0.0
+H3 Hybrid,KH-0127,1,1.0
+H3 Hybrid,KH-0128,1,1.0
+H3 Hybrid,KH-0129,0,0.0
+H3 Hybrid,KH-0130,1,1.0
+H3 Hybrid,KH-0131,0,0.0
+H3 Hybrid,KH-0132,0,0.0
+H3 Hybrid,KH-0133,0,0.0
+H3 Hybrid,KH-0134,0,0.0
+H3 Hybrid,KH-0135,1,1.0
+H3 Hybrid,KH-0136,0,0.0
+H3 Hybrid,KH-0137,0,0.0
+H3 Hybrid,KH-0138,0,0.0
+H3 Hybrid,KH-0139,0,0.0
+H3 Hybrid,KH-0140,0,0.0
+H3 Hybrid,KH-0141,0,0.0
+H3 Hybrid,KH-0142,0,0.0
+H3 Hybrid,KH-0143,1,0.3010299956639812
+H3 Hybrid,KH-0144,0,0.0
+H3 Hybrid,KH-0145,0,0.0
+H3 Hybrid,KH-0146,0,0.0
+H3 Hybrid,KH-0147,0,0.0
+H3 Hybrid,KH-0148,0,0.0
+H3 Hybrid,KH-0149,0,0.0
+H3 Hybrid,KH-0150,0,0.0
+H3 Hybrid,KH-0151,0,0.0
+H3 Hybrid,KH-0152,1,0.3010299956639812
+H3 Hybrid,KH-0153,0,0.0
+H3 Hybrid,KH-0154,0,0.0
+H3 Hybrid,KH-0155,0,0.0
+H3 Hybrid,KH-0156,0,0.0
+H3 Hybrid,KH-0157,0,0.0
+H3 Hybrid,KH-0158,0,0.0
+H3 Hybrid,KH-0159,0,0.0
+H3 Hybrid,KH-0160,0,0.0
+H3 Hybrid,KH-0161,0,0.0
+H3 Hybrid,KH-0162,0,0.0
+H3 Hybrid,KH-0163,0,0.0
+H3 Hybrid,KH-0164,1,0.3010299956639812
+H3 Hybrid,KH-0165,0,0.0
+H3 Hybrid,KH-0166,0,0.0
+H3 Hybrid,KH-0167,0,0.0
+H3 Hybrid,KH-0168,1,1.0
+H3 Hybrid,KH-0169,0,0.0
+H3 Hybrid,KH-0170,0,0.0
+H3 Hybrid,KH-0171,0,0.0
+H3 Hybrid,KH-0172,0,0.0
+H3 Hybrid,KH-0173,1,0.3562071871080222
+H3 Hybrid,KH-0174,0,0.0
+H3 Hybrid,KH-0175,0,0.0
+H3 Hybrid,KH-0176,0,0.0
+H3 Hybrid,KH-0177,0,0.0
+H3 Hybrid,KH-0178,0,0.0
+H3 Hybrid,KH-0179,0,0.0
+H3 Hybrid,KH-0180,0,0.0
+H3 Hybrid,KH-0181,1,0.2890648263178879
+H3 Hybrid,KH-0182,0,0.0
+H3 Hybrid,KH-0183,0,0.0
+H3 Hybrid,KH-0184,0,0.0
+H3 Hybrid,KH-0185,1,0.43067655807339306
+H3 Hybrid,KH-0186,0,0.0
+H3 Hybrid,KH-0187,0,0.0
+H3 Hybrid,KH-0188,0,0.0
+H3 Hybrid,KH-0189,1,1.0
+H3 Hybrid,KH-0190,1,1.0
+H3 Hybrid,KH-0191,0,0.0
+H3 Hybrid,KH-0192,0,0.0
+H3 Hybrid,KH-0193,1,0.38685280723454163
+H3 Hybrid,KH-0194,0,0.0
+H3 Hybrid,KH-0195,0,0.0
+H3 Hybrid,KH-0196,0,0.0
+H3 Hybrid,KH-0197,1,0.31546487678572877
+H3 Hybrid,KH-0198,0,0.0
+H3 Hybrid,KH-0199,1,0.31546487678572877
+H3 Hybrid,KH-0200,0,0.0
+H3 Hybrid,KH-0201,1,0.43067655807339306
+H3 Hybrid,KH-0202,0,0.0
+H3 Hybrid,KH-0203,1,0.2890648263178879
+H3 Hybrid,KH-0204,0,0.0
+H3 Hybrid,KH-0205,1,0.5
+H3 Hybrid,KH-0206,0,0.0
+H3 Hybrid,KH-0207,0,0.0
+H3 Hybrid,KH-0208,0,0.0
+H3 Hybrid,KH-0209,0,0.0
+H3 Hybrid,KH-0210,0,0.0
+H3 Hybrid,KH-0211,0,0.0
+H3 Hybrid,KH-0212,0,0.0
+H3 Hybrid,KH-0213,0,0.0
+H3 Hybrid,KH-0214,0,0.0
+H3 Hybrid,KH-0215,0,0.0
+H3 Hybrid,KH-0216,0,0.0
+H3 Hybrid,KH-0217,0,0.0
+H3 Hybrid,KH-0218,0,0.0
+H3 Hybrid,KH-0219,0,0.0
+H3 Hybrid,KH-0220,0,0.0
+H3 Hybrid,KH-0221,0,0.0
+H3 Hybrid,KH-0222,0,0.0
+H3 Hybrid,KH-0223,0,0.0
+H3 Hybrid,KH-0224,0,0.0
+H3 Hybrid,KH-0225,0,0.0
+H3 Hybrid,KH-0226,1,1.0
+H3 Hybrid,KH-0227,1,1.0
+H3 Hybrid,KH-0228,0,0.0
+H3 Hybrid,KH-0229,1,0.6309297535714575
+H3 Hybrid,KH-0230,1,0.38685280723454163
+H3 Hybrid,KH-0231,0,0.0
+H3 Hybrid,KH-0232,1,1.0
+H3 Hybrid,KH-0233,0,0.0
+H3 Hybrid,KH-0234,0,0.0
+H3 Hybrid,KH-0235,1,0.38685280723454163
+H3 Hybrid,KH-0236,0,0.0
+H3 Hybrid,KH-0237,0,0.0
+H3 Hybrid,KH-0238,0,0.0
+H3 Hybrid,KH-0239,0,0.0
+H3 Hybrid,KH-0240,1,0.6309297535714575
+H3 Hybrid,KH-0241,1,0.3562071871080222
+H3 Hybrid,KH-0242,1,0.5
+H3 Hybrid,KH-0243,0,0.0
+H3 Hybrid,KH-0244,0,0.0
+H3 Hybrid,KH-0245,1,0.31546487678572877
+H3 Hybrid,KH-0246,0,0.0
+H3 Hybrid,KH-0247,1,0.38685280723454163
+H3 Hybrid,KH-0248,0,0.0
+H3 Hybrid,KH-0249,1,0.43067655807339306
+H3 Hybrid,KH-0250,0,0.0
+H3 Hybrid,KH-0251,1,0.43067655807339306
+H3 Hybrid,KH-0252,1,0.5
+H3 Hybrid,KH-0253,0,0.0
+H3 Hybrid,KH-0254,0,0.0
+H3 Hybrid,KH-0255,0,0.0
+H3 Hybrid,KH-0256,1,0.3010299956639812
+H3 Hybrid,KH-0257,0,0.0
+H3 Hybrid,KH-0258,0,0.0
+H3 Hybrid,KH-0259,0,0.0
+H3 Hybrid,KH-0260,0,0.0
+H3 Hybrid,KH-0261,0,0.0
+H3 Hybrid,KH-0262,1,0.6309297535714575
+H3 Hybrid,KH-0263,0,0.0
+H3 Hybrid,KH-0264,1,1.0
+H3 Hybrid,KH-0265,0,0.0
+H3 Hybrid,KH-0266,0,0.0
+H3 Hybrid,KH-0267,0,0.0
+H3 Hybrid,KH-0268,1,0.43067655807339306
+H3 Hybrid,KH-0269,0,0.0
+H3 Hybrid,KH-0270,0,0.0
+H3 Hybrid,KH-0271,0,0.0
+H3 Hybrid,KH-0272,0,0.0
+H3 Hybrid,KH-0273,0,0.0
+H3 Hybrid,KH-0274,0,0.0
+H3 Hybrid,KH-0275,0,0.0
+H3 Hybrid,KH-0276,0,0.0
+H3 Hybrid,KH-0277,1,0.5
+H3 Hybrid,KH-0278,0,0.0
+H3 Hybrid,KH-0279,0,0.0
+H3 Hybrid,KH-0280,1,1.0
+H3 Hybrid,KH-0281,1,0.6309297535714575
+H3 Hybrid,KH-0282,0,0.0
+H3 Hybrid,KH-0283,0,0.0
+H3 Hybrid,KH-0284,0,0.0
+H3 Hybrid,KH-0285,0,0.0
+H3 Hybrid,KH-0286,0,0.0
+H3 Hybrid,KH-0287,0,0.0
+H3 Hybrid,KH-0288,1,1.0
+H3 Hybrid,KH-0289,0,0.0
+H3 Hybrid,KH-0290,1,0.6309297535714575
+H3 Hybrid,KH-0291,1,0.38685280723454163
+H3 Hybrid,KH-0292,0,0.0
+H3 Hybrid,KH-0293,0,0.0
+H3 Hybrid,KH-0294,1,0.3010299956639812
+H3 Hybrid,KH-0295,0,0.0
+H3 Hybrid,KH-0296,0,0.0
+H3 Hybrid,KH-0297,1,0.6309297535714575
+H3 Hybrid,KH-0298,1,1.0
+H3 Hybrid,KH-0299,0,0.0
+H3 Hybrid,KH-0300,0,0.0
+H3 Hybrid,KH-0301,1,0.43067655807339306
+H3 Hybrid,KH-0302,0,0.0
+H3 Hybrid,KH-0303,0,0.0
+H3 Hybrid,KH-0304,0,0.0
+H3 Hybrid,KH-0305,0,0.0
+H3 Hybrid,KH-0306,0,0.0
+H3 Hybrid,KH-0307,0,0.0
+H3 Hybrid,KH-0308,0,0.0
+H3 Hybrid,KH-0309,0,0.0
+H3 Hybrid,KH-0310,0,0.0
+H3 Hybrid,KH-0311,0,0.0
+H3 Hybrid,KH-0312,0,0.0
+H3 Hybrid,KH-0313,0,0.0
+H3 Hybrid,KH-0314,1,0.6309297535714575
+H3 Hybrid,KH-0315,0,0.0
+H3 Hybrid,KH-0316,0,0.0
+H3 Hybrid,KH-0317,1,1.0
+H3 Hybrid,KH-0318,0,0.0
+H3 Hybrid,KH-0319,1,0.3333333333333333
+H3 Hybrid,KH-0320,0,0.0
+H3 Hybrid,KH-0321,0,0.0
+H3 Hybrid,KH-0322,1,0.38685280723454163
+H3 Hybrid,KH-0323,0,0.0
+H3 Hybrid,KH-0324,0,0.0
+H3 Hybrid,KH-0325,0,0.0
+H3 Hybrid,KH-0326,1,0.6309297535714575
+H3 Hybrid,KH-0327,0,0.0
+H3 Hybrid,KH-0328,1,0.3562071871080222
+H3 Hybrid,KH-0329,0,0.0
+H3 Hybrid,KH-0330,0,0.0
+H3 Hybrid,KH-0331,1,0.38685280723454163
+H3 Hybrid,KH-0332,1,1.0
+H3 Hybrid,KH-0333,1,0.31546487678572877
+H3 Hybrid,KH-0334,0,0.0
+H3 Hybrid,KH-0335,0,0.0
+H3 Hybrid,KH-0336,0,0.0
+H3 Hybrid,KH-0337,0,0.0
+H3 Hybrid,KH-0338,0,0.0
+H3 Hybrid,KH-0339,0,0.0
+H3 Hybrid,KH-0340,0,0.0
+H3 Hybrid,KH-0341,0,0.0
+H3 Hybrid,KH-0342,0,0.0
+H3 Hybrid,KH-0343,0,0.0
+H3 Hybrid,KH-0344,0,0.0
+H3 Hybrid,KH-0345,0,0.0
+H3 Hybrid,KH-0346,0,0.0
+H3 Hybrid,KH-0347,0,0.0
+H3 Hybrid,KH-0348,1,0.3562071871080222
+H3 Hybrid,KH-0349,0,0.0
+H3 Hybrid,KH-0350,0,0.0
+H3 Hybrid,KH-0351,0,0.0
+H3 Hybrid,KH-0352,0,0.0
+H3 Hybrid,KH-0353,1,0.6309297535714575
+H3 Hybrid,KH-0354,0,0.0
+H3 Hybrid,KH-0355,0,0.0
+H3 Hybrid,KH-0356,1,0.3333333333333333
+H3 Hybrid,KH-0357,0,0.0
+H3 Hybrid,KH-0358,0,0.0
+H3 Hybrid,KH-0359,0,0.0
+H3 Hybrid,KH-0360,0,0.0
+H3 Hybrid,KH-0361,0,0.0
+H3 Hybrid,KH-0362,0,0.0
+H3 Hybrid,KH-0363,0,0.0
+H3 Hybrid,KH-0364,0,0.0
+H3 Hybrid,KH-0365,0,0.0
+H3 Hybrid,KH-0366,1,0.2890648263178879
+H3 Hybrid,KH-0367,1,0.2890648263178879
+H3 Hybrid,KH-0368,1,0.6309297535714575
+H3 Hybrid,KH-0369,0,0.0
+H3 Hybrid,KH-0370,1,0.3562071871080222
+H3 Hybrid,KH-0371,1,0.5
+H3 Hybrid,KH-0372,0,0.0
+H3 Hybrid,KH-0373,0,0.0
+H3 Hybrid,KH-0374,1,0.43067655807339306
+H3 Hybrid,KH-0375,0,0.0
+H3 Hybrid,KH-0376,0,0.0
+H3 Hybrid,KH-0377,0,0.0
+H3 Hybrid,KH-0378,1,0.31546487678572877
+H3 Hybrid,KH-0379,0,0.0
+H3 Hybrid,KH-0380,0,0.0
+H3 Hybrid,KH-0381,1,0.2890648263178879
+H3 Hybrid,KH-0382,0,0.0
+H3 Hybrid,KH-0383,0,0.0
+H3 Hybrid,KH-0384,0,0.0
+H3 Hybrid,KH-0385,0,0.0
+H3 Hybrid,KH-0386,1,0.5
+H3 Hybrid,KH-0387,0,0.0
+H3 Hybrid,KH-0388,0,0.0
+H3 Hybrid,KH-0389,0,0.0
+H3 Hybrid,KH-0390,0,0.0
+H3 Hybrid,KH-0391,1,0.2890648263178879
+H3 Hybrid,KH-0392,1,0.38685280723454163
+H3 Hybrid,KH-0393,0,0.0
+H3 Hybrid,KH-0394,1,1.0
+H3 Hybrid,KH-0395,0,0.0
+H3 Hybrid,KH-0396,1,1.0
+H3 Hybrid,KH-0397,0,0.0
+H3 Hybrid,KH-0398,0,0.0
+H3 Hybrid,KH-0399,0,0.0
+H3 Hybrid,KH-0400,0,0.0
+H3 Hybrid,KH-0401,0,0.0
+H3 Hybrid,KH-0402,0,0.0
+H3 Hybrid,KH-0403,0,0.0
+H3 Hybrid,KH-0404,0,0.0
+H3 Hybrid,KH-0405,0,0.0
+H3 Hybrid,KH-0406,1,0.3010299956639812
+H3 Hybrid,KH-0407,0,0.0
+H3 Hybrid,KH-0408,1,1.0
+H3 Hybrid,KH-0409,0,0.0
+H3 Hybrid,KH-0410,1,0.5
+H3 Hybrid,KH-0411,1,0.3562071871080222
+H3 Hybrid,KH-0412,0,0.0
+H3 Hybrid,KH-0413,0,0.0
+H3 Hybrid,KH-0414,0,0.0
+H3 Hybrid,KH-0415,1,0.6309297535714575
+H3 Hybrid,KH-0416,0,0.0
+H3 Hybrid,KH-0417,0,0.0
+H3 Hybrid,KH-0418,0,0.0
+H3 Hybrid,KH-0419,0,0.0
+H3 Hybrid,KH-0420,1,0.6309297535714575
+H3 Hybrid,KH-0421,1,0.31546487678572877
+H3 Hybrid,KH-0422,1,0.3333333333333333
+H3 Hybrid,KH-0423,0,0.0
+H3 Hybrid,KH-0424,1,0.5
+H3 Hybrid,KH-0425,0,0.0
+H3 Hybrid,KH-0426,0,0.0
+H3 Hybrid,KH-0427,0,0.0
+H3 Hybrid,KH-0428,1,0.3562071871080222
+H3 Hybrid,KH-0429,1,1.0
+H3 Hybrid,KH-0430,0,0.0
+H3 Hybrid,KH-0431,1,0.6309297535714575
+H3 Hybrid,KH-0432,0,0.0
+H3 Hybrid,KH-0433,0,0.0
+H3 Hybrid,KH-0434,1,1.0
+H3 Hybrid,KH-0435,0,0.0
+H3 Hybrid,KH-0436,0,0.0
+H3 Hybrid,KH-0437,1,0.5
+H3 Hybrid,KH-0438,1,0.43067655807339306
+H3 Hybrid,KH-0439,0,0.0
+H3 Hybrid,KH-0440,0,0.0
+H3 Hybrid,KH-0441,0,0.0
+H3 Hybrid,KH-0442,0,0.0
+H3 Hybrid,KH-0443,0,0.0
+H3 Hybrid,KH-0444,1,1.0
+H3 Hybrid,KH-0445,1,1.0
+H3 Hybrid,KH-0446,0,0.0
+H3 Hybrid,KH-0447,0,0.0
+H3 Hybrid,KH-0448,0,0.0
+H3 Hybrid,KH-0449,1,0.6309297535714575
+H3 Hybrid,KH-0450,1,0.3010299956639812
+H3 Hybrid,KH-0451,0,0.0
+H3 Hybrid,KH-0452,0,0.0
+H3 Hybrid,KH-0453,0,0.0
+H3 Hybrid,KH-0454,0,0.0
+H3 Hybrid,KH-0455,0,0.0
+H3 Hybrid,KH-0456,0,0.0
+H3 Hybrid,KH-0457,0,0.0
+H3 Hybrid,KH-0458,0,0.0
+H3 Hybrid,KH-0459,0,0.0
+H3 Hybrid,KH-0460,0,0.0
+H3 Hybrid,KH-0461,1,0.5
+H3 Hybrid,KH-0462,0,0.0
+H3 Hybrid,KH-0463,1,0.31546487678572877
+H3 Hybrid,KH-0464,0,0.0
+H3 Hybrid,KH-0465,0,0.0
+H3 Hybrid,KH-0466,1,0.5
+H3 Hybrid,KH-0467,0,0.0
+H3 Hybrid,KH-0468,0,0.0
+H3 Hybrid,KH-0469,0,0.0
+H3 Hybrid,KH-0470,0,0.0
+H3 Hybrid,KH-0471,0,0.0
+H3 Hybrid,KH-0472,1,0.31546487678572877
+H3 Hybrid,KH-0473,0,0.0
+H3 Hybrid,KH-0474,0,0.0
+H3 Hybrid,KH-0475,0,0.0
+H3 Hybrid,KH-0476,1,0.3010299956639812
+H3 Hybrid,KH-0477,0,0.0
+H3 Hybrid,KH-0478,0,0.0
+H3 Hybrid,KH-0479,1,0.43067655807339306
+H3 Hybrid,KH-0480,0,0.0
+H3 Hybrid,KH-0481,0,0.0
+H3 Hybrid,KH-0482,0,0.0
+H3 Hybrid,KH-0483,0,0.0
+H3 Hybrid,KH-0484,0,0.0
+H3 Hybrid,KH-0485,0,0.0
+H3 Hybrid,KH-0486,0,0.0
+H3 Hybrid,KH-0487,0,0.0
+H3 Hybrid,KH-0488,0,0.0
+H3 Hybrid,KH-0489,1,0.5
+H3 Hybrid,KH-0490,0,0.0
+H3 Hybrid,KH-0491,0,0.0
+H3 Hybrid,KH-0492,0,0.0
+H3 Hybrid,KH-0493,0,0.0
+H3 Hybrid,KH-0494,0,0.0
+H3 Hybrid,KH-0495,0,0.0
+H3 Hybrid,KH-0496,0,0.0
+H3 Hybrid,KH-0497,1,0.3333333333333333
+H3 Hybrid,KH-0498,1,0.31546487678572877
+H3 Hybrid,KH-0499,0,0.0
+H3 Hybrid,KH-0500,0,0.0
+H3 Hybrid,KH-0501,1,0.3333333333333333
+H3 Hybrid,KH-0502,1,0.3333333333333333
+H3 Hybrid,KH-0503,0,0.0
+H3 Hybrid,KH-0504,0,0.0
+H3 Hybrid,KH-0505,1,0.38685280723454163
+H3 Hybrid,KH-0506,0,0.0
+H3 Hybrid,KH-0507,0,0.0
+H3 Hybrid,KH-0508,1,1.0
+H3 Hybrid,KH-0509,1,1.0
+H3 Hybrid,KH-0510,0,0.0
+H3 Hybrid,KH-0511,0,0.0
+H3 Hybrid,KH-0512,0,0.0
+H3 Hybrid,KH-0513,0,0.0
+H3 Hybrid,KH-0514,0,0.0
+H3 Hybrid,KH-0515,0,0.0
+H3 Hybrid,KH-0516,0,0.0
+H3 Hybrid,KH-0517,0,0.0
+H3 Hybrid,KH-0518,0,0.0
+H3 Hybrid,KH-0519,0,0.0
+H3 Hybrid,KH-0520,0,0.0
+H3 Hybrid,KH-0521,0,0.0
+H3 Hybrid,KH-0522,0,0.0
+H3 Hybrid,KH-0523,0,0.0
+H3 Hybrid,KH-0524,0,0.0
+H3 Hybrid,KH-0525,0,0.0
+H3 Hybrid,KH-0526,1,1.0
+H3 Hybrid,KH-0527,0,0.0
+H3 Hybrid,KH-0528,1,0.38685280723454163
+H3 Hybrid,KH-0529,0,0.0
+H3 Hybrid,KH-0530,0,0.0
+H3 Hybrid,KH-0531,0,0.0
+H3 Hybrid,KH-0532,0,0.0
+H3 Hybrid,KH-0533,0,0.0
+H3 Hybrid,KH-0534,0,0.0
+H3 Hybrid,KH-0535,0,0.0
+H3 Hybrid,KH-0536,1,0.6309297535714575
+H3 Hybrid,KH-0537,0,0.0
+H3 Hybrid,KH-0538,0,0.0
+H3 Hybrid,KH-0539,0,0.0
+H3 Hybrid,KH-0540,0,0.0
+H3 Hybrid,KH-0541,0,0.0
+H3 Hybrid,KH-0542,0,0.0
+H3 Hybrid,KH-0543,0,0.0
+H3 Hybrid,KH-0544,0,0.0
+H3 Hybrid,KH-0545,0,0.0
+H3 Hybrid,KH-0546,0,0.0
+H3 Hybrid,KH-0547,0,0.0
+H3 Hybrid,KH-0548,1,0.6309297535714575
+H3 Hybrid,KH-0549,1,0.3333333333333333
+H3 Hybrid,KH-0550,0,0.0
+H3 Hybrid,KH-0551,0,0.0
+H3 Hybrid,KH-0552,0,0.0
+H3 Hybrid,KH-0553,1,0.6309297535714575
+H3 Hybrid,KH-0554,0,0.0
+H3 Hybrid,KH-0555,1,0.3010299956639812
+H3 Hybrid,KH-0556,1,0.6309297535714575
+H3 Hybrid,KH-0557,0,0.0
+H3 Hybrid,KH-0558,0,0.0
+H3 Hybrid,KH-0559,0,0.0
+H3 Hybrid,KH-0560,0,0.0
+H3 Hybrid,KH-0561,1,1.0
+H3 Hybrid,KH-0562,0,0.0
+H3 Hybrid,KH-0563,0,0.0
+H3 Hybrid,KH-0564,1,0.6309297535714575
+H3 Hybrid,KH-0565,0,0.0
+H3 Hybrid,KH-0566,0,0.0
+H3 Hybrid,KH-0567,0,0.0
+H3 Hybrid,KH-0568,0,0.0
+H3 Hybrid,KH-0569,1,0.43067655807339306
+H3 Hybrid,KH-0570,0,0.0
+H3 Hybrid,KH-0571,0,0.0
+H3 Hybrid,KH-0572,0,0.0
+H3 Hybrid,KH-0573,0,0.0
+H3 Hybrid,KH-0574,0,0.0
+H3 Hybrid,KH-0575,0,0.0
+H3 Hybrid,KH-0576,0,0.0
+H3 Hybrid,KH-0577,0,0.0
+H3 Hybrid,KH-0578,1,0.5
+H3 Hybrid,KH-0579,0,0.0
+H3 Hybrid,KH-0580,0,0.0
+H3 Hybrid,KH-0581,0,0.0
+H3 Hybrid,KH-0582,1,0.43067655807339306
+H3 Hybrid,KH-0583,1,0.43067655807339306
+H3 Hybrid,KH-0584,0,0.0
+H3 Hybrid,KH-0585,1,0.5
+H3 Hybrid,KH-0586,0,0.0
+H3 Hybrid,KH-0587,0,0.0
+H3 Hybrid,KH-0588,1,0.5
+H3 Hybrid,KH-0589,0,0.0
+H3 Hybrid,KH-0590,0,0.0
+H3 Hybrid,KH-0591,1,0.6309297535714575
+H3 Hybrid,KH-0592,0,0.0
+H3 Hybrid,KH-0593,0,0.0
+H3 Hybrid,KH-0594,0,0.0
+H3 Hybrid,KH-0595,0,0.0
+H3 Hybrid,KH-0596,1,0.3010299956639812
+H3 Hybrid,KH-0597,0,0.0
+H3 Hybrid,KH-0598,0,0.0
+H3 Hybrid,KH-0599,0,0.0
+H3 Hybrid,KH-0600,0,0.0
+H3 Hybrid,KH-0601,1,0.43067655807339306
+H3 Hybrid,KH-0602,0,0.0
+H3 Hybrid,KH-0603,0,0.0
+H3 Hybrid,KH-0604,1,0.38685280723454163
+H3 Hybrid,KH-0605,1,0.6309297535714575
+H3 Hybrid,KH-0606,0,0.0
+H3 Hybrid,KH-0607,0,0.0
+H3 Hybrid,KH-0608,0,0.0
+H3 Hybrid,KH-0609,0,0.0
+H3 Hybrid,KH-0610,0,0.0
+H3 Hybrid,KH-0611,0,0.0
+H3 Hybrid,KH-0612,0,0.0
+H3 Hybrid,KH-0613,1,1.0
+H3 Hybrid,KH-0614,1,1.0
+H3 Hybrid,KH-0615,1,1.0
+H3 Hybrid,KH-0616,0,0.0
+H3 Hybrid,KH-0617,1,0.6309297535714575
+H3 Hybrid,KH-0618,0,0.0
+H3 Hybrid,KH-0619,0,0.0
+H3 Hybrid,KH-0620,0,0.0
+H3 Hybrid,KH-0621,0,0.0
+H3 Hybrid,KH-0622,1,0.3562071871080222
+H3 Hybrid,KH-0623,0,0.0
+H3 Hybrid,KH-0624,1,0.6309297535714575
+H3 Hybrid,KH-0625,1,0.3010299956639812
+H3 Hybrid,KH-0626,0,0.0
+H3 Hybrid,KH-0627,0,0.0
+H3 Hybrid,KH-0628,0,0.0
+H3 Hybrid,KH-0629,0,0.0
+H3 Hybrid,KH-0630,0,0.0
+H3 Hybrid,KH-0631,0,0.0
+H3 Hybrid,KH-0632,0,0.0
+H3 Hybrid,KH-0633,1,1.0
+H3 Hybrid,KH-0634,0,0.0
+H3 Hybrid,KH-0635,0,0.0
+H3 Hybrid,KH-0636,0,0.0
+H3 Hybrid,KH-0637,1,1.0
+H3 Hybrid,KH-0638,0,0.0
+H3 Hybrid,KH-0639,0,0.0
+H3 Hybrid,KH-0640,1,0.38685280723454163
+H3 Hybrid,KH-0641,1,1.0
+H3 Hybrid,KH-0642,0,0.0
+H3 Hybrid,KH-0643,0,0.0
+H3 Hybrid,KH-0644,0,0.0
+H3 Hybrid,KH-0645,1,1.0
+H3 Hybrid,KH-0646,0,0.0
