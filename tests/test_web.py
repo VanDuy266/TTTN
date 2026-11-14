@@ -69,6 +69,32 @@ class ResearchWebTests(unittest.TestCase):
             scores=self.lab.arrays[row['model']][profile['row']]
             ordered=sorted(indices,key=lambda j:(-float(scores[j]),self.lab.catalog[j]['item_id']))
             self.assertEqual(ordered.index(profile['target'])+1,row['rank'])
+    def test_study_definitions_and_direction_groups(self):
+        response=self.client.get('/api/study');self.assertEqual(response.status_code,200)
+        study=response.json();self.assertEqual(study['run_id'],self.lab.manifest['run_id'])
+        splits={r['id']:r for r in study['data']['splits']}
+        self.assertEqual(splits['train']['interactions'],self.lab.manifest['audit']['train_rows'])
+        self.assertEqual(splits['test']['users'],len(self.lab.profiles))
+        self.assertEqual(study['data']['warm_targets']+study['data']['cold_targets'],len(self.lab.profiles))
+        self.assertEqual(sum(x['users'] for x in study['data']['history_groups']),len(self.lab.profiles))
+        for group in study['groups']:
+            self.assertTrue(set(group['models']).issubset(self.lab.models))
+            self.assertEqual(len(group['models']),len(set(group['models'])))
+        h3=next(x for x in study['directions'] if x['id']=='h3')
+        self.assertEqual(h3['parameters']['Trọng số H1'],self.lab.manifest['audit']['h3_weights']['h1'])
+        self.assertIn('h3',h3['experiment_models'])
+        if h3['collapses_to_content']:
+            self.assertTrue(np.array_equal(self.lab.arrays['h3'],self.lab.arrays['content']))
+        self.assertTrue(all(set(['input','processing','output','scope','status']).issubset(d) for d in study['directions']))
+    def test_neural_output_scope_and_fallback_are_explicit(self):
+        profile=next(p for p in self.lab.profiles if not p['target_warm'] and not p['fallback'])
+        result=self.client.post('/api/experiments',json={'profile_id':profile['profile']}).json()
+        rows={r['model']:r for r in result['results']}
+        for key in ['m1','m2','m3']:
+            self.assertFalse(rows[key]['target_in_learned_output']);self.assertFalse(rows[key]['uses_fallback'])
+        empty=next(p for p in self.lab.profiles if p['fallback'])
+        result=self.client.post('/api/experiments',json={'profile_id':empty['profile']}).json()
+        self.assertTrue(all(r['uses_fallback'] for r in result['results']))
     def test_exports_training_and_api_documentation(self):
         response=self.client.get('/api/export/metrics.csv');self.assertEqual(response.status_code,200)
         self.assertEqual(len(list(csv.DictReader(io.StringIO(response.text)))),48)

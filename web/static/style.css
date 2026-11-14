@@ -2309,4 +2309,139 @@ select {
 }
 
 /* Transparent logo inherits the sidebar background without a separate image plate. */
-.dad-logo { background: transparent; border-radius: 0; }
+.dad-logo {
+  background: transparent;
+  border-radius: 0;
+}
+
+.direction-facts {
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  gap: 9px 10px;
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 15px 0 18px;
+}
+.direction-facts dt {
+  font-weight: bold;
+  color: #514d47;
+}
+.direction-facts dd {
+  margin: 0;
+  color: var(--muted);
+}
+.experiment-scope {
+  display: grid;
+  grid-template-columns: 270px 1fr;
+  gap: 20px;
+  padding-top: 19px;
+  margin-top: 15px;
+  border-top: 1px solid var(--border);
+  align-items: start;
+}
+.selected-models {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.selected-models span {
+  font-size: 12px;
+  border: 1px solid #d7e0e5;
+  background: #f4f7f9;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #34546d;
+}
+.wrap-cell {
+  white-space: normal;
+  min-width: 240px;
+  line-height: 1.65;
+}
+.data-breakdown {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+.study-counts {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px 20px;
+  font-size: 15px;
+  margin: 0;
+}
+.study-counts dd {
+  margin: 0;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.study-counts dt {
+  color: var(--muted);
+}
+.model-definitions {
+  display: grid;
+  gap: 18px;
+}
+.model-definition-head {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 14px;
+  margin-bottom: 17px;
+}
+.model-definition-head h3 {
+  font-size: 23px;
+  margin-bottom: 7px;
+}
+.model-definition-head span {
+  color: #7e8991;
+  font-size: 13px;
+}
+.definition-grid {
+  display: grid;
+  grid-template-columns: 155px 1fr;
+  gap: 13px 20px;
+  line-height: 1.75;
+  font-size: 16px;
+}
+.definition-grid dt {
+  font-weight: bold;
+  color: #394c5d;
+}
+.definition-grid dd {
+  margin: 0;
+  color: #686d70;
+}
+.weight-formula {
+  padding: 15px 18px;
+  background: #f4f1e9;
+  border-left: 2px solid #bfa16d;
+  color: #66563b;
+  font-size: 16px;
+}
+.weight-formula p {
+  font-size: 14px;
+  margin: 7px 0 0;
+}
+@media (max-width: 700px) {
+  .experiment-scope,
+  .data-breakdown {
+    grid-template-columns: 1fr;
+  }
+  .definition-grid {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .definition-grid dd {
+    margin-bottom: 12px;
+  }
+  .model-definition-head h3 {
+    font-size: 21px;
+  }
+  .study-counts {
+    font-size: 14px;
+  }
+  .wrap-cell {
+    min-width: 170px;
+  }
+}
+.model-definition .metrics-table td:first-child{white-space:normal}

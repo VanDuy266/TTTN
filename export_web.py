@@ -75,6 +75,8 @@ def main():
  write('manifest.json',manifest)
  with (out/'metrics.csv').open('w',newline='') as f:
   writer=csv.DictWriter(f,fieldnames=list(metrics[0]),lineterminator="\n");writer.writeheader();writer.writerows(metrics)
+ from scripts.build_study_data import build
+ build()
  print('Web artifacts ready:',run_id,len(profiles),'profiles,',len(metrics),'metric rows')
  print(pd.DataFrame(metrics).query("protocol=='full_catalog' and cohort=='all'")[['model','recall10','ndcg10']].to_string(index=False))
 if __name__=='__main__':main()

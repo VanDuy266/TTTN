@@ -23,6 +23,13 @@ def main(base):
             page.get_by_role('button',name='Xuất đối chiếu CSV',exact=False).click()
         assert download.value.suggested_filename.endswith('.csv')
         page.screenshot(path=str(ROOT/'docs/screenshots/research-web-case.png'))
+        # Each research group must select the actual components used for that experiment.
+        for group,count in [('h1',4),('h2',3),('h3',4)]:
+            page.select_option('#model-group',group)
+            page.get_by_role('button',name='So sánh dự đoán',exact=False).click()
+            page.locator('.model-card').first.wait_for()
+            assert page.locator('.model-card').count()==count
+        page.select_option('#model-group','all')
         # Search changing the selected profile must invalidate the previously displayed result.
         page.fill('#profile-search','KH-0020')
         page.wait_for_function('document.querySelector("#profile-select")?.value==="KH-0020"')
@@ -40,14 +47,19 @@ def main(base):
         page.screenshot(path=str(ROOT/'docs/screenshots/research-web-results.png'))
         page.locator('a[data-nav=discussion]').click();page.locator('#discussion-evidence .stats').wait_for()
         page.screenshot(path=str(ROOT/'docs/screenshots/research-web-discussion.png'))
-        page.locator('a[data-nav=method]').click();page.locator('.training-panel').first.wait_for()
+        page.locator('a[data-nav=method]').click();page.locator('.training-panel').first.wait_for();assert page.locator('.model-definition').count()==3;assert page.locator('#direction-h3').get_by_text('Trọng số H1',exact=True).count()==1
         page.screenshot(path=str(ROOT/'docs/screenshots/research-web-method.png'))
+        page.locator('#direction-h1').scroll_into_view_if_needed()
+        page.screenshot(path=str(ROOT/'docs/screenshots/research-web-model-definitions.png'))
         mobile=browser.new_page(viewport={'width':390,'height':844},is_mobile=True,has_touch=True)
         mobile.goto(base,wait_until='networkidle');mobile.get_by_role('heading',name='Ba hướng thực nghiệm').wait_for()
         mobile.screenshot(path=str(ROOT/'docs/screenshots/research-web-mobile.png'))
         mobile.locator('#menu-button').click();mobile.locator('a[data-nav=experiment]').click()
         mobile.wait_for_function('document.querySelector("#profile-select")?.value?.startsWith("KH-")')
         mobile.get_by_role('button',name='So sánh dự đoán',exact=False).click();mobile.locator('.model-card').first.wait_for()
+        assert mobile.evaluate('document.documentElement.scrollWidth<=innerWidth')
+        mobile.locator('#menu-button').click();mobile.locator('a[data-nav=method]').click()
+        mobile.locator('.model-definition').first.wait_for()
         assert mobile.evaluate('document.documentElement.scrollWidth<=innerWidth')
         assert not errors,errors
         print('PASS: DAD branding, seven-model comparison including H3, reveal, CSV, profile invalidation, fallback, cohort/protocol changes, discussion, training curves, mobile; no JS errors.')

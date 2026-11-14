@@ -2,7 +2,7 @@
 
 ## Kết quả kiểm tra
 
-`python -m unittest discover -s tests -v`: **19 tests qua**. Gồm 8 kiểm thử web/API mới, 4 kiểm thử nghiên cứu và 7 kiểm thử nghiệp vụ legacy được giữ để tránh mất hành vi cũ. Runtime web không import Streamlit hoặc module bán hàng.
+`python -m unittest discover -s tests -v`: **21 tests qua**. Gồm 10 kiểm thử web/API, 4 kiểm thử nghiên cứu và 7 kiểm thử nghiệp vụ legacy được giữ để tránh mất hành vi cũ. Runtime web không import Streamlit hoặc module bán hàng.
 
 Web/API đã kiểm tra:
 
@@ -30,3 +30,5 @@ Backend memory-map điểm NPY theo hàng, frontend chỉ tải metadata/top 10,
 Chưa kiểm tra trên deployment Render của người dùng, chưa load-test hay đo cold start Render Free. Một seed huấn luyện, timestamp chưa rõ đơn vị, metadata chưa có ngày xuất bản, H2 chưa chạy MiniLM. Không có bằng chứng hiệu quả kinh doanh. Bảng full catalog mới cho phép mua lại, không trộn với bảng legacy có lọc lịch sử.
 
 Bản chỉnh nhận diện DAD: đã kiểm tra lại 19 tests và luồng trình duyệt với 7 mô hình mặc định, H3 hiện trực tiếp ở tổng quan/đối chiếu/kết quả/nhận xét; chữ Times New Roman và icon SVG, không dùng logo RecLab cũ. Không thay đổi điểm hay kết quả mô hình.
+
+Bản làm rõ chức năng: kiểm tra API mô tả nghiên cứu, thống kê tập dữ liệu, nhóm so sánh từng hướng và phạm vi đầu ra GRU/phương án dự phòng. Kiểm thử trình duyệt chọn H1 (4 mô hình), H2 (3), H3 (4), sau đó trở về tất cả (7); trang dữ liệu hiển thị đủ ba hướng và thông số H3. Dữ liệu/mô hình đã được kiểm tra trên giao diện điện thoại, không tràn ngang.

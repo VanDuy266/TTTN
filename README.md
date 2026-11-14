@@ -69,3 +69,9 @@ Giao diện hiện dùng Times New Roman (serif tương đương khi máy không
 Giao diện dùng tên chức năng tiếng Việt: So sánh dự đoán, Đánh giá mô hình, Nhận xét và cải tiến, Dữ liệu và phương pháp. Bảng kết quả hiển thị số người tìm trúng trên tổng số người dùng, tỷ lệ tìm trúng, điểm thứ hạng và độ phủ; khoảng tin cậy nằm trong phần chi tiết. Tên thuật toán chuẩn và tên sản phẩm trong dữ liệu gốc được giữ nguyên.
 
 Nhận diện hiện tại sử dụng logo DAD ánh kim bạc nền trong suốt trên thanh điều hướng xanh đậm (`web/static/dad-logo-transparent.png`), thanh điều hướng xanh đậm và điểm nhấn vàng. Nội dung giữ Times New Roman; các chức năng và nhãn đánh giá sử dụng tiếng Việt.
+
+## Cấu trúc chức năng và mô hình
+
+Mục Dữ liệu và mô hình trình bày vai trò tập huấn luyện/xác thực/kiểm tra, số người dùng/sản phẩm/tương tác và đầu vào–xử lý–đầu ra–phạm vi của H1/H2/H3. API `/api/study` lấy mô tả từ `src/study.py` và thống kê tổng hợp `artifacts/web/study_data.json`; không đọc review gốc khi phục vụ web. Thống kê được tạo bởi `scripts/build_study_data.py`, gọi sau khi xuất artifact.
+
+So sánh dự đoán có nhóm riêng H1 (đối chứng phổ biến + M1/M2/M3), H2 (nội dung + đồ thị/nội dung + cấu hình kết hợp), H3 (nội dung + biến thể H1 chọn trên xác thực + nhánh H2 kết hợp + H3). Danh sách mô hình có thể tùy chọn. Sản phẩm ngoài bộ đầu ra đã học của GRU và trường hợp dùng phương án dự phòng được ghi rõ trong kết quả. Không thay đổi điểm dự đoán hoặc huấn luyện lại mô hình trong lần chỉnh chức năng này.

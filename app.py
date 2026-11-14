@@ -9,6 +9,7 @@ from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import HTMLResponse, PlainTextResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
+from src.study import model_study
 
 ROOT=Path(__file__).resolve().parent
 DATA=ROOT/'artifacts/web'
@@ -25,6 +26,7 @@ class ResearchLab:
         self.manifest=read('manifest.json');self.catalog=read('catalog.json')
         self.profiles=read('profiles.json');self.by_id={p['profile']:p for p in self.profiles}
         self.metrics=read('metrics.json');self.contrasts=read('contrasts.json')
+        self.study=model_study(self.manifest,read('study_data.json'))
         self.models={m['id']:m for m in self.manifest['models']}
         self.arrays={k:np.load(self.path/f'{k}.npy',mmap_mode='r',allow_pickle=False) for k in self.models}
         for a in self.arrays.values():
@@ -46,7 +48,9 @@ class ResearchLab:
             rank=int(np.flatnonzero(ordered==profile['target'])[0])+1
             top=[dict(self.item(j),rank=n+1,is_target=bool(j==profile['target']),score=float(self.arrays[key][profile['row'],j])) for n,j in enumerate(ordered[:10])]
             result.append({'model':key,'name':self.models[key]['name'],'rank':rank,'hit10':rank<=10,
-                           'ndcg10':float(1/math.log2(rank+1)) if rank<=10 else 0.,'top10':top})
+                           'ndcg10':float(1/math.log2(rank+1)) if rank<=10 else 0.,'top10':top,
+                           'target_in_learned_output':not (key in {'m1','m2','m3'} and not self.catalog[profile['target']]['in_train']),
+                           'uses_fallback':bool(profile['fallback'])})
         history=[dict(self.item(h['item_index']),timestamp=h['timestamp']) for h in profile['history_records']]
         return {'run_id':self.manifest['run_id'],'profile_id':profile['profile'],'protocol':payload.protocol,
                 'candidate_count':len(candidates),'execution_mode':'saved_scores','fallback':profile['fallback'],
@@ -85,6 +89,9 @@ def health(request:Request):return {'status':'ok','run_id':lab(request).manifest
 @app.get('/api/bootstrap')
 def bootstrap(request:Request):
     return lab(request).manifest
+
+@app.get('/api/study')
+def study(request:Request):return lab(request).study
 
 @app.get('/api/profiles')
 def profiles(request:Request,query:str=Query('',max_length=80),cohort:Literal['all','warm','cold']='all',history:Literal['all','short','long','empty']='all',limit:int=Query(60,ge=1,le=646)):
