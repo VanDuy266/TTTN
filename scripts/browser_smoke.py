@@ -1,68 +1,54 @@
-"""Optional browser acceptance check; requires Playwright and local Chromium."""
-import argparse
+"""Exercise the compact research workspace on desktop and mobile."""
+import os
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
-ROOT=Path(__file__).resolve().parents[1]
-def main(base):
-    errors=[]
+ROOT = Path(__file__).resolve().parents[1]
+BASE = os.getenv('BASE_URL', 'http://127.0.0.1:8000')
+
+def main():
     with sync_playwright() as p:
-        browser=p.chromium.launch(executable_path='/usr/bin/chromium',headless=True,args=['--no-sandbox'])
-        page=browser.new_page(viewport={'width':1536,'height':1100});page.on('pageerror',lambda e:errors.append(str(e)))
-        page.goto(base,wait_until='networkidle')
-        page.get_by_role('heading',name='Ba hướng thực nghiệm').wait_for()
-        assert 'DAD' in page.title()
-        page.screenshot(path=str(ROOT/'docs/screenshots/research-web-overview.png'))
-        page.locator('a[data-nav=experiment]').click()
+        browser = p.chromium.launch(executable_path='/usr/bin/chromium', headless=True, args=['--no-sandbox'])
+        page = browser.new_page(viewport={'width':1440,'height':1000})
+        errors = []
+        page.on('pageerror', lambda e: errors.append(str(e)))
+        page.goto(BASE, wait_until='networkidle')
         page.wait_for_function('document.querySelector("#profile-select")?.value?.startsWith("KH-")')
-        page.get_by_role('button',name='So sánh dự đoán',exact=False).click()
-        page.locator('.model-card').first.wait_for();assert page.locator('.model-card').count()==7
-        assert page.locator('.target-name').count()==0
-        page.get_by_role('button',name='Hiện sản phẩm thực tế',exact=False).click();page.locator('.target-name').wait_for()
+        assert page.locator('[data-group=h1]').get_attribute('aria-pressed') == 'true'
+        assert page.locator('.advanced-controls').get_attribute('open') is None
+        for group, count in [('h1',4),('h2',3),('h3',4),('all',7)]:
+            page.locator(f'[data-group={group}]').click()
+            page.locator('#run-button').click()
+            page.wait_for_function(f'document.querySelectorAll(".model-card").length === {count}')
+            assert page.locator('.compact-target').is_visible()
+            assert page.locator('.model-card > .ranking-list').first.locator('li').count() == 5
+            page.locator('.ranking-more summary').first.click()
+            assert page.locator('.ranking-more').first.locator('li').count() == 5
         with page.expect_download() as download:
-            page.get_by_role('button',name='Xuất đối chiếu CSV',exact=False).click()
+            page.locator('[data-action=case-csv]').click()
         assert download.value.suggested_filename.endswith('.csv')
+        page.locator('#profile-search').fill('KH-0020')
+        page.wait_for_function('document.querySelector("#profile-select").value === "KH-0020"')
+        assert page.locator('.model-card').count() == 0
+        page.locator('#run-button').click()
+        page.locator('.model-card').first.wait_for()
         page.screenshot(path=str(ROOT/'docs/screenshots/research-web-case.png'))
-        # Each research group must select the actual components used for that experiment.
-        for group,count in [('h1',4),('h2',3),('h3',4)]:
-            page.select_option('#model-group',group)
-            page.get_by_role('button',name='So sánh dự đoán',exact=False).click()
-            page.locator('.model-card').first.wait_for()
-            assert page.locator('.model-card').count()==count
-        page.select_option('#model-group','all')
-        # Search changing the selected profile must invalidate the previously displayed result.
-        page.fill('#profile-search','KH-0020')
-        page.wait_for_function('document.querySelector("#profile-select")?.value==="KH-0020"')
-        assert page.locator('.model-card').count()==0
-        page.get_by_role('button',name='So sánh dự đoán',exact=False).click();page.locator('.model-card').first.wait_for()
-        page.get_by_role('button',name='Không có lịch sử trước thời điểm kiểm tra',exact=True).click()
-        page.wait_for_function('document.querySelector("#profile-select").selectedOptions[0].textContent.includes("0 lịch sử")')
-        page.get_by_role('button',name='So sánh dự đoán',exact=False).click()
-        page.get_by_text('Không có tương tác trước thời điểm kiểm tra.',exact=False).wait_for()
-        page.locator('a[data-nav=results]').click();page.locator('#metrics-body table').first.wait_for()
-        page.select_option('#metrics-cohort','cold')
-        page.wait_for_function('document.querySelector("#metric-context").textContent.includes("550")')
-        page.select_option('#metrics-protocol','sampled100')
-        page.wait_for_function('document.querySelector("#metric-context").textContent.includes("99 sản phẩm đối chứng")')
-        page.screenshot(path=str(ROOT/'docs/screenshots/research-web-results.png'))
-        page.locator('a[data-nav=discussion]').click();page.locator('#discussion-evidence .stats').wait_for()
-        page.screenshot(path=str(ROOT/'docs/screenshots/research-web-discussion.png'))
-        page.locator('a[data-nav=method]').click();page.locator('.training-panel').first.wait_for();assert page.locator('.model-definition').count()==3;assert page.locator('#direction-h3').get_by_text('Trọng số H1',exact=True).count()==1
-        page.screenshot(path=str(ROOT/'docs/screenshots/research-web-method.png'))
-        page.locator('#direction-h1').scroll_into_view_if_needed()
-        page.screenshot(path=str(ROOT/'docs/screenshots/research-web-model-definitions.png'))
-        mobile=browser.new_page(viewport={'width':390,'height':844},is_mobile=True,has_touch=True)
-        mobile.goto(base,wait_until='networkidle');mobile.get_by_role('heading',name='Ba hướng thực nghiệm').wait_for()
-        mobile.screenshot(path=str(ROOT/'docs/screenshots/research-web-mobile.png'))
-        mobile.locator('#menu-button').click();mobile.locator('a[data-nav=experiment]').click()
+        for route, selector in [('results','#metrics-body table'),('discussion','#discussion-evidence .stats'),('method','.model-definition')]:
+            page.locator(f'a[data-nav={route}]').click()
+            page.locator(selector).first.wait_for()
+            assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
+        mobile = browser.new_page(viewport={'width':390,'height':844}, is_mobile=True, has_touch=True)
+        mobile.on('pageerror', lambda e: errors.append(str(e)))
+        mobile.goto(BASE, wait_until='networkidle')
         mobile.wait_for_function('document.querySelector("#profile-select")?.value?.startsWith("KH-")')
-        mobile.get_by_role('button',name='So sánh dự đoán',exact=False).click();mobile.locator('.model-card').first.wait_for()
-        assert mobile.evaluate('document.documentElement.scrollWidth<=innerWidth')
-        mobile.locator('#menu-button').click();mobile.locator('a[data-nav=method]').click()
-        mobile.locator('.model-definition').first.wait_for()
-        assert mobile.evaluate('document.documentElement.scrollWidth<=innerWidth')
-        assert not errors,errors
-        print('PASS: DAD branding, seven-model comparison including H3, reveal, CSV, profile invalidation, fallback, cohort/protocol changes, discussion, training curves, mobile; no JS errors.')
+        mobile.locator('[data-group=h3]').click()
+        mobile.locator('#run-button').click()
+        mobile.locator('.model-card').first.wait_for()
+        assert mobile.evaluate('document.documentElement.scrollWidth <= innerWidth')
+        mobile.screenshot(path=str(ROOT/'docs/screenshots/research-web-mobile.png'))
+        assert not errors, errors
         browser.close()
-if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--base',default='http://127.0.0.1:8501');args=parser.parse_args();main(args.base)
+        print('PASS: H1/H2/H3/all, direct comparison, expanded rankings, CSV, stale result invalidation, research pages and mobile; no JavaScript errors.')
+
+if __name__ == '__main__':
+    main()

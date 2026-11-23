@@ -2445,3 +2445,28 @@ select {
   }
 }
 .model-definition .metrics-table td:first-child{white-space:normal}
+
+/* Compact research workspace: keep evidence available without crowding controls. */
+.direction-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:24px}
+.direction-tabs button{display:flex;flex-direction:column;align-items:flex-start;gap:5px;padding:15px 18px;border:1px solid var(--line,#deddd7);border-radius:10px;background:#faf9f6;color:#455361;font:inherit;cursor:pointer;text-align:left}
+.direction-tabs button strong{font-size:22px;color:#172e45}
+.direction-tabs button span{font-size:14px}
+.direction-tabs button[aria-pressed="true"]{background:#102940;border-color:#102940;color:#e9ddc8;box-shadow:0 4px 12px #10294018}
+.direction-tabs button[aria-pressed="true"] strong{color:#edcf94}
+.direction-tabs button:focus-visible{outline:3px solid #b58a43;outline-offset:3px}
+.advanced-controls{margin-top:12px}.advanced-controls>.presets{margin-top:18px}
+.compact-target{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px 24px;margin-bottom:22px;border-left:3px solid #b58a43}
+.compact-target h3{margin:7px 0;font-size:19px}.compact-target code{font-size:12px;color:#66717a}
+.compact-comparison{gap:16px}
+.compact-comparison{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.compact-comparison .model-card-head{min-height:90px;padding:18px;display:block}
+.compact-comparison .model-card-head h3{font-size:19px;margin-top:6px}
+.compact-score{padding:0 18px 12px}.compact-score p{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;font-size:13px;color:#6b7278;margin:12px 0 0}
+.compact-comparison .ranking-item{padding:12px 16px;min-height:65px}
+.ranking-more summary{cursor:pointer;padding:14px 18px;color:#82612e;font-weight:600;border-top:1px solid #ece8e0}
+.compact-comparison+.disclosure{margin:20px 0}
+.experiment-controls .protocol-note{font-size:13px;margin-bottom:0}
+@media(min-width:1000px){.dad-logo{width:145px;height:145px}.dad-brand{padding-top:6px}.page-heading{margin-bottom:24px}}
+@media(max-width:600px){.direction-tabs{gap:8px}.direction-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.direction-tabs button{padding:12px}.direction-tabs button strong{font-size:19px}.direction-tabs button span{font-size:12px}.compact-target{align-items:flex-start;flex-direction:column;padding:18px}.compact-comparison{grid-template-columns:minmax(0,1fr)}}
+
+.compact-definition>summary{cursor:pointer;padding:4px 0;color:#243c50}.compact-definition>summary h3{display:inline;font-size:21px}.compact-definition>summary>span{display:block;font-size:14px;color:#737b80;margin:8px 0 0 20px}.compact-definition[open]>summary{margin-bottom:22px}
