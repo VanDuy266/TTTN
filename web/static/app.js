@@ -21,6 +21,7 @@ const routes = {
   results: "Đánh giá mô hình",
   discussion: "Nhận xét và cải tiến",
   method: "Dữ liệu và mô hình",
+  store: "Cửa hàng mô phỏng",
 };
 const state = {
   bootstrap: null,
@@ -119,7 +120,7 @@ function overview() {
   const b = state.bootstrap,
     a = b.audit;
   $("#main").innerHTML =
-    `<section class="hero"><div><div class="eyebrow">NHÓM DAD · AMAZON ALL BEAUTY</div><h1>Thực nghiệm hệ thống<br>gợi ý sản phẩm</h1><p>Phân tích lịch sử tương tác, so sánh sản phẩm dự đoán của ba hướng nghiên cứu và tổng hợp chỉ số đánh giá.</p><div class="hero-actions"><a href="#experiment" class="btn">Chạy thực nghiệm</a><a href="#method" class="btn btn-outline">Dữ liệu và mô hình</a></div></div></section>
+    `<section class="hero"><div><div class="eyebrow">NHÓM DAD · AMAZON ALL BEAUTY</div><h1>Thực nghiệm hệ thống<br>gợi ý sản phẩm</h1><p>Phân tích lịch sử tương tác, so sánh sản phẩm dự đoán của ba hướng nghiên cứu và tổng hợp chỉ số đánh giá.</p><div class="hero-actions"><a href="#experiment" class="btn">Chạy thực nghiệm</a><a href="#method" class="btn btn-outline">Dữ liệu và mô hình</a><a href="#store" class="btn btn-outline">Cửa hàng mô phỏng</a></div></div></section>
 <div class="stats"><div class="stat"><div class="stat-label">Hồ sơ kiểm chứng</div><div class="stat-value">${num(a.users)}</div></div><div class="stat"><div class="stat-label">Sản phẩm trong danh mục</div><div class="stat-value">${num(a.catalog)}</div></div><div class="stat"><div class="stat-label">Tương tác huấn luyện</div><div class="stat-value">${num(a.train_rows)}</div></div><div class="stat"><div class="stat-label">Mục tiêu kiểm tra chưa có trong tập huấn luyện</div><div class="stat-value">${num((a.cold_test_targets / a.test_rows) * 100, 1)}%</div></div></div>
 <div class="section-heading"><div><h2>Ba hướng thực nghiệm</h2><p>Ba nhóm mô hình được đánh giá trên cùng dữ liệu đầu vào.</p></div></div>
 <div class="directions-grid">${state.study.directions.map((d) => `<article class="panel research-panel"><div class="panel-index">${h(d.name.split(" — ")[0].toUpperCase())}</div><h3>${h(d.name.split(" — ")[1])}</h3><dl class="direction-facts"><dt>Đầu vào</dt><dd>${h(d.id === "h1" ? "Lịch sử sản phẩm và mốc thời gian." : d.id === "h2" ? "Đồ thị tương tác và tiêu đề sản phẩm." : "Điểm dự đoán của H1, H2 và độ phổ biến.")}</dd><dt>Đầu ra</dt><dd>${h(d.id === "h3" ? "Điểm kết hợp và 10 gợi ý được xếp hạng." : "Điểm dự đoán và 10 sản phẩm được xếp hạng.")}</dd></dl><a href="#method/${h(d.id)}" class="inline-link">Xem mô hình ${h(d.id.toUpperCase())}</a></article>`).join("")}</div>
@@ -710,6 +711,248 @@ function setMenu(expanded) {
   $("#menu-button").setAttribute("aria-label", expanded ? "Đóng điều hướng" : "Mở điều hướng");
   $("#nav-backdrop").hidden = !expanded;
 }
+const shop = {
+  cart: new Map(),
+  checkoutKey: null,
+  pending: false,
+};
+const storeRoutes = {
+  "popularity-control-v1": "Độ phổ biến · nhóm đối chứng",
+  "popularity-fallback-v1": "Độ phổ biến · khách mới",
+  "content-onboarding-v1": "Gợi ý theo sản phẩm quan tâm",
+  "validated-ranking-v1": "Xếp hạng từ điểm đã lưu",
+};
+const shopMoney = (value) => new Intl.NumberFormat("vi-VN", {
+  style: "currency", currency: "VND",
+}).format(value);
+const storePost = (path, data) => api(`/api/store/${path}`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(data),
+});
+
+async function storefront() {
+  $("#main").innerHTML = heading(
+    "Cửa hàng mô phỏng",
+    "Chạy thử gợi ý, tạo đơn và đối chiếu tồn kho. Giá, tương tác và đơn hàng chỉ phục vụ trình diễn.",
+  ) + '<div id="store-workspace"></div>';
+  const root = $("#store-workspace");
+  root.innerHTML = loading("Đang chuẩn bị cửa hàng…");
+  try {
+    const config = await api("/api/store/session");
+    if (!root.isConnected) return;
+    if (config.new_session) {
+      shop.cart.clear();
+      shop.checkoutKey = null;
+    }
+    root.innerHTML = `
+      <div class="store-layout">
+        <section class="panel store-section" aria-labelledby="store-recommend-title">
+          <h2 id="store-recommend-title">Gợi ý sản phẩm</h2>
+          <form id="store-recommend">
+            <div class="store-fields">
+              <div><label for="store-profile">Hồ sơ</label><select id="store-profile">${options([["Khách mới", "Khách mới"], ...config.profiles.map((id) => [id, id])], "Khách mới")}</select></div>
+              <div><label for="store-group">Nhóm sản phẩm</label><select id="store-group">${options(["Tất cả", ...config.groups].map((group) => [group, group]), "Tất cả")}</select></div>
+            </div>
+            <label for="store-seed">Sản phẩm quan tâm (tùy chọn)</label>
+            <select id="store-seed">${options([["", "Chưa chọn sản phẩm"], ...config.seeds.map((item) => [item.item_id, item.title])], "")}</select>
+            <div class="store-tools store-form-actions">
+              <button class="btn" type="submit">Xem gợi ý</button>
+              <button class="btn btn-outline" type="button" id="store-cart-link">Giỏ hàng</button>
+            </div>
+          </form>
+          <div id="store-recommendations"><p>Chọn hồ sơ rồi xem những sản phẩm đang bán và còn hàng.</p></div>
+        </section>
+        <section class="panel store-section" aria-labelledby="store-cart-title">
+          <h2 id="store-cart-title" tabindex="-1">Giỏ hàng thử</h2>
+          <div id="store-cart"></div>
+          <p id="store-order" role="status"></p>
+        </section>
+      </div>
+      <section class="panel store-section" aria-labelledby="store-ops-title">
+        <h2 id="store-ops-title">Vận hành và đối chiếu</h2>
+        <p>Tồn kho và nhật ký chỉ thuộc phiên trình duyệt này. Dữ liệu thử hết hạn sau 4 giờ hoặc khi máy chủ khởi động lại.</p>
+        <div class="store-tools">
+          <a class="btn btn-outline" href="/api/store/inventory.csv">Tải tồn kho CSV</a>
+          <a class="btn btn-outline" href="/api/store/events.csv">Tải nhật ký sự kiện</a>
+          <button class="btn btn-outline" id="store-refresh" type="button">Làm mới số liệu</button>
+        </div>
+        <form id="store-experiment" class="store-action-row">
+          <label><input type="checkbox" id="store-ab" ${config.experiment_enabled ? "checked" : ""}> Bật phân nhóm A/B mô phỏng cho lượt gợi ý tiếp theo</label>
+          <button class="btn btn-outline btn-small" type="submit">Lưu</button>
+        </form>
+        <details class="disclosure"><summary>Nhập snapshot tồn kho thử</summary>
+          <p>Dùng các cột item_id, stock, price, active. Mã bị bỏ khỏi tệp sẽ ngừng bán trong phiên này.</p>
+          <form id="store-inventory" class="store-action-row">
+            <div><label for="store-csv">Tệp tồn kho CSV</label><input id="store-csv" type="file" accept=".csv,text/csv" required></div>
+            <button class="btn btn-outline btn-small" type="submit">Cập nhật tồn kho</button>
+          </form>
+        </details>
+        <div id="store-operations">${loading()}</div>
+      </section>
+      <p class="notice notice-error" id="store-error" role="alert" hidden></p>`;
+
+    const find = (selector) => $(selector, root);
+    const fail = (error) => {
+      const alert = find("#store-error");
+      alert.hidden = false;
+      alert.textContent = error.message;
+      alert.scrollIntoView({ block: "nearest" });
+    };
+    const act = async (job) => {
+      if (shop.pending) return;
+      shop.pending = true;
+      find("#store-error").hidden = true;
+      const buttons = $$("button", root).filter((button) => !button.disabled);
+      buttons.forEach((button) => { button.disabled = true; });
+      try {
+        await job();
+      } catch (error) {
+        fail(error);
+      } finally {
+        shop.pending = false;
+        buttons.forEach((button) => { button.disabled = false; });
+      }
+    };
+
+    function cartView() {
+      const lines = [...shop.cart.values()];
+      find("#store-cart-link").textContent = `Giỏ hàng (${num(lines.reduce((sum, item) => sum + item.quantity, 0))})`;
+      find("#store-cart").innerHTML = lines.length ? `
+        <ul class="store-cart-list">${lines.map((item) => `<li>
+          <div><strong>${h(item.title)}</strong><span>${num(item.quantity)} × ${shopMoney(item.price)}</span></div>
+          <button type="button" class="btn btn-outline btn-small" data-remove="${h(item.item_id)}">Bỏ</button>
+        </li>`).join("")}</ul>
+        <p><strong>Tạm tính ${shopMoney(lines.reduce((sum, item) => sum + item.quantity * item.price, 0))}</strong></p>
+        <button type="button" class="btn" id="store-checkout">Tạo đơn thử</button>` : "<p>Giỏ hàng đang trống.</p>";
+    }
+
+    async function loadOperations() {
+      const data = await api("/api/store/operations");
+      const steps = [
+        ["Hiển thị SKU", "impressions"], ["Nhấp", "clicks"],
+        ["Thêm giỏ", "add_to_cart"], ["SKU có đơn", "purchase_items"],
+      ];
+      find("#store-operations").innerHTML = `
+        <h3>Đối chiếu đơn hàng</h3>
+        <p>${num(data.sellable)} mã còn hàng và đang bán · ${data.inventory_source === "operator_csv" ? "Tồn kho từ CSV" : "Tồn kho mẫu"}</p>
+        ${data.orders.length ? `<div class="table-wrap" tabindex="0" role="region" aria-label="Đơn thử và tồn kho"><table class="metrics-table">
+          <thead><tr><th>Đơn</th><th>Sản phẩm</th><th>Số lượng</th><th>Còn trong kho</th><th>Tổng đơn</th></tr></thead>
+          <tbody>${data.lines.map((line) => `<tr><td>${h(line.order_id)}</td><td class="wrap-cell">${h(line.title)}</td><td>${num(line.quantity)}</td><td>${num(line.stock)}</td><td>${shopMoney(data.orders.find((order) => order.id === line.order_id).total)}</td></tr>`).join("")}</tbody></table></div>` : "<p>Chưa có đơn thử.</p>"}
+        <h3>Phễu hành vi mô phỏng</h3>
+        <dl class="store-funnel">${steps.map(([label, key]) => `<div><dt>${label}</dt><dd>${num(data.funnel.reduce((sum, row) => sum + row[key], 0))}</dd></div>`).join("")}</dl>
+        ${data.funnel.length ? `<div class="table-wrap" tabindex="0" role="region" aria-label="Phễu thử nghiệm"><table class="metrics-table">
+          <thead><tr><th>Nhóm</th><th>Lượt gợi ý</th><th>Hiển thị SKU</th><th>Nhấp</th><th>Thêm giỏ</th><th>SKU có đơn</th><th>CTR</th></tr></thead>
+          <tbody>${data.funnel.map((row) => `<tr><td>${h(({ personalized: "Cá nhân hóa", control: "Đối chứng A", treatment: "Gợi ý B" })[row.variant])}</td><td>${num(row.requests)}</td><td>${num(row.impressions)}</td><td>${num(row.clicks)}</td><td>${num(row.add_to_cart)}</td><td>${num(row.purchase_items)}</td><td>${pct(row.CTR)}</td></tr>`).join("")}</tbody></table></div>` : "<p>Chưa có lượt gợi ý.</p>"}
+        <p class="table-caption">Các lượt thử trong phiên dùng để kiểm tra ghi nhận sự kiện. Nhóm A/B giữ nguyên cho cùng một phiên.</p>`;
+    }
+
+    let current = null;
+    const track = (id, event) => storePost("events", {
+      item_id: id, event, request_id: current.request_id,
+    });
+    find("#store-recommend").onsubmit = (event) => {
+      event.preventDefault();
+      act(async () => {
+        current = await storePost("recommendations", {
+          profile: find("#store-profile").value, group: find("#store-group").value,
+          seed: find("#store-seed").value, cart_ids: [...shop.cart.keys()],
+        });
+        find("#store-recommendations").innerHTML = `
+          <p class="store-route">${h(storeRoutes[current.route])} · ${num(current.items.length)} sản phẩm</p>
+          ${current.items.length ? `<div class="store-products">${current.items.map((item) => `<article>
+            <small>${h(item.group)}</small><h3>${h(item.title)}</h3>
+            <p><strong>${shopMoney(item.price)}</strong> · Kho ${num(item.stock)}</p>
+            <div class="store-tools"><button type="button" class="btn btn-outline btn-small" data-detail="${h(item.item_id)}" aria-expanded="false">Chi tiết</button>
+            <button type="button" class="btn btn-small" data-add="${h(item.item_id)}">Thêm giỏ</button></div>
+            <p class="store-detail" hidden>Mã sản phẩm ${h(item.item_id)}</p>
+          </article>`).join("")}</div>` : "<p>Không có sản phẩm khả dụng với lựa chọn này.</p>"}`;
+        await loadOperations();
+      });
+    };
+    find("#store-recommendations").onclick = (event) => {
+      const button = event.target.closest("[data-add], [data-detail]");
+      if (!button || !current) return;
+      act(async () => {
+        const id = button.dataset.add || button.dataset.detail;
+        const item = current.items.find((entry) => entry.item_id === id);
+        if (button.dataset.detail) {
+          const detail = $(".store-detail", button.closest("article"));
+          detail.hidden = !detail.hidden;
+          button.setAttribute("aria-expanded", String(!detail.hidden));
+          if (!detail.hidden) await track(id, "click");
+        } else {
+          const quantity = (shop.cart.get(id)?.quantity || 0) + 1;
+          if (quantity > item.stock || quantity > 99) throw Error("Số lượng đã đạt giới hạn tồn kho.");
+          if (!shop.cart.has(id) && shop.cart.size >= 30) throw Error("Giỏ thử hỗ trợ tối đa 30 mã sản phẩm.");
+          await track(id, "click");
+          await track(id, "cart");
+          shop.cart.set(id, { ...item, quantity, request_id: current.request_id });
+          shop.checkoutKey = null;
+          find("#store-order").textContent = `Đã thêm ${item.title}.`;
+          cartView();
+        }
+        await loadOperations();
+      });
+    };
+    find("#store-cart").onclick = (event) => {
+      const remove = event.target.closest("[data-remove]");
+      if (remove && !shop.pending) {
+        shop.cart.delete(remove.dataset.remove);
+        shop.checkoutKey = null;
+        cartView();
+      }
+      if (event.target.closest("#store-checkout")) act(async () => {
+        shop.checkoutKey ||= crypto.randomUUID();
+        const order = await storePost("orders", {
+          checkout_key: shop.checkoutKey,
+          cart: Object.fromEntries([...shop.cart].map(([id, item]) => [id, {
+            quantity: item.quantity, request_id: item.request_id,
+          }])),
+        });
+        shop.cart.clear();
+        shop.checkoutKey = null;
+        current = null;
+        cartView();
+        find("#store-order").textContent = `Đã tạo đơn thử ${order.id}. Tồn kho đã cập nhật.`;
+        find("#store-recommendations").textContent = "Chọn Xem gợi ý để đọc tồn kho mới.";
+        await loadOperations();
+      });
+    };
+    find("#store-cart-link").onclick = () => find("#store-cart-title").focus();
+    find("#store-refresh").onclick = () => act(loadOperations);
+    find("#store-experiment").onsubmit = (event) => {
+      event.preventDefault();
+      act(async () => {
+        const { enabled } = await storePost("experiment", { enabled: find("#store-ab").checked });
+        find("#store-order").textContent = enabled ? "Đã bật phân nhóm A/B." : "Đã tắt phân nhóm A/B.";
+      });
+    };
+    find("#store-inventory").onsubmit = (event) => {
+      event.preventDefault();
+      act(async () => {
+        const file = find("#store-csv").files[0];
+        if (file.size > 250_000) throw Error("Tệp vượt giới hạn 250 KB.");
+        const { imported } = await storePost("inventory", { csv: await file.text() });
+        shop.cart.clear();
+        shop.checkoutKey = null;
+        if (!root.isConnected) return;
+        await storefront();
+        const status = $("#store-order");
+        if (status) status.textContent = `Đã nhập tồn kho cho ${num(imported)} mã sản phẩm.`;
+      });
+    };
+    cartView();
+    try {
+      await loadOperations();
+    } catch (error) {
+      fail(error);
+    }
+  } catch (error) {
+    root.innerHTML = errorBlock(error);
+  }
+}
+
 function render() {
   if (!state.bootstrap) return;
   state.generation++;
@@ -727,7 +970,7 @@ function render() {
   });
   setMenu(false);
   window.scrollTo(0, 0);
-  ({ overview, experiment, results, discussion, method: methodology })[
+  ({ overview, experiment, results, discussion, method: methodology, store: storefront })[
     state.route
   ]();
   if (state.route === "method" && ["h1", "h2", "h3"].includes(direction)) {

@@ -15,12 +15,12 @@ Vấn đề nghiệp vụ: khách mới khó tìm sản phẩm trong danh mục;
 
 ## Một hành trình có thể kiểm chứng ngay
 
-1. Vào **Cửa hàng trải nghiệm**. Chọn khách mới và một sản phẩm quan tâm, hoặc chọn hồ sơ lịch sử ẩn danh. Khách mới chưa chọn nhu cầu dùng popularity fallback.
+1. Trong web chính, mở **Cửa hàng mô phỏng**. Chọn khách mới và một sản phẩm quan tâm, hoặc chọn hồ sơ lịch sử ẩn danh. Khách mới chưa chọn nhu cầu dùng popularity fallback.
 2. Hệ thống lấy điểm theo tuyến phục vụ: hồ sơ dùng điểm đã tính trước; nhu cầu mới dùng tương đồng nội dung. H1/GNN chưa được huấn luyện online khi bấm nút.
 3. Lớp nghiệp vụ loại SKU hết hàng/ngừng bán, SKU trong giỏ, sản phẩm làm hạt giống và lịch sử đã biết; lọc nhóm nhu cầu rồi đa dạng hóa top K.
 4. Một request_id liên kết các SKU đề xuất với sự kiện impression. Bấm chi tiết hoặc thêm giỏ ghi click; thêm giỏ ghi cart. Một hành động lặp cùng request/SKU được khử trùng.
 5. Tạo **đơn thử nghiệm**, không có thanh toán. Giao dịch SQLite kiểm tra lại trạng thái/giá/tồn kho, ghi đơn và trừ tồn kho cùng lúc. Thiếu một SKU thì hủy toàn bộ; cùng checkout_key không tạo đơn/trừ kho lần hai.
-6. Mở **Điều hành cửa hàng → Đối chiếu đơn** để xem dòng hàng và đơn; đối chiếu **Danh mục & tồn kho**. Xem phễu và xuất log có request_id ở **Hành trình & A/B**.
+6. Mở **Vận hành và đối chiếu** để xem đơn, số tồn hiện tại và phễu. Có thể xuất tồn kho và nhật ký có request_id.
 
 ## H1/H2/H3 nằm ở đâu?
 
@@ -89,7 +89,7 @@ Không có ngưỡng tăng trưởng doanh thu hay SLA được doanh nghiệp p
 ## Ranh giới kỹ thuật của phiên bản này
 
 - SQLite chạy trong **một instance**; Render Free không có lưu trữ bền vững, log/đơn/tồn kho nhập có thể mất khi restart/redeploy. Trước pilot thật chuyển sang PostgreSQL hoặc dịch vụ DB bền vững.
-- Có mật khẩu vận hành tùy chọn qua biến `RETAIL_ADMIN_PASSWORD`; nếu không cấu hình, màn hình quản lý mở để trình diễn. Cần SSO/RBAC, audit quyền sửa và session security cho triển khai thật. Không nhập thông tin khách hàng thật trong bản public demo.
-- Module nghiệp vụ là adapter chạy nội bộ Streamlit, **chưa có REST API thương mại**. Khi nối website/POS, bọc cùng nghiệp vụ thành API có xác thực, timeout, rate limit, contract test và idempotency.
+- Web chính cấp cơ sở dữ liệu tạm riêng theo cookie để người trình diễn chỉ sửa tồn kho thử của phiên đó. Bản Streamlit cũ có biến `RETAIL_ADMIN_PASSWORD`. Triển khai thật vẫn cần quyền theo vai trò và theo dõi thay đổi.
+- REST API tại `/api/store` phục vụ bản mô phỏng FastAPI. Khi nối website/POS, cần xác thực, giới hạn lưu lượng và kiểm thử hợp đồng với hệ thống thật.
 - Chưa nối ERP/POS/CRM/OMS, payment, vận chuyển, thuế, voucher hay hoàn trả. “Tạo đơn thử nghiệm” không tạo đơn trong hệ thống doanh nghiệp.
 - Không có tác vụ tái huấn luyện online. Dữ liệu thời gian gốc, metadata đầy đủ, nhiều seed và lợi ích thực tế của mô hình vẫn là công việc cần làm trước production.

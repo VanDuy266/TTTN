@@ -2883,3 +2883,147 @@ input::placeholder {
 .benchmark-table tbody th {
   white-space: normal;
 }
+
+.store-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  margin-bottom: 20px;
+}
+
+.store-section {
+  min-width: 0;
+  border-radius: var(--radius);
+}
+
+.store-section h2 {
+  margin-bottom: 16px;
+}
+
+.store-fields,
+.store-products {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.store-fields {
+  margin-bottom: 12px;
+}
+
+.store-form-actions {
+  margin-top: 14px;
+}
+
+#store-recommendations,
+#store-operations,
+.store-action-row,
+#store-error {
+  margin-top: 18px;
+}
+
+.store-route {
+  color: #164870;
+  font-weight: 650;
+}
+
+.store-products article {
+  min-width: 0;
+  padding: 15px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #f7fafd;
+}
+
+.store-products h3 {
+  margin: 7px 0 10px;
+  overflow-wrap: anywhere;
+}
+
+.store-products small,
+.store-cart-list span {
+  color: var(--muted);
+}
+
+.store-tools,
+.store-action-row,
+.store-cart-list li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+
+.store-action-row input[type="checkbox"] {
+  width: auto;
+  min-height: auto;
+  accent-color: #164870;
+}
+
+.store-action-row label {
+  margin: 0;
+}
+
+.store-detail {
+  margin: 10px 0 0;
+}
+
+.store-cart-list {
+  list-style: none;
+  padding: 0;
+}
+
+.store-cart-list li {
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.store-cart-list span {
+  display: block;
+}
+
+#store-operations h3 {
+  margin-top: 18px;
+}
+
+@media (max-width: 950px) {
+  .store-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .store-products {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.store-funnel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+  gap: 8px;
+}
+
+.store-funnel > div {
+  background: #edf4fa;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.store-funnel dt {
+  color: var(--muted);
+  font-size: .85em;
+}
+
+.store-funnel dd {
+  color: #164870;
+  font-size: 1.4em;
+  font-weight: 700;
+  margin: 0;
+}
+
+#store-cart-title {
+  scroll-margin-top: 80px;
+}

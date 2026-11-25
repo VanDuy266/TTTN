@@ -21,11 +21,11 @@ def main():
             page.locator('#run-button').click()
             page.wait_for_function(f'document.querySelectorAll(".model-card").length === {count}')
             assert page.locator('.compact-target').is_visible()
-            expect(page.locator('.case-summary tbody tr')).to_have_count(count)
+            expect(page.locator('[aria-labelledby="case-summary-title"] tbody tr')).to_have_count(count)
             assert page.locator('.model-card > .ranking-list').first.locator('li').count() == 5
             page.locator('.ranking-more summary').first.click()
             assert page.locator('.ranking-more').first.locator('li').count() == 5
-        page.locator('.case-summary a').first.click()
+        page.locator('.ranking-link').first.click()
         expect(page.locator('.model-card').first).to_be_focused()
         with page.expect_download() as download:
             page.locator('[data-action=case-csv]').click()

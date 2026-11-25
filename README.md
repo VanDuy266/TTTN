@@ -6,7 +6,7 @@
 
 ## Chạy web
 
-Python 3.12; runtime chỉ cần FastAPI, Uvicorn và NumPy, **không dùng Streamlit**:
+Python 3.12. FastAPI và Uvicorn phục vụ web. NumPy, pandas và SciPy xử lý điểm mô hình và dữ liệu của cửa hàng mô phỏng.
 
 ```bash
 python -m venv .venv
@@ -60,9 +60,15 @@ Xem [kiểm chứng](docs/VALIDATION.md), [kết quả](docs/RESULTS.md), [nhậ
 
 API docs: `/api/docs`. Health check: `/healthz`. Web runtime đọc score bằng memory-map; không tải ma trận lớn xuống browser. Đo loopback trong môi trường sạch: API đối chiếu sáu model p95 khoảng **3,1 ms**; đây không phải SLA hosting hay latency neural inference. [Chi tiết phép đo](docs/web-performance.json).
 
+## Cửa hàng mô phỏng tích hợp
+
+Trong menu web chính, mở **Cửa hàng mô phỏng**. Chọn hồ sơ hoặc sản phẩm quan tâm, xem gợi ý còn hàng, mở chi tiết hoặc thêm vào giỏ, rồi tạo đơn thử. Phần **Vận hành và đối chiếu** hiển thị đơn, tồn kho còn lại và phễu hành vi. Có thể xuất tồn kho/nhật ký, nhập snapshot CSV và bật phân nhóm A/B cho lượt gợi ý tiếp theo.
+
+Giá và tồn kho mẫu, lượt nhấp và đơn thử chỉ dùng để trình diễn. Mỗi cookie trình duyệt có SQLite tạm riêng. Phiên hết hạn sau 4 giờ, toàn bộ dữ liệu thử mất khi máy chủ khởi động lại. Luồng này chưa kết nối ERP/POS, thanh toán, dữ liệu khách hàng hoặc hệ thống doanh nghiệp.
+
 ## Bản cũ
 
-`retail_demo.py` và `src/business.py` giữ nguyên mẫu bán hàng cũ để tham khảo, không được gọi bởi web hiện tại hoặc Render. Muốn chạy riêng cần `requirements-legacy.txt`. Dữ liệu runtime SQLite và upload không được đưa lên GitHub. Kịch bản doanh nghiệp trong `docs/PILOT.md` là tham khảo ứng dụng về sau, không phải mục tiêu của demo thực nghiệm hiện tại.
+`retail_demo.py` là giao diện Streamlit cũ để tham khảo. Web chính dùng lại nghiệp vụ trong `src/business.py` qua API cửa hàng. Muốn chạy riêng cần `requirements-legacy.txt`. Dữ liệu runtime SQLite và upload không được đưa lên GitHub. Kịch bản doanh nghiệp trong `docs/PILOT.md` là tham khảo ứng dụng về sau, không phải mục tiêu của demo thực nghiệm hiện tại.
 
 Giao diện dùng chữ serif cho tiêu đề, chữ sans-serif hệ thống cho phần thao tác và logo DAD cho điều hướng. H3 có trong nhóm mô hình mặc định khi đối chiếu và bảng kết quả chính; trọng số/kết quả thực nghiệm giữ nguyên.
 

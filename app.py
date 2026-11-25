@@ -1,4 +1,4 @@
-"""Standalone, read-only research web application. No Streamlit on the serving path."""
+"""Research web application with an isolated retail sandbox. No Streamlit on the serving path."""
 from contextlib import asynccontextmanager
 import csv, hashlib, io, json, math, time
 from pathlib import Path
@@ -9,6 +9,7 @@ from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import HTMLResponse, PlainTextResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
+from src.retail_web import StoreDemo, router as retail_router
 from src.study import evaluation_method, model_study
 
 ROOT=Path(__file__).resolve().parent
@@ -60,10 +61,15 @@ class ResearchLab:
 @asynccontextmanager
 async def lifespan(application):
     application.state.lab=ResearchLab()
-    yield
+    application.state.store_demo = StoreDemo(application.state.lab, ROOT / "artifacts")
+    try:
+        yield
+    finally:
+        application.state.store_demo.directory.cleanup()
 
 app=FastAPI(title='DAD · Thực nghiệm hệ thống gợi ý',version='2.0',lifespan=lifespan,docs_url='/api/docs',redoc_url=None)
 app.add_middleware(GZipMiddleware,minimum_size=1000)
+app.include_router(retail_router)
 app.mount('/static',StaticFiles(directory=ROOT/'web/static'),name='static')
 
 @app.middleware('http')
