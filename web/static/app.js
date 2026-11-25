@@ -722,6 +722,14 @@ const storeRoutes = {
   "content-onboarding-v1": "Gợi ý theo sản phẩm quan tâm",
   "validated-ranking-v1": "Xếp hạng từ điểm đã lưu",
 };
+const storePhoto = {
+  "Chăm sóc da": "skin",
+  "Trang điểm": "makeup",
+  "Chăm sóc tóc": "hair",
+  "Chăm sóc móng": "nail",
+  "Cọ & dụng cụ": "tools",
+};
+const beautyPhoto = (group) => `<span class="beauty-shot beauty-${storePhoto[group] || "collection"}" aria-hidden="true"></span>`;
 const shopMoney = (value) => new Intl.NumberFormat("vi-VN", {
   style: "currency", currency: "VND",
 }).format(value);
@@ -732,10 +740,18 @@ const storePost = (path, data) => api(`/api/store/${path}`, {
 });
 
 async function storefront() {
-  $("#main").innerHTML = heading(
-    "Cửa hàng mô phỏng",
-    "Chạy thử gợi ý, tạo đơn và đối chiếu tồn kho. Giá, tương tác và đơn hàng chỉ phục vụ trình diễn.",
-  ) + '<div id="store-workspace"></div>';
+  $("#main").innerHTML = `
+    <section class="store-hero" aria-labelledby="store-title">
+      <div class="store-hero-copy">
+        <span class="store-kicker">CỬA HÀNG MÔ PHỎNG</span>
+        <h1 id="store-title">Mỹ phẩm theo nhu cầu của bạn</h1>
+        <p>Chọn sản phẩm từ Amazon All Beauty và tạo đơn thử với giá, tồn kho mô phỏng.</p>
+        <button type="button" class="btn" id="store-start">Khám phá gợi ý <span aria-hidden="true">↓</span></button>
+      </div>
+      <div class="store-hero-image">${beautyPhoto("")}</div>
+    </section>
+    <div id="store-workspace" tabindex="-1"></div>`;
+  $("#store-start").onclick = () => ($("#store-profile") || $("#store-workspace")).focus();
   const root = $("#store-workspace");
   root.innerHTML = loading("Đang chuẩn bị cửa hàng…");
   try {
@@ -746,6 +762,16 @@ async function storefront() {
       shop.checkoutKey = null;
     }
     root.innerHTML = `
+      <section class="store-browse" aria-labelledby="store-browse-title">
+        <h2 id="store-browse-title">Khám phá theo danh mục</h2>
+        <div class="store-categories">
+          ${Object.keys(storePhoto).filter((group) => config.groups.includes(group)).map((group) => `
+            <button type="button" data-store-category="${h(group)}" aria-pressed="false">
+              <span class="store-category-image">${beautyPhoto(group)}</span>
+              <span>${h(group)} <span aria-hidden="true">→</span></span>
+            </button>`).join("")}
+        </div>
+      </section>
       <div class="store-layout">
         <section class="panel store-section" aria-labelledby="store-recommend-title">
           <h2 id="store-recommend-title">Gợi ý sản phẩm</h2>
@@ -763,7 +789,7 @@ async function storefront() {
           </form>
           <div id="store-recommendations"><p>Chọn hồ sơ rồi xem những sản phẩm đang bán và còn hàng.</p></div>
         </section>
-        <section class="panel store-section" aria-labelledby="store-cart-title">
+        <section class="panel store-section store-cart-panel" aria-labelledby="store-cart-title">
           <h2 id="store-cart-title" tabindex="-1">Giỏ hàng thử</h2>
           <div id="store-cart"></div>
           <p id="store-order" role="status"></p>
@@ -851,6 +877,19 @@ async function storefront() {
     const track = (id, event) => storePost("events", {
       item_id: id, event, request_id: current.request_id,
     });
+    const selectGroup = find("#store-group");
+    const categoryButtons = $$("[data-store-category]", root);
+    const syncCategories = () => categoryButtons.forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.storeCategory === selectGroup.value));
+    });
+    selectGroup.onchange = syncCategories;
+    categoryButtons.forEach((button) => {
+      button.onclick = () => {
+        selectGroup.value = button.dataset.storeCategory;
+        syncCategories();
+        find("#store-recommend").requestSubmit();
+      };
+    });
     find("#store-recommend").onsubmit = (event) => {
       event.preventDefault();
       act(async () => {
@@ -859,14 +898,19 @@ async function storefront() {
           seed: find("#store-seed").value, cart_ids: [...shop.cart.keys()],
         });
         find("#store-recommendations").innerHTML = `
-          <p class="store-route">${h(storeRoutes[current.route])} · ${num(current.items.length)} sản phẩm</p>
+          <div class="store-results-head"><div><h3 tabindex="-1">Sản phẩm gợi ý</h3><p class="store-route">${h(storeRoutes[current.route])} · ${num(current.items.length)} sản phẩm</p></div>
+          ${current.items.length ? '<small>Ảnh minh họa theo danh mục</small>' : ""}</div>
           ${current.items.length ? `<div class="store-products">${current.items.map((item) => `<article>
-            <small>${h(item.group)}</small><h3>${h(item.title)}</h3>
-            <p><strong>${shopMoney(item.price)}</strong> · Kho ${num(item.stock)}</p>
+            <div class="store-product-image">${beautyPhoto(item.group)}</div>
+            <div class="store-product-copy">
+            <small class="store-product-category">${h(item.group)}</small><h3 title="${h(item.title)}">${h(item.title)}</h3>
+            <p class="store-product-meta"><strong>${shopMoney(item.price)}</strong><span>Còn ${num(item.stock)}</span></p>
             <div class="store-tools"><button type="button" class="btn btn-outline btn-small" data-detail="${h(item.item_id)}" aria-expanded="false">Chi tiết</button>
             <button type="button" class="btn btn-small" data-add="${h(item.item_id)}">Thêm giỏ</button></div>
-            <p class="store-detail" hidden>Mã sản phẩm ${h(item.item_id)}</p>
+            <p class="store-detail" hidden>${h(item.title)}<br>Mã sản phẩm ${h(item.item_id)}</p>
+            </div>
           </article>`).join("")}</div>` : "<p>Không có sản phẩm khả dụng với lựa chọn này.</p>"}`;
+        find(".store-results-head h3").focus();
         await loadOperations();
       });
     };
