@@ -744,14 +744,18 @@ async function storefront() {
     <section class="store-hero" aria-labelledby="store-title">
       <div class="store-hero-copy">
         <span class="store-kicker">CỬA HÀNG MÔ PHỎNG</span>
-        <h1 id="store-title">Mỹ phẩm theo nhu cầu của bạn</h1>
-        <p>Chọn sản phẩm từ Amazon All Beauty và tạo đơn thử với giá, tồn kho mô phỏng.</p>
-        <button type="button" class="btn" id="store-start">Khám phá gợi ý <span aria-hidden="true">↓</span></button>
+        <h1 id="store-title">Gợi ý mỹ phẩm<br>cho riêng bạn</h1>
+        <p>Chọn sản phẩm từ bộ dữ liệu Amazon All Beauty và trải nghiệm đặt hàng với giá, tồn kho mô phỏng.</p>
+        <div class="store-tools">
+          <button type="button" class="btn" id="store-start">Khám phá danh mục <span aria-hidden="true">↓</span></button>
+          <button type="button" class="btn store-hero-secondary" id="store-ops-link">Xem vận hành</button>
+        </div>
       </div>
-      <div class="store-hero-image">${beautyPhoto("")}</div>
+      <div class="store-hero-image"><img src="/static/beauty-editorial.webp" alt="" width="1440" height="960" fetchpriority="high"></div>
     </section>
     <div id="store-workspace" tabindex="-1"></div>`;
-  $("#store-start").onclick = () => ($("#store-profile") || $("#store-workspace")).focus();
+  $("#store-start").onclick = () => ($("[data-store-category]") || $("#store-profile") || $("#store-workspace")).focus();
+  $("#store-ops-link").onclick = () => ($("#store-ops-title") || $("#store-workspace")).focus();
   const root = $("#store-workspace");
   root.innerHTML = loading("Đang chuẩn bị cửa hàng…");
   try {
@@ -792,11 +796,12 @@ async function storefront() {
         <section class="panel store-section store-cart-panel" aria-labelledby="store-cart-title">
           <h2 id="store-cart-title" tabindex="-1">Giỏ hàng thử</h2>
           <div id="store-cart"></div>
-          <p id="store-order" role="status"></p>
+          <p id="store-order"></p>
+          <button type="button" class="btn btn-outline" id="store-order-link" hidden>Đối chiếu đơn và tồn kho →</button>
         </section>
       </div>
       <section class="panel store-section" aria-labelledby="store-ops-title">
-        <h2 id="store-ops-title">Vận hành và đối chiếu</h2>
+        <h2 id="store-ops-title" tabindex="-1">Vận hành và đối chiếu</h2>
         <p>Tồn kho và nhật ký chỉ thuộc phiên trình duyệt này. Dữ liệu thử hết hạn sau 4 giờ hoặc khi máy chủ khởi động lại.</p>
         <div class="store-tools">
           <a class="btn btn-outline" href="/api/store/inventory.csv">Tải tồn kho CSV</a>
@@ -816,11 +821,18 @@ async function storefront() {
         </details>
         <div id="store-operations">${loading()}</div>
       </section>
-      <p class="notice notice-error" id="store-error" role="alert" hidden></p>`;
+      <p class="notice notice-error" id="store-error" role="alert" hidden></p>
+      <p class="screen-reader" id="store-announcement" role="status"></p>
+      <button type="button" id="store-cart-dock" class="store-cart-dock" hidden>
+        <span></span><strong></strong>
+      </button>
+      <dialog class="store-product-dialog" aria-labelledby="store-dialog-title">
+        <div class="store-dialog-content"></div>
+      </dialog>`;
 
     const find = (selector) => $(selector, root);
     const fail = (error) => {
-      const alert = find("#store-error");
+      const alert = find(".store-product-dialog[open] [role=alert]") || find("#store-error");
       alert.hidden = false;
       alert.textContent = error.message;
       alert.scrollIntoView({ block: "nearest" });
@@ -828,8 +840,8 @@ async function storefront() {
     const act = async (job) => {
       if (shop.pending) return;
       shop.pending = true;
-      find("#store-error").hidden = true;
-      const buttons = $$("button", root).filter((button) => !button.disabled);
+      $$("[role=alert]", root).forEach((alert) => { alert.hidden = true; });
+      const buttons = $$("button", root).filter((button) => !button.disabled && !button.hidden);
       buttons.forEach((button) => { button.disabled = true; });
       try {
         await job();
@@ -843,22 +855,43 @@ async function storefront() {
 
     function cartView() {
       const lines = [...shop.cart.values()];
-      find("#store-cart-link").textContent = `Giỏ hàng (${num(lines.reduce((sum, item) => sum + item.quantity, 0))})`;
+      const quantity = lines.reduce((sum, item) => sum + item.quantity, 0);
+      const total = lines.reduce((sum, item) => sum + item.quantity * item.price, 0);
+      find("#store-cart-link").textContent = `Giỏ hàng (${num(quantity)})`;
+      const dock = find("#store-cart-dock");
+      dock.hidden = !quantity;
+      $("span", dock).textContent = `Xem giỏ · ${num(quantity)} sản phẩm`;
+      $("strong", dock).textContent = shopMoney(total);
       find("#store-cart").innerHTML = lines.length ? `
         <ul class="store-cart-list">${lines.map((item) => `<li>
-          <div><strong>${h(item.title)}</strong><span>${num(item.quantity)} × ${shopMoney(item.price)}</span></div>
-          <button type="button" class="btn btn-outline btn-small" data-remove="${h(item.item_id)}">Bỏ</button>
+          <div class="store-cart-thumbnail">${beautyPhoto(item.group)}</div>
+          <div class="store-cart-line">
+            <strong>${h(item.title)}</strong>
+            <span>${shopMoney(item.price)}</span>
+            <div class="store-quantity" role="group" aria-label="Số lượng ${h(item.title)}">
+              <button type="button" data-quantity="-1" data-item="${h(item.item_id)}" aria-label="Giảm số lượng"${item.quantity === 1 ? " disabled" : ""}>−</button>
+              <span>${num(item.quantity)}</span>
+              <button type="button" data-quantity="1" data-item="${h(item.item_id)}" aria-label="Tăng số lượng"${item.quantity >= Math.min(99, item.stock) ? " disabled" : ""}>+</button>
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline btn-small" data-remove="${h(item.item_id)}" aria-label="Bỏ ${h(item.title)}">Bỏ</button>
         </li>`).join("")}</ul>
-        <p><strong>Tạm tính ${shopMoney(lines.reduce((sum, item) => sum + item.quantity * item.price, 0))}</strong></p>
-        <button type="button" class="btn" id="store-checkout">Tạo đơn thử</button>` : "<p>Giỏ hàng đang trống.</p>";
+        <p class="store-cart-total"><span>Tạm tính</span><strong>${shopMoney(total)}</strong></p>
+        <button type="button" class="btn" id="store-checkout">Tạo đơn thử <span aria-hidden="true">→</span></button>` :
+        '<div class="store-cart-empty"><span aria-hidden="true">＋</span><p>Giỏ hàng đang trống.</p></div>';
     }
 
+    let operationsGeneration = 0;
     async function loadOperations() {
+      const generation = ++operationsGeneration;
       const data = await api("/api/store/operations");
+      if (generation !== operationsGeneration || !root.isConnected) return;
       const steps = [
         ["Hiển thị SKU", "impressions"], ["Nhấp", "clicks"],
         ["Thêm giỏ", "add_to_cart"], ["SKU có đơn", "purchase_items"],
       ];
+      const counts = steps.map(([label, key]) => [label, data.funnel.reduce((sum, row) => sum + row[key], 0)]);
+      const scale = Math.max(1, ...counts.map(([, count]) => count));
       find("#store-operations").innerHTML = `
         <h3>Đối chiếu đơn hàng</h3>
         <p>${num(data.sellable)} mã còn hàng và đang bán · ${data.inventory_source === "operator_csv" ? "Tồn kho từ CSV" : "Tồn kho mẫu"}</p>
@@ -866,13 +899,16 @@ async function storefront() {
           <thead><tr><th>Đơn</th><th>Sản phẩm</th><th>Số lượng</th><th>Còn trong kho</th><th>Tổng đơn</th></tr></thead>
           <tbody>${data.lines.map((line) => `<tr><td>${h(line.order_id)}</td><td class="wrap-cell">${h(line.title)}</td><td>${num(line.quantity)}</td><td>${num(line.stock)}</td><td>${shopMoney(data.orders.find((order) => order.id === line.order_id).total)}</td></tr>`).join("")}</tbody></table></div>` : "<p>Chưa có đơn thử.</p>"}
         <h3>Phễu hành vi mô phỏng</h3>
-        <dl class="store-funnel">${steps.map(([label, key]) => `<div><dt>${label}</dt><dd>${num(data.funnel.reduce((sum, row) => sum + row[key], 0))}</dd></div>`).join("")}</dl>
+        <dl class="store-funnel">${counts.map(([label, count]) => `<div><dt>${label}</dt><dd>${num(count)}<span class="store-funnel-track" aria-hidden="true"><span style="width:${count / scale * 100}%"></span></span></dd></div>`).join("")}</dl>
         ${data.funnel.length ? `<div class="table-wrap" tabindex="0" role="region" aria-label="Phễu thử nghiệm"><table class="metrics-table">
           <thead><tr><th>Nhóm</th><th>Lượt gợi ý</th><th>Hiển thị SKU</th><th>Nhấp</th><th>Thêm giỏ</th><th>SKU có đơn</th><th>CTR</th></tr></thead>
           <tbody>${data.funnel.map((row) => `<tr><td>${h(({ personalized: "Cá nhân hóa", control: "Đối chứng A", treatment: "Gợi ý B" })[row.variant])}</td><td>${num(row.requests)}</td><td>${num(row.impressions)}</td><td>${num(row.clicks)}</td><td>${num(row.add_to_cart)}</td><td>${num(row.purchase_items)}</td><td>${pct(row.CTR)}</td></tr>`).join("")}</tbody></table></div>` : "<p>Chưa có lượt gợi ý.</p>"}
         <p class="table-caption">Các lượt thử trong phiên dùng để kiểm tra ghi nhận sự kiện. Nhóm A/B giữ nguyên cho cùng một phiên.</p>`;
     }
 
+    const refreshAfterChange = () => loadOperations().catch((error) => {
+      if (root.isConnected) fail(error);
+    });
     let current = null;
     const track = (id, event) => storePost("events", {
       item_id: id, event, request_id: current.request_id,
@@ -905,41 +941,71 @@ async function storefront() {
             <div class="store-product-copy">
             <small class="store-product-category">${h(item.group)}</small><h3 title="${h(item.title)}">${h(item.title)}</h3>
             <p class="store-product-meta"><strong>${shopMoney(item.price)}</strong><span>Còn ${num(item.stock)}</span></p>
-            <div class="store-tools"><button type="button" class="btn btn-outline btn-small" data-detail="${h(item.item_id)}" aria-expanded="false">Chi tiết</button>
+            <div class="store-tools"><button type="button" class="btn btn-outline btn-small" data-detail="${h(item.item_id)}" aria-haspopup="dialog">Chi tiết</button>
             <button type="button" class="btn btn-small" data-add="${h(item.item_id)}">Thêm giỏ</button></div>
-            <p class="store-detail" hidden>${h(item.title)}<br>Mã sản phẩm ${h(item.item_id)}</p>
             </div>
           </article>`).join("")}</div>` : "<p>Không có sản phẩm khả dụng với lựa chọn này.</p>"}`;
         find(".store-results-head h3").focus();
-        await loadOperations();
+        refreshAfterChange();
       });
     };
+    const dialog = find(".store-product-dialog");
+    const addToCart = (item) => act(async () => {
+      const quantity = (shop.cart.get(item.item_id)?.quantity || 0) + 1;
+      if (quantity > Math.min(99, item.stock)) throw Error("Số lượng đã đạt giới hạn tồn kho.");
+      if (!shop.cart.has(item.item_id) && shop.cart.size >= 30) throw Error("Giỏ thử hỗ trợ tối đa 30 mã sản phẩm.");
+      await track(item.item_id, "click");
+      await track(item.item_id, "cart");
+      shop.cart.set(item.item_id, { ...item, quantity, request_id: current.request_id });
+      shop.checkoutKey = null;
+      find("#store-order-link").hidden = true;
+      find("#store-order").textContent = "";
+      find("#store-announcement").textContent = `Đã thêm ${item.title} vào giỏ.`;
+      if (dialog.open) dialog.close();
+      cartView();
+      refreshAfterChange();
+    });
+
     find("#store-recommendations").onclick = (event) => {
       const button = event.target.closest("[data-add], [data-detail]");
       if (!button || !current) return;
+      const id = button.dataset.add || button.dataset.detail;
+      const item = current.items.find((entry) => entry.item_id === id);
+      if (button.dataset.add) {
+        addToCart(item);
+        return;
+      }
       act(async () => {
-        const id = button.dataset.add || button.dataset.detail;
-        const item = current.items.find((entry) => entry.item_id === id);
-        if (button.dataset.detail) {
-          const detail = $(".store-detail", button.closest("article"));
-          detail.hidden = !detail.hidden;
-          button.setAttribute("aria-expanded", String(!detail.hidden));
-          if (!detail.hidden) await track(id, "click");
-        } else {
-          const quantity = (shop.cart.get(id)?.quantity || 0) + 1;
-          if (quantity > item.stock || quantity > 99) throw Error("Số lượng đã đạt giới hạn tồn kho.");
-          if (!shop.cart.has(id) && shop.cart.size >= 30) throw Error("Giỏ thử hỗ trợ tối đa 30 mã sản phẩm.");
-          await track(id, "click");
-          await track(id, "cart");
-          shop.cart.set(id, { ...item, quantity, request_id: current.request_id });
-          shop.checkoutKey = null;
-          find("#store-order").textContent = `Đã thêm ${item.title}.`;
-          cartView();
-        }
-        await loadOperations();
+        await track(id, "click");
+        if (!root.isConnected) return;
+        find(".store-dialog-content").innerHTML = `
+          <div class="store-dialog-image">${beautyPhoto(item.group)}</div>
+          <div class="store-dialog-copy">
+            <button class="btn btn-outline btn-small" type="button" data-dialog-close autofocus>Đóng</button>
+            <p class="store-product-category">${h(item.group)} · Ảnh minh họa</p>
+            <h2 id="store-dialog-title">${h(item.title)}</h2>
+            <p>Mã sản phẩm ${h(item.item_id)} · Còn ${num(item.stock)}</p>
+            <p class="store-dialog-price">${shopMoney(item.price)}</p>
+            <button type="button" class="btn" data-dialog-add>Thêm giỏ</button>
+            <p class="notice notice-error" role="alert" hidden></p>
+          </div>`;
+        dialog.showModal();
+        find("[data-dialog-close]").onclick = () => dialog.close();
+        find("[data-dialog-add]").onclick = () => addToCart(item);
+        refreshAfterChange();
       });
     };
     find("#store-cart").onclick = (event) => {
+      const adjustment = event.target.closest("[data-quantity]");
+      if (adjustment && !shop.pending) {
+        const item = shop.cart.get(adjustment.dataset.item);
+        item.quantity += Number(adjustment.dataset.quantity);
+        shop.checkoutKey = null;
+        cartView();
+        const controls = $$("[data-quantity]", find("#store-cart"));
+        const matching = controls.filter((button) => button.dataset.item === item.item_id && !button.disabled);
+        (matching.find((button) => button.dataset.quantity === adjustment.dataset.quantity) || matching[0])?.focus();
+      }
       const remove = event.target.closest("[data-remove]");
       if (remove && !shop.pending) {
         shop.cart.delete(remove.dataset.remove);
@@ -959,11 +1025,16 @@ async function storefront() {
         current = null;
         cartView();
         find("#store-order").textContent = `Đã tạo đơn thử ${order.id}. Tồn kho đã cập nhật.`;
+        find("#store-announcement").textContent = find("#store-order").textContent;
+        find("#store-order-link").hidden = false;
+        find("#store-order-link").focus();
         find("#store-recommendations").textContent = "Chọn Xem gợi ý để đọc tồn kho mới.";
-        await loadOperations();
+        refreshAfterChange();
       });
     };
     find("#store-cart-link").onclick = () => find("#store-cart-title").focus();
+    find("#store-cart-dock").onclick = () => find("#store-cart-title").focus();
+    find("#store-order-link").onclick = () => find("#store-ops-title").focus();
     find("#store-refresh").onclick = () => act(loadOperations);
     find("#store-experiment").onsubmit = (event) => {
       event.preventDefault();
