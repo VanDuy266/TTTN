@@ -1,7 +1,7 @@
 """Exercise the compact research workspace on desktop and mobile."""
 import os
 from pathlib import Path
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import expect, sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = os.getenv('BASE_URL', 'http://127.0.0.1:8000')
@@ -21,9 +21,12 @@ def main():
             page.locator('#run-button').click()
             page.wait_for_function(f'document.querySelectorAll(".model-card").length === {count}')
             assert page.locator('.compact-target').is_visible()
+            expect(page.locator('.case-summary tbody tr')).to_have_count(count)
             assert page.locator('.model-card > .ranking-list').first.locator('li').count() == 5
             page.locator('.ranking-more summary').first.click()
             assert page.locator('.ranking-more').first.locator('li').count() == 5
+        page.locator('.case-summary a').first.click()
+        expect(page.locator('.model-card').first).to_be_focused()
         with page.expect_download() as download:
             page.locator('[data-action=case-csv]').click()
         assert download.value.suggested_filename.endswith('.csv')
@@ -37,6 +40,10 @@ def main():
             page.locator(f'a[data-nav={route}]').click()
             page.locator(selector).first.wait_for()
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
+            if route == 'results':
+                for key in ['recall10', 'coverage10', 'ndcg10']:
+                    page.locator('#metrics-order').select_option(key)
+                    expect(page.locator('#ordered-metrics tbody tr').first).to_have_class('best')
         mobile = browser.new_page(viewport={'width':390,'height':844}, is_mobile=True, has_touch=True)
         mobile.on('pageerror', lambda e: errors.append(str(e)))
         mobile.goto(BASE, wait_until='networkidle')

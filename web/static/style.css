@@ -2470,3 +2470,384 @@ select {
 @media(max-width:600px){.direction-tabs{gap:8px}.direction-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.direction-tabs button{padding:12px}.direction-tabs button strong{font-size:19px}.direction-tabs button span{font-size:12px}.compact-target{align-items:flex-start;flex-direction:column;padding:18px}.compact-comparison{grid-template-columns:minmax(0,1fr)}}
 
 .compact-definition>summary{cursor:pointer;padding:4px 0;color:#243c50}.compact-definition>summary h3{display:inline;font-size:21px}.compact-definition>summary>span{display:block;font-size:14px;color:#737b80;margin:8px 0 0 20px}.compact-definition[open]>summary{margin-bottom:22px}
+
+:root {
+  --bg: #f2f5f8;
+  --ink: #15283d;
+  --muted: #4f6073;
+  --border: #dbe3ec;
+  --green: #164870;
+  --radius: 14px;
+}
+
+body,
+button,
+input,
+select,
+.metric-num {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+body {
+  font-size: 15px;
+}
+
+.sidebar nav {
+  margin-top: 24px;
+}
+
+.sidebar nav > a {
+  font-size: 13px;
+  border-radius: 8px;
+}
+
+.topbar {
+  height: 62px;
+  font-weight: 650;
+}
+
+.status {
+  background: #e8f2ed;
+  color: #2d5b48;
+}
+
+.status .dot {
+  background: #428367;
+}
+
+.hero {
+  background: linear-gradient(115deg, #102940, #1c4565);
+  border: 0;
+  border-radius: var(--radius);
+  color: white;
+  padding: clamp(24px, 5vw, 56px);
+}
+
+.hero .eyebrow {
+  color: #ebcc96;
+}
+
+.hero h1,
+.page-heading h1 {
+  font-size: clamp(32px, 4vw, 54px);
+  letter-spacing: -0.035em;
+}
+
+.hero p {
+  max-width: 58ch;
+  color: #dfebf5;
+}
+
+.btn,
+.btn-small,
+.disclosure,
+.preset,
+input,
+select {
+  border-radius: 8px;
+}
+
+.btn {
+  font-weight: 650;
+}
+
+.hero .btn {
+  background: #efd4a2;
+  color: #142a3f;
+}
+
+.hero .btn:hover {
+  background: #f9e4bd;
+}
+
+.hero .btn-outline {
+  background: transparent;
+  border-color: #abbccc;
+  color: #fff;
+}
+
+.hero .btn-outline:hover {
+  background: #ffffff18;
+}
+
+.stats,
+.research-panel,
+.model-card,
+.discussion-card,
+.empty {
+  border-radius: var(--radius);
+}
+
+.panel,
+.model-card {
+  box-shadow: 0 5px 18px #17365008;
+}
+
+.stats {
+  margin-top: 20px;
+}
+
+.experiment-controls {
+  padding: clamp(16px, 3vw, 30px);
+}
+
+.experiment-controls fieldset {
+  min-width: 0;
+  padding: 0;
+  margin: 0 0 20px;
+  border: 0;
+}
+
+.experiment-controls legend {
+  font-size: 15px;
+  font-weight: 750;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.experiment-controls .control-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) minmax(0, 1.1fr);
+}
+
+.control-grid > div,
+.experiment-submit > * {
+  min-width: 0;
+}
+
+input,
+select {
+  min-height: 44px;
+  border-color: #c7d4e0;
+  background: white;
+}
+
+input::placeholder {
+  color: #5e6f7f;
+}
+
+.direction-tabs {
+  margin-bottom: 0;
+}
+
+.direction-tabs button {
+  background: #f4f7fb;
+  border-color: var(--border);
+}
+
+.direction-tabs button:hover {
+  border-color: #7c9ab4;
+}
+
+.experiment-controls .profile-feedback {
+  margin: 8px 0 0;
+  color: var(--muted);
+}
+
+.experiment-controls .model-fieldset {
+  margin-top: 18px;
+}
+
+.experiment-submit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding-top: 18px;
+}
+
+.experiment-submit .selected-models {
+  display: block;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.experiment-submit .btn {
+  min-height: 44px;
+  flex-shrink: 0;
+}
+
+.empty {
+  border: 1px dashed #aebdcd;
+  background: #edf2f7;
+  padding: 26px 16px;
+}
+
+.empty p {
+  color: var(--muted);
+  margin: 4px 0 0;
+}
+
+.notice-error {
+  color: #902c26;
+  border-color: #edc0bd;
+  background: #fff3f2;
+}
+
+.ranking-more summary {
+  min-height: 44px;
+}
+
+.ranking-title {
+  overflow-wrap: anywhere;
+}
+
+#nav-backdrop {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .sidebar:not(.open) {
+    visibility: hidden;
+  }
+
+  #nav-backdrop:not([hidden]) {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 19;
+    background: #071b3170;
+  }
+}
+
+@media (max-width: 650px) {
+  .experiment-controls .control-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .experiment-submit {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  input,
+  select {
+    font-size: 16px;
+  }
+}
+
+.experiment-controls {
+  border-radius: var(--radius);
+}
+
+@media (max-width: 390px) {
+  #view-title {
+    font-size: 12px;
+  }
+
+  .topbar .status {
+    font-size: 10px;
+  }
+}
+
+.model-definition {
+  scroll-margin-top: 75px;
+}
+
+.case-summary {
+  margin-bottom: 24px;
+  border-radius: var(--radius);
+}
+
+.case-summary .metrics-table tbody th {
+  background: transparent;
+  color: var(--ink);
+  font-size: inherit;
+  font-weight: 600;
+  letter-spacing: normal;
+}
+
+.case-summary th:first-child {
+  white-space: normal;
+  min-width: 130px;
+}
+
+.case-summary td:nth-child(3) {
+  font-weight: 650;
+}
+
+.case-summary a {
+  color: #164870;
+  text-underline-offset: 3px;
+}
+
+.case-summary small {
+  display: block;
+  margin-top: 4px;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.metrics-panel-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.metrics-panel-head h2 {
+  margin: 0;
+}
+
+.table-wrap:focus-visible,
+.model-card:focus-visible {
+  outline: 3px solid #5185ab;
+  outline-offset: 2px;
+}
+
+#case-heading,
+.model-card {
+  scroll-margin-top: 78px;
+}
+
+#case-heading:focus {
+  outline: none;
+}
+
+.compact-comparison .ranking-title {
+  display: block;
+}
+
+@media (max-width: 480px) {
+  .case-summary .metrics-table th,
+  .case-summary .metrics-table td {
+    padding: 10px 7px;
+  }
+
+  .metrics-panel-head > div {
+    width: 100%;
+  }
+}
+
+.research-method {
+  border-radius: var(--radius);
+}
+
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.method-grid > div {
+  padding: 14px 16px;
+  background: #f4f7fb;
+  border-radius: 8px;
+}
+
+.method-grid h4 {
+  margin: 0 0 4px;
+}
+
+.method-grid p {
+  margin: 0;
+  color: var(--muted);
+}
+
+@media (max-width: 650px) {
+  .method-grid {
+    grid-template-columns: 1fr;
+  }
+}

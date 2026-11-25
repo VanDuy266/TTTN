@@ -19,8 +19,8 @@ Artifact đã có sẵn trong `artifacts/web/`; không cần huấn luyện, PyT
 ## Luồng thực nghiệm
 
 1. **Tổng quan:** câu hỏi nghiên cứu, quy mô train/validation/test, phạm vi hai hướng.
-2. **Chạy đối chiếu:** chọn hồ sơ, giao thức full catalog hoặc 100 ứng viên; xem lịch sử trước mục tiêu; so top 10 của M1, M2, M3, H2 và các baseline. Mở mục tiêu test để kiểm tra trúng, thứ hạng và NDCG; xuất CSV.
-3. **Kết quả toàn tập:** tách warm/cold, Recall@10/NDCG@10/Coverage@10, CI bootstrap; xuất báo cáo Markdown và bảng CSV.
+2. **Chạy đối chiếu:** chọn hồ sơ, giao thức full catalog hoặc 100 ứng viên; xem lịch sử trước mục tiêu; xem ngay thứ hạng của sản phẩm thực tế, trạng thái tìm trúng và NDCG@10 của từng mô hình. Chọn tên mô hình để mở danh sách gợi ý tương ứng; có thể xuất CSV.
+3. **Kết quả toàn tập:** tách warm/cold, Recall@10/NDCG@10/Coverage@10, CI bootstrap; sắp xếp theo tỷ lệ tìm trúng, điểm thứ hạng hoặc độ phủ và xuất báo cáo Markdown hoặc bảng CSV.
 4. **Hạn chế & hướng đi:** điểm mạnh về thiết kế, hạn chế và bằng chứng thực đo; ưu tiên sửa dữ liệu, chạy đúng MiniLM, nhiều seed/ablation trước khi ứng dụng.
 5. **Quy trình & tái lập:** cấu hình học, log validation, hash đầu vào, checkpoint và giao thức đánh giá.
 
@@ -64,11 +64,11 @@ API docs: `/api/docs`. Health check: `/healthz`. Web runtime đọc score bằng
 
 `retail_demo.py` và `src/business.py` giữ nguyên mẫu bán hàng cũ để tham khảo, không được gọi bởi web hiện tại hoặc Render. Muốn chạy riêng cần `requirements-legacy.txt`. Dữ liệu runtime SQLite và upload không được đưa lên GitHub. Kịch bản doanh nghiệp trong `docs/PILOT.md` là tham khảo ứng dụng về sau, không phải mục tiêu của demo thực nghiệm hiện tại.
 
-Giao diện hiện dùng Times New Roman (serif tương đương khi máy không có font), nhận diện chữ DAD và icon SVG nét đồng bộ. H3 có trong nhóm mô hình mặc định khi đối chiếu và bảng kết quả chính; trọng số/kết quả thực nghiệm giữ nguyên.
+Giao diện dùng chữ serif cho tiêu đề, chữ sans-serif hệ thống cho phần thao tác và logo DAD cho điều hướng. H3 có trong nhóm mô hình mặc định khi đối chiếu và bảng kết quả chính; trọng số/kết quả thực nghiệm giữ nguyên.
 
 Giao diện dùng tên chức năng tiếng Việt: So sánh dự đoán, Đánh giá mô hình, Nhận xét và cải tiến, Dữ liệu và phương pháp. Bảng kết quả hiển thị số người tìm trúng trên tổng số người dùng, tỷ lệ tìm trúng, điểm thứ hạng và độ phủ; khoảng tin cậy nằm trong phần chi tiết. Tên thuật toán chuẩn và tên sản phẩm trong dữ liệu gốc được giữ nguyên.
 
-Nhận diện hiện tại sử dụng logo DAD ánh kim bạc nền trong suốt trên thanh điều hướng xanh đậm (`web/static/dad-logo-transparent.png`), thanh điều hướng xanh đậm và điểm nhấn vàng. Nội dung giữ Times New Roman; các chức năng và nhãn đánh giá sử dụng tiếng Việt.
+Nhận diện hiện tại sử dụng logo DAD ánh kim bạc nền trong suốt trên thanh điều hướng xanh đậm (`web/static/dad-logo-transparent.png`), thanh điều hướng xanh đậm và điểm nhấn vàng. Các chức năng và nhãn đánh giá sử dụng tiếng Việt.
 
 ## Cấu trúc chức năng và mô hình
 

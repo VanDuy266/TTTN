@@ -1,4 +1,25 @@
 """Factual experiment descriptions shared by the UI and research API."""
+def evaluation_method():
+    return {
+        'workflow': [
+            {'title': 'Huấn luyện', 'description': 'Học tham số từ tập huấn luyện. Đồ thị H2 chỉ chứa cạnh từ tập này.'},
+            {'title': 'Chọn cấu hình', 'description': 'Chọn checkpoint, biến thể H1 và trọng số kết hợp theo NDCG@10 trên 100 ứng viên cố định của tập xác thực.'},
+            {'title': 'Kiểm tra', 'description': 'Mỗi hồ sơ có một sản phẩm mục tiêu. Lịch sử chỉ gồm tương tác có mốc nhỏ hơn mốc kiểm tra.'},
+            {'title': 'Vận hành trên web', 'description': 'Đọc điểm có sẵn cho hồ sơ kiểm tra và xếp giảm dần. Khi bằng điểm, ưu tiên mã sản phẩm theo thứ tự từ điển. Hồ sơ trống dùng độ phổ biến từ tập huấn luyện cho mọi mô hình.'},
+        ],
+        'protocols': [
+            {'title': 'Toàn bộ danh mục', 'description': 'Mọi sản phẩm trong danh mục là ứng viên, kể cả sản phẩm đã xuất hiện trong lịch sử. Giao thức này mô phỏng trường hợp có thể mua lại.'},
+            {'title': '100 ứng viên cố định', 'description': 'Mỗi hồ sơ có sản phẩm mục tiêu và 99 sản phẩm lấy mẫu không hoàn lại, loại các sản phẩm trong lịch sử khỏi nhóm lấy mẫu. Các mô hình dùng cùng tập ứng viên của hồ sơ.'},
+        ],
+        'metrics': [
+            {'title': 'Tỷ lệ tìm trúng · Recall@10', 'description': 'Số hồ sơ có sản phẩm mục tiêu trong 10 gợi ý đầu chia cho tổng số hồ sơ của nhóm đang xem.'},
+            {'title': 'Điểm thứ hạng · NDCG@10', 'description': 'Với một mục tiêu mỗi hồ sơ, điểm bằng 1 / log₂(r + 1) nếu mục tiêu ở hạng r từ 1 đến 10, và bằng 0 nếu nằm ngoài Top 10. Bảng hiển thị trung bình theo hồ sơ.'},
+            {'title': 'Độ phủ danh mục · Coverage@10', 'description': 'Số sản phẩm khác nhau xuất hiện trong Top 10 của các hồ sơ đang xem chia cho kích thước toàn bộ danh mục. Mẫu số vẫn là toàn bộ danh mục khi đánh giá trên 100 ứng viên mỗi hồ sơ.'},
+        ],
+        'bootstrap': 'Khoảng tin cậy 95% của NDCG@10 dùng 500 lần lấy mẫu lại theo hồ sơ, seed 42. Khoảng này phản ánh biến thiên giữa hồ sơ trong một lần huấn luyện.',
+    }
+
+
 def model_study(manifest, data):
     audit=manifest['audit'];weights=audit['h3_weights']
     selected={'base':'m1','gap':'m2','decay':'m3'}[audit['gru_selected']]
@@ -6,6 +27,7 @@ def model_study(manifest, data):
     return {
         'run_id':manifest['run_id'],
         'data':data,
+        'evaluation':evaluation_method(),
         'execution':{'mode':'saved_scores','label':'Điểm dự đoán đã lưu',
                      'description':'Các mô hình được huấn luyện trước. Web đọc điểm của người dùng đã có trong tập kiểm tra, xếp hạng và đối chiếu với sản phẩm thực tế.'},
         'functions':[
@@ -17,7 +39,7 @@ def model_study(manifest, data):
         'directions':[
             {'id':'h1','name':'Hướng 1 — Tuần tự và thời gian','models':['m1','m2','m3'],
              'input':'Chuỗi mã sản phẩm và mốc thời gian tương tác trước thời điểm kiểm tra.',
-             'processing':'M1 học thứ tự bằng GRU4Rec. M2 thêm khoảng cách giữa các tương tác. M3 giảm trọng số véc-tơ đầu vào của tương tác cũ.',
+             'processing':'M1 học thứ tự bằng GRU4Rec. M2 ghép đặc trưng log(1 + Δt/s) vào đầu vào GRU. M3 nhân véc-tơ đầu vào với exp(−a/s), trong đó a là khoảng cách đến tương tác gần nhất trong chuỗi và s là hệ số chuẩn hóa dùng chung.',
              'output':'Điểm dự đoán cho từng sản phẩm thuộc tập huấn luyện; từ đó xếp hạng 10 kết quả đầu.',
              'scope':'M1/M2/M3 chỉ có đầu ra đã học cho sản phẩm xuất hiện trong tập huấn luyện. Sản phẩm mới ngoài bộ mã không có điểm dự đoán đã học.',
              'status':'Đã huấn luyện và đánh giá riêng M1, M2, M3.',
@@ -33,7 +55,7 @@ def model_study(manifest, data):
              'experiment_models':['content','h2','h2_tuned']},
             {'id':'h3','name':'Hướng 3 — Tích hợp H1–H2','models':['h3'],
              'input':'Điểm của biến thể H1 được chọn trên tập xác thực, nhánh H2 kết hợp và mô hình độ phổ biến.',
-             'processing':'Chuẩn hóa điểm từng nhánh rồi tính tổng có trọng số. Trọng số được chọn trên tập xác thực; H3 không phải một mạng được huấn luyện độc lập.',
+             'processing':'Chuyển điểm mỗi nhánh về thang thứ hạng từ 0 đến 1 theo từng hồ sơ, rồi tính tổng có trọng số. Trọng số được chọn trên tập xác thực; H3 không phải một mạng được huấn luyện độc lập.',
              'output':'Một bảng điểm kết hợp và danh sách 10 sản phẩm được xếp hạng cao nhất.',
              'scope':'Đây là hướng tích hợp được bổ sung cho nguyên mẫu. Kết quả phụ thuộc chất lượng các mô hình thành phần.',
              'status':('Đã đánh giá phép kết hợp. Cấu hình hiện tại trùng mô hình nội dung; chưa có cải thiện nhờ phối hợp nhiều nhánh.' if collapse else 'Đã đánh giá phép kết hợp; trọng số bên dưới được chọn trên tập xác thực. Kết quả so sánh nằm trong bảng đánh giá.'),

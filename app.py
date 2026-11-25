@@ -9,7 +9,7 @@ from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import HTMLResponse, PlainTextResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
-from src.study import model_study
+from src.study import evaluation_method, model_study
 
 ROOT=Path(__file__).resolve().parent
 DATA=ROOT/'artifacts/web'
@@ -139,6 +139,11 @@ def report(request:Request,protocol:Literal['full_catalog','sampled100']='full_c
     lines=['# Nhóm DAD — Kết quả thực nghiệm hệ thống gợi ý','',f"Run ID: {manifest['run_id']}",f"Giao thức: {manifest['protocols'][protocol]}",f'Nhóm sản phẩm: '+{'all':'Tất cả','warm':'Đã có trong tập huấn luyện','cold':'Chưa có trong tập huấn luyện'}[cohort]+'; 10 kết quả đầu','',
            '| Mô hình | Số người dùng | Recall@10 | NDCG@10 | Coverage@10 |','|---|---:|---:|---:|---:|']
     for r in rows:lines.append(f"| {data.models[r['model']]['name']} | {r['users']} | {r['recall10']:.6f} | {r['ndcg10']:.6f} | {r['coverage10']:.6f} |")
+    method = evaluation_method()
+    for heading, key in [('Quy trình', 'workflow'), ('Tập ứng viên', 'protocols'), ('Cách tính chỉ số', 'metrics')]:
+        lines.extend(['', f'## {heading}', ''])
+        lines.extend(f"- **{entry['title']}** — {entry['description']}" for entry in method[key])
+    lines.extend(['', method['bootstrap']])
     lines+=['','## Phạm vi và hạn chế','',manifest['execution_note'],
             'H1 gồm M1/M2/M3; H2 sử dụng LightGCN và TF-IDF/SVD, chưa sử dụng MiniLM. H3 là mô hình tích hợp được nhóm bổ sung.',
             'Các mô hình được học từ tập huấn luyện. Số vòng học và trọng số kết hợp được chọn bằng tập xác thực; chỉ số cuối cùng được tính trên tập kiểm tra.',

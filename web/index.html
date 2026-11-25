@@ -7,7 +7,7 @@
       name="description"
       content="Thực nghiệm ba hướng: mô hình tuần tự theo thời gian, đồ thị kết hợp nội dung và mô hình tích hợp H1–H2."
     />
-    <meta name="theme-color" content="#143e3a" />
+    <meta name="theme-color" content="#071b31" />
     <title>DAD — Thực nghiệm hệ thống gợi ý</title>
     <link rel="icon" href="/static/favicon.svg" />
     <link rel="stylesheet" href="/static/style.css?v=__ASSET_VERSION__" />
@@ -29,7 +29,6 @@
         <span class="dad-brand-rule"></span>
         <span class="dad-brand-caption">NGHIÊN CỨU HỆ THỐNG GỢI Ý</span>
       </a>
-      <p class="nav-label">KHÔNG GIAN NGHIÊN CỨU</p>
       <nav aria-label="Điều hướng chính">
         <a href="#overview" data-nav="overview"
           ><svg
@@ -120,6 +119,7 @@
         <small>Nhóm DAD · Thực tập tốt nghiệp<br />Duy · Ân · Đạt</small>
       </div>
     </aside>
+    <div id="nav-backdrop" hidden></div>
     <div class="shell">
       <header class="topbar">
         <button
@@ -127,6 +127,7 @@
           id="menu-button"
           aria-label="Mở điều hướng"
           aria-expanded="false"
+          aria-controls="sidebar"
         >
           <svg
             viewBox="0 0 24 24"
@@ -141,9 +142,7 @@
           </svg>
         </button>
         <div>
-          <span class="breadcrumb">PHÒNG THỰC NGHIỆM</span
-          ><span class="breadcrumb-sep">/</span
-          ><span id="view-title">Tổng quan</span>
+          <span id="view-title">So sánh dự đoán</span>
         </div>
         <span class="status"
           ><span class="dot"></span>Kết quả đã huấn luyện</span
@@ -164,6 +163,5 @@
         >
       </footer>
     </div>
-    <div id="toast" role="status" aria-live="polite"></div>
   </body>
 </html>
