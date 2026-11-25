@@ -341,9 +341,53 @@ async function runCase(event) {
     }
   }
 }
+function signedDelta(value, digits = 4) {
+  const formatted = num(Math.abs(value), digits);
+  return formatted === num(0, digits) ? formatted : `${value > 0 ? "+" : "−"}${formatted}`;
+}
+async function renderBenchmark(container, protocol) {
+  container.innerHTML = loading("Đang tải kết quả toàn tập…");
+  try {
+    const { rows } = await getMetrics(protocol, "all");
+    const baseline = rows.find((row) => row.model === "content");
+    const best = Math.max(...rows.map((row) => row.ndcg10));
+    const leaders = rows.filter((row) => row.ndcg10 === best).map((row) => model(row.model).name);
+    const sorted = [...rows].sort((a, b) => b.ndcg10 - a.ndcg10);
+    container.innerHTML = `
+      <h3 id="benchmark-title">Mô hình nào tốt hơn trên toàn tập?</h3>
+      <p class="benchmark-result"><strong>${leaders.length > 1 ? "Đồng hạng cao nhất" : "Cao nhất"} theo NDCG@10:</strong> ${h(leaders.join(" · "))} (${decimal(best)}).</p>
+      <p>So sánh trên ${num(baseline.users)} hồ sơ · ${protocol === "sampled100" ? "100 ứng viên cố định" : "Toàn bộ danh mục"}. Mốc so sánh là mô hình Nội dung sản phẩm (TF-IDF/SVD).</p>
+      <div class="table-wrap" tabindex="0" role="region" aria-labelledby="benchmark-title">
+        <table class="metrics-table benchmark-table">
+          <thead><tr><th scope="col">Mô hình</th><th scope="col">Tìm trúng Top 10</th><th scope="col">Chênh lệch tỷ lệ trúng</th><th scope="col">NDCG@10</th><th scope="col">Chênh lệch NDCG</th></tr></thead>
+          <tbody>${sorted.map((row) => `<tr class="${row.ndcg10 === best ? "best" : ""}">
+            <th scope="row">${h(model(row.model).name)}${row.model === "content" ? " · Mốc" : ""}</th>
+            <td class="metric-num">${num(row.hits10)}/${num(row.users)} (${pct(row.recall10)})</td>
+            <td class="metric-num">${signedDelta((row.recall10 - baseline.recall10) * 100, 2)} điểm %</td>
+            <td class="metric-num">${decimal(row.ndcg10)}</td>
+            <td class="metric-num">${signedDelta(row.ndcg10 - baseline.ndcg10)}</td>
+          </tr>`).join("")}</tbody>
+        </table>
+      </div>
+      <p class="table-caption">Dấu + là cao hơn mốc, dấu − là thấp hơn. Đây là chênh lệch quan sát được trên tập kiểm tra.</p>
+      <a class="inline-link" href="#results">Xem độ phủ và khoảng tin cậy →</a>`;
+  } catch {
+    container.innerHTML = '<p role="alert">Chưa tải được kết quả toàn tập.</p><button type="button" class="btn btn-outline btn-small">Thử lại</button>';
+    $("button", container).onclick = () => renderBenchmark(container, protocol);
+  }
+}
 function comparisonSummary(data) {
+  const supported = data.results.filter((result) => result.target_in_learned_output || result.uses_fallback);
+  const best = Math.min(...supported.map((result) => result.rank));
+  const leaders = supported.filter((result) => result.rank === best).map((result) => result.name);
+  const hits = data.results.filter((result) => result.hit10).length;
   return `<section class="panel case-summary" aria-labelledby="case-summary-title">
-    <h3 id="case-summary-title">Sản phẩm thực tế xếp hạng bao nhiêu?</h3>
+    <h3 id="case-summary-title">Kết quả cho hồ sơ này</h3>
+    <p class="benchmark-result"><strong>${hits}/${data.results.length} mô hình tìm trúng Top 10.</strong>
+      ${data.fallback ? "Các mô hình dùng chung kết quả dự phòng."
+        : leaders.length ? `Hạng tốt nhất trong các mô hình chấm được sản phẩm là <strong>${num(best)}</strong> · ${h(leaders.join(" · "))}.`
+        : "Sản phẩm nằm ngoài bộ đầu ra đã học của các mô hình đã chọn."}
+    </p>
     <div class="table-wrap" tabindex="0" role="region" aria-labelledby="case-summary-title">
       <table class="metrics-table">
         <thead><tr><th scope="col">Mô hình</th><th scope="col">Thứ hạng</th><th scope="col">Trong top 10</th><th scope="col">NDCG@10</th></tr></thead>
@@ -370,13 +414,15 @@ function renderCase(data) {
     <div class="panel compact-target"><div><span class="target-label">SẢN PHẨM THỰC TẾ</span><h3>${h(data.target.title)}</h3><code>${h(data.target.item_id)}</code></div><span class="tag">${data.target.warm ? "Đã có trong tập huấn luyện" : "Chưa có trong tập huấn luyện"}</span></div>
     ${data.fallback ? '<div class="notice notice-warning">Không có tương tác trước thời điểm kiểm tra. Các mô hình dùng chung dự phòng theo độ phổ biến.</div>' : ""}
     ${comparisonSummary(data)}
+    <section class="panel case-summary" id="case-benchmark"></section>
     <h3 class="ranking-heading">Danh sách gợi ý theo mô hình</h3>
     <div class="comparison-grid compact-comparison">${data.results.map((result) => {
       const unsupported = result.target_in_learned_output === false && !result.uses_fallback;
       const badge = result.uses_fallback ? "Dự phòng theo độ phổ biến" : unsupported ? "Ngoài bộ sản phẩm đã học" : result.hit10 ? "Tìm trúng trong 10 kết quả" : "Chưa tìm trúng";
       return `<article class="model-card" id="ranking-${h(result.model)}" tabindex="-1"><header class="model-card-head"><div><span class="model-family">${h(model(result.model).family)}</span><h3>${h(result.name)}</h3></div></header><div class="compact-score"><span class="hit-badge ${result.hit10 ? "" : "miss-badge"}">${badge}</span><p>${unsupported ? "Không có đầu ra đã học" : `Hạng ${num(result.rank)} / ${num(data.candidate_count)}`}<span>NDCG ${decimal(result.ndcg10)}</span></p></div><ol class="ranking-list">${result.top10.slice(0, 5).map(itemRow).join("")}</ol><details class="ranking-more"><summary>Xem hạng 6–10</summary><ol class="ranking-list">${result.top10.slice(5).map(itemRow).join("")}</ol></details></article>`;
     }).join("")}</div>
-    <details class="disclosure"><summary>Lịch sử và thông tin thực nghiệm · ${data.history.length} tương tác</summary><div class="table-wrap"><table class="metrics-table"><thead><tr><th>Sản phẩm</th><th>Mốc tương tác</th></tr></thead><tbody>${data.history.map((item) => `<tr><td class="wrap-cell">${h(item.title)}</td><td>${num(item.timestamp)}</td></tr>`).join("") || '<tr><td colspan="2">Hồ sơ này chưa có tương tác trước thời điểm kiểm tra.</td></tr>'}</tbody></table></div><p>Chỉ dùng lịch sử trước mốc ${num(data.cutoff)}; đơn vị thời gian chưa được xác minh. Sản phẩm thực tế thuộc tập kiểm tra.</p><p>Đối chiếu điểm dự đoán đã lưu, không huấn luyện lại. Mã ${h(data.run_id)} · Xếp hạng máy chủ ${num(data.server_ms, 2)} ms.</p></details><a href="#results" class="btn btn-outline">Xem đánh giá toàn tập →</a>`;
+    <details class="disclosure"><summary>Lịch sử và thông tin thực nghiệm · ${data.history.length} tương tác</summary><div class="table-wrap"><table class="metrics-table"><thead><tr><th>Sản phẩm</th><th>Mốc tương tác</th></tr></thead><tbody>${data.history.map((item) => `<tr><td class="wrap-cell">${h(item.title)}</td><td>${num(item.timestamp)}</td></tr>`).join("") || '<tr><td colspan="2">Hồ sơ này chưa có tương tác trước thời điểm kiểm tra.</td></tr>'}</tbody></table></div><p>Chỉ dùng lịch sử trước mốc ${num(data.cutoff)}; đơn vị thời gian chưa được xác minh. Sản phẩm thực tế thuộc tập kiểm tra.</p><p>Đối chiếu điểm dự đoán đã lưu, không huấn luyện lại. Mã ${h(data.run_id)} · Xếp hạng máy chủ ${num(data.server_ms, 2)} ms.</p></details>`;
+  renderBenchmark($("#case-benchmark"), data.protocol);
 }
 async function results() {
   const generation = state.generation;

@@ -2872,3 +2872,14 @@ input::placeholder {
     grid-template-columns: 1fr;
   }
 }
+
+.benchmark-result {
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #edf4fa;
+  color: #164870;
+}
+
+.benchmark-table tbody th {
+  white-space: normal;
+}
