@@ -352,7 +352,7 @@ function comparisonSummary(data) {
           const note = outsideOutput ? '<small>Ngoài bộ sản phẩm đã học</small>'
             : result.uses_fallback ? '<small>Dự phòng theo độ phổ biến</small>' : "";
           return `<tr>
-            <th scope="row"><a href="#ranking-${h(result.model)}" data-action="jump-ranking">${h(result.name)}</a>${note}</th>
+            <th scope="row"><a class="ranking-link" href="#ranking-${h(result.model)}" data-action="jump-ranking"><span>${h(result.name)}</span><span aria-hidden="true">→</span></a>${note}</th>
             <td class="metric-num">${num(result.rank)}</td>
             <td>${result.hit10 ? "Có" : "Không"}</td>
             <td class="metric-num">${decimal(result.ndcg10)}</td>
