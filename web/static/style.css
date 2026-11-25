@@ -3478,13 +3478,25 @@ input::placeholder {
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
   gap: clamp(18px, 3vw, 40px);
   align-items: center;
-  padding: clamp(20px, 4vw, 52px);
+  padding: clamp(18px, 3.4vw, 42px);
   background: linear-gradient(120deg, #12314d, #1b4b68);
 }
 
 .research-overview-hero h1 {
-  font-size: clamp(2.4rem, 5vw, 4.75rem);
-  line-height: .99;
+  max-width: 20ch;
+  margin: 9px 0 12px;
+  font-size: clamp(1.95rem, 3.25vw, 3.1rem);
+  line-height: 1.1;
+  letter-spacing: -.025em;
+}
+
+.research-overview-hero h1 span {
+  display: inline-block;
+}
+
+.research-intro > p {
+  max-width: 47ch;
+  margin-bottom: 16px;
 }
 
 .research-hero-data {

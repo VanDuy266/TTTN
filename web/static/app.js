@@ -140,7 +140,7 @@ function overview() {
     <section class="hero research-overview-hero">
       <div class="research-intro">
         <div class="eyebrow">NHÓM DAD · AMAZON ALL BEAUTY</div>
-        <h1>Hệ thống gợi ý<br>sản phẩm</h1>
+        <h1><span>Hệ thống</span> <span>gợi ý sản phẩm</span></h1>
         <p>Khám phá ba hướng nghiên cứu, so sánh dự đoán trên cùng dữ liệu và chạy thử quy trình mua hàng.</p>
         <div class="hero-actions">
           <a href="#experiment" class="btn">Chạy thực nghiệm</a>
