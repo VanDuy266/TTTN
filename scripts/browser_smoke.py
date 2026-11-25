@@ -36,7 +36,7 @@ def main():
         page.locator('#run-button').click()
         page.locator('.model-card').first.wait_for()
         page.screenshot(path=str(ROOT/'docs/screenshots/research-web-case.png'))
-        for route, selector in [('results','#metrics-body table'),('discussion','#discussion-evidence .stats'),('method','.model-definition')]:
+        for route, selector in [('results','#metrics-body table'),('discussion','#discussion-evidence .research-score-tiles'),('method','.model-definition')]:
             page.locator(f'a[data-nav={route}]').click()
             page.locator(selector).first.wait_for()
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')

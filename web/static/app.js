@@ -87,9 +87,26 @@ function metricsTable(rows, full = false, highlight = "ndcg10") {
   const best = Math.max(...coreRows(rows).map((row) => row[highlight]));
   return `<div class="table-wrap" role="region" tabindex="0" aria-label="Bảng chỉ số mô hình"><table class="metrics-table"><caption class="screen-reader">Chỉ số đánh giá thực nghiệm trên cùng tập người dùng và ứng viên</caption><thead><tr><th>Mô hình</th><th>Tìm trúng / số người dùng</th><th>Tỷ lệ tìm trúng</th><th>Điểm thứ hạng</th><th>Độ phủ sản phẩm</th>${full ? "<th>Khoảng tin cậy 95%</th>" : ""}</tr></thead><tbody>${rows.map((r) => `<tr class="${r[highlight] === best ? "best" : ""}"><td>${h(model(r.model).name)}${r[highlight] === best ? '<span class="best-label">Cao nhất lần chạy</span>' : ""}<span class="metric-sub">${h(model(r.model).family)}</span></td><td class="metric-num"><strong>${num(r.hits10 ?? Math.round(r.recall10 * r.users))}</strong> / ${num(r.users)}</td><td class="metric-num">${pct(r.recall10)}</td><td class="metric-num">${decimal(r.ndcg10)}</td><td class="metric-num">${pct(r.coverage10)}</td>${full ? `<td class="metric-num">${decimal(r.ndcg_ci_low)} – ${decimal(r.ndcg_ci_high)}</td>` : ""}</tr>`).join("")}</tbody></table></div>`;
 }
-function bars(rows) {
-  const max = Math.max(...rows.map((r) => r.ndcg10), 0.00001);
-  return `<div class="chart" role="img" aria-label="So sánh NDCG tại 10"><div class="screen-reader">${rows.map((r) => `${model(r.model).name}: ${decimal(r.ndcg10)}`).join("; ")}</div>${rows.map((r) => `<div class="bar-row"><span>${h(model(r.model).short)}</span><div class="bar-track"><div class="bar-fill ${r.model === "content" ? "focus" : ""}" style="width:${(r.ndcg10 / max) * 100}%"></div></div><span class="bar-value">${decimal(r.ndcg10)}</span></div>`).join("")}</div>`;
+const metricViews = {
+  ndcg10: { label: "NDCG@10", title: "Điểm thứ hạng", format: decimal },
+  recall10: { label: "Recall@10", title: "Tỷ lệ tìm trúng", format: pct },
+  coverage10: { label: "Coverage@10", title: "Độ phủ sản phẩm", format: pct },
+};
+function bars(rows, metric = "ndcg10") {
+  const { label, format } = metricViews[metric];
+  const sorted = [...rows].sort((a, b) => b[metric] - a[metric]);
+  const max = Math.max(sorted[0]?.[metric] ?? 0, 0.00001);
+  return `<ul class="research-chart" aria-label="So sánh ${label} theo mô hình">${sorted.map((row) => `
+    <li class="research-bar">
+      <span>${h(model(row.model).short)}${row.model === "content" ? ' <small class="research-reference">Mốc</small>' : ""}</span>
+      <span class="research-bar-track" aria-hidden="true"><span class="${row.model === "content" ? "reference" : ""}" style="width:${row[metric] / max * 100}%"></span></span>
+      <strong>${format(row[metric])}</strong>
+    </li>`).join("")}</ul>`;
+}
+function scoreTiles(items) {
+  return `<dl class="research-score-tiles">${items.map(([label, value, detail]) => `
+    <div><dt>${h(label)}</dt><dd>${h(value)}</dd>${detail ? `<dd class="score-detail">${h(detail)}</dd>` : ""}</div>
+  `).join("")}</dl>`;
 }
 function options(values, current) {
   return values
@@ -119,21 +136,52 @@ function metricLegend() {
 function overview() {
   const b = state.bootstrap,
     a = b.audit;
-  $("#main").innerHTML =
-    `<section class="hero"><div><div class="eyebrow">NHÓM DAD · AMAZON ALL BEAUTY</div><h1>Thực nghiệm hệ thống<br>gợi ý sản phẩm</h1><p>Phân tích lịch sử tương tác, so sánh sản phẩm dự đoán của ba hướng nghiên cứu và tổng hợp chỉ số đánh giá.</p><div class="hero-actions"><a href="#experiment" class="btn">Chạy thực nghiệm</a><a href="#method" class="btn btn-outline">Dữ liệu và mô hình</a><a href="#store" class="btn btn-outline">Cửa hàng mô phỏng</a></div></div></section>
-<div class="stats"><div class="stat"><div class="stat-label">Hồ sơ kiểm chứng</div><div class="stat-value">${num(a.users)}</div></div><div class="stat"><div class="stat-label">Sản phẩm trong danh mục</div><div class="stat-value">${num(a.catalog)}</div></div><div class="stat"><div class="stat-label">Tương tác huấn luyện</div><div class="stat-value">${num(a.train_rows)}</div></div><div class="stat"><div class="stat-label">Mục tiêu kiểm tra chưa có trong tập huấn luyện</div><div class="stat-value">${num((a.cold_test_targets / a.test_rows) * 100, 1)}%</div></div></div>
-<div class="section-heading"><div><h2>Ba hướng thực nghiệm</h2><p>Ba nhóm mô hình được đánh giá trên cùng dữ liệu đầu vào.</p></div></div>
-<div class="directions-grid">${state.study.directions.map((d) => `<article class="panel research-panel"><div class="panel-index">${h(d.name.split(" — ")[0].toUpperCase())}</div><h3>${h(d.name.split(" — ")[1])}</h3><dl class="direction-facts"><dt>Đầu vào</dt><dd>${h(d.id === "h1" ? "Lịch sử sản phẩm và mốc thời gian." : d.id === "h2" ? "Đồ thị tương tác và tiêu đề sản phẩm." : "Điểm dự đoán của H1, H2 và độ phổ biến.")}</dd><dt>Đầu ra</dt><dd>${h(d.id === "h3" ? "Điểm kết hợp và 10 gợi ý được xếp hạng." : "Điểm dự đoán và 10 sản phẩm được xếp hạng.")}</dd></dl><a href="#method/${h(d.id)}" class="inline-link">Xem mô hình ${h(d.id.toUpperCase())}</a></article>`).join("")}</div>
-<div class="section-heading"><div><h2>Kết quả trên toàn danh mục</h2><p>Cùng tập người dùng và ứng viên; 10 kết quả đầu.</p></div><a href="#results" class="inline-link">Xem bảng đầy đủ</a></div><div id="overview-metrics" class="panel">${loading()}</div><details class="disclosure"><summary>Kết quả mô hình tích hợp</summary><div class="small muted">${h(state.study.directions.find((d) => d.id === "h3").status)} Điểm dự đoán được lưu từ lần huấn luyện trước.</div></details>`;
+  $("#main").innerHTML = `
+    <section class="hero research-overview-hero">
+      <div class="research-intro">
+        <div class="eyebrow">NHÓM DAD · AMAZON ALL BEAUTY</div>
+        <h1>Hệ thống gợi ý<br>sản phẩm</h1>
+        <p>Khám phá ba hướng nghiên cứu, so sánh dự đoán trên cùng dữ liệu và chạy thử quy trình mua hàng.</p>
+        <div class="hero-actions">
+          <a href="#experiment" class="btn">Chạy thực nghiệm</a>
+          <a href="#store" class="btn btn-outline">Cửa hàng mô phỏng</a>
+        </div>
+      </div>
+      <div class="research-hero-data">
+        <h2>Kết quả trên toàn danh mục</h2>
+        <p>Tỷ lệ tìm trúng Top 10 · ${num(a.users)} hồ sơ</p>
+        <div id="overview-chart">${loading()}</div>
+        <a href="#results" class="inline-link">Mở bảng đánh giá →</a>
+      </div>
+    </section>
+    ${scoreTiles([
+      ["Hồ sơ kiểm tra", num(a.users)],
+      ["Sản phẩm trong danh mục", num(a.catalog)],
+      ["Tương tác huấn luyện", num(a.train_rows)],
+      ["Mục tiêu chưa có trong tập huấn luyện", pct(a.cold_test_targets / a.test_rows)],
+    ])}
+    <div class="section-heading"><div><h2>Ba hướng thực nghiệm</h2><p>Dùng cùng dữ liệu để đối chiếu các mô hình.</p></div></div>
+    <div class="directions-grid">${state.study.directions.map((d) => `
+      <article class="panel research-panel research-direction">
+        <span class="research-direction-code">${h(d.id.toUpperCase())}</span>
+        <h3>${h(d.name.split(" — ")[1])}</h3>
+        <p>${h(d.input)}</p>
+        <a href="#method/${h(d.id)}" class="inline-link">Xem phương pháp →</a>
+      </article>`).join("")}</div>
+    <details class="disclosure"><summary>Bảng kết quả chi tiết trên toàn danh mục</summary><div id="overview-metrics">${loading()}</div></details>`;
   const generation = state.generation;
   getMetrics()
-    .then((data) => {
-      if (generation === state.generation)
-        $("#overview-metrics").innerHTML = metricsTable(coreRows(data.rows));
+    .then(({ rows }) => {
+      if (generation !== state.generation) return;
+      const chartRows = ["content", "m1", "h2", "h3"].map((id) => rows.find((row) => row.model === id));
+      $("#overview-chart").innerHTML = bars(chartRows, "recall10");
+      $("#overview-metrics").innerHTML = metricsTable(coreRows(rows));
     })
     .catch((err) => {
-      if (generation === state.generation)
-        $("#overview-metrics").innerHTML = errorBlock(err);
+      if (generation === state.generation) {
+        $("#overview-chart").innerHTML = errorBlock(err);
+        $("#overview-metrics").textContent = err.message;
+      }
     });
 }
 function experiment() {
@@ -147,7 +195,7 @@ function experiment() {
   $("#main").innerHTML =
     heading(
       "So sánh dự đoán",
-      "Chọn hướng nghiên cứu, người dùng và so sánh kết quả.",
+      "Chọn hướng nghiên cứu, hồ sơ và tập ứng viên để xem mô hình nào đưa sản phẩm thực tế vào Top 10.",
     ) +
     `<form id="experiment-form" class="panel experiment-controls">
       <fieldset>
@@ -354,10 +402,17 @@ async function renderBenchmark(container, protocol) {
     const best = Math.max(...rows.map((row) => row.ndcg10));
     const leaders = rows.filter((row) => row.ndcg10 === best).map((row) => model(row.model).name);
     const sorted = [...rows].sort((a, b) => b.ndcg10 - a.ndcg10);
+    const hybrid = rows.find((row) => row.model === "h3");
     container.innerHTML = `
       <h3 id="benchmark-title">Mô hình nào tốt hơn trên toàn tập?</h3>
       <p class="benchmark-result"><strong>${leaders.length > 1 ? "Đồng hạng cao nhất" : "Cao nhất"} theo NDCG@10:</strong> ${h(leaders.join(" · "))} (${decimal(best)}).</p>
       <p>So sánh trên ${num(baseline.users)} hồ sơ · ${protocol === "sampled100" ? "100 ứng viên cố định" : "Toàn bộ danh mục"}. Mốc so sánh là mô hình Nội dung sản phẩm (TF-IDF/SVD).</p>
+      ${scoreTiles([
+        ["Mốc nội dung · Recall@10", pct(baseline.recall10)],
+        ["H3 · Recall@10", pct(hybrid.recall10), `${signedDelta((hybrid.recall10 - baseline.recall10) * 100, 2)} điểm % so với mốc`],
+      ])}
+      ${bars(rows, "recall10")}
+      <details class="disclosure"><summary>Xem chênh lệch so với mốc nội dung</summary>
       <div class="table-wrap" tabindex="0" role="region" aria-labelledby="benchmark-title">
         <table class="metrics-table benchmark-table">
           <thead><tr><th scope="col">Mô hình</th><th scope="col">Tìm trúng Top 10</th><th scope="col">Chênh lệch tỷ lệ trúng</th><th scope="col">NDCG@10</th><th scope="col">Chênh lệch NDCG</th></tr></thead>
@@ -371,6 +426,7 @@ async function renderBenchmark(container, protocol) {
         </table>
       </div>
       <p class="table-caption">Dấu + là cao hơn mốc, dấu − là thấp hơn. Đây là chênh lệch quan sát được trên tập kiểm tra.</p>
+      </details>
       <a class="inline-link" href="#results">Xem độ phủ và khoảng tin cậy →</a>`;
   } catch {
     container.innerHTML = '<p role="alert">Chưa tải được kết quả toàn tập.</p><button type="button" class="btn btn-outline btn-small">Thử lại</button>';
@@ -384,11 +440,12 @@ function comparisonSummary(data) {
   const hits = data.results.filter((result) => result.hit10).length;
   return `<section class="panel case-summary" aria-labelledby="case-summary-title">
     <h3 id="case-summary-title">Kết quả cho hồ sơ này</h3>
-    <p class="benchmark-result"><strong>${hits}/${data.results.length} mô hình tìm trúng Top 10.</strong>
-      ${data.fallback ? "Các mô hình dùng chung kết quả dự phòng."
-        : leaders.length ? `Hạng tốt nhất trong các mô hình chấm được sản phẩm là <strong>${num(best)}</strong> · ${h(leaders.join(" · "))}.`
-        : "Sản phẩm nằm ngoài bộ đầu ra đã học của các mô hình đã chọn."}
-    </p>
+    ${scoreTiles([
+      ["Mô hình tìm trúng Top 10", `${hits}/${data.results.length}`],
+      ["Thứ hạng tốt nhất", leaders.length ? num(best) : "—",
+        data.fallback ? "Dự phòng theo độ phổ biến" : leaders.join(" · ") || "Ngoài bộ sản phẩm đã học"],
+      ["Sản phẩm ứng viên", num(data.candidate_count)],
+    ])}
     <div class="table-wrap" tabindex="0" role="region" aria-labelledby="case-summary-title">
       <table class="metrics-table">
         <thead><tr><th scope="col">Mô hình</th><th scope="col">Thứ hạng</th><th scope="col">Trong top 10</th><th scope="col">NDCG@10</th></tr></thead>
@@ -460,11 +517,18 @@ async function results() {
         `<strong>${num(data.rows[0]?.users || 0)} hồ sơ</strong><span>${h(state.bootstrap.protocols[protocol])}</span>`;
       const rows = coreRows(data.rows);
       $("#metrics-body").innerHTML =
-        `<div class="panel"><div class="metrics-panel-head"><h2>Chỉ số theo mô hình</h2><div><label for="metrics-order">Sắp xếp theo</label><select id="metrics-order">${options([
-          ["ndcg10", "Điểm thứ hạng"],
-          ["recall10", "Tỷ lệ tìm trúng"],
-          ["coverage10", "Độ phủ sản phẩm"],
-        ], state.metricOrder)}</select></div></div><div id="ordered-metrics"></div><p class="table-caption">Tìm trúng / số người dùng: số trường hợp dự đoán đúng trong 10 kết quả đầu trên tổng số người được đánh giá.</p></div><details class="disclosure"><summary>Ý nghĩa các chỉ số</summary>${metricLegend()}</details><details class="disclosure"><summary>Khoảng tin cậy của điểm thứ hạng</summary><div class="table-wrap"><table class="metrics-table"><thead><tr><th>Mô hình</th><th>NDCG@10</th><th>Khoảng tin cậy 95%</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${h(model(r.model).name)}</td><td>${decimal(r.ndcg10)}</td><td>${decimal(r.ndcg_ci_low)} – ${decimal(r.ndcg_ci_high)}</td></tr>`).join("")}</tbody></table></div><p class="table-caption">${h(state.study.evaluation.bootstrap)}</p></details><div class="section-heading"><div><h2>So sánh NDCG@10</h2><p>Chất lượng thứ hạng của sản phẩm thực tế trong 10 kết quả đầu.</p></div></div><div class="panel">${bars(rows)}</div><div class="notice notice-warning"><strong>Cấu hình hiện tại.</strong> H2 sử dụng LightGCN và TF-IDF/SVD, chưa triển khai MiniLM. H3 có kết quả trùng mô hình đối chứng theo nội dung.</div><details class="disclosure"><summary>Cấu hình phụ và chênh lệch chỉ số</summary><div>${metricsTable(
+        `<section class="panel research-results-visual" aria-labelledby="metric-chart-title">
+          <div><div class="metrics-panel-head">
+            <h2 id="metric-chart-title">So sánh mô hình</h2>
+            <div><label for="metrics-order">Chỉ số so sánh</label><select id="metrics-order">${options([
+              ["ndcg10", "Điểm thứ hạng"],
+              ["recall10", "Tỷ lệ tìm trúng"],
+              ["coverage10", "Độ phủ sản phẩm"],
+            ], state.metricOrder)}</select></div>
+          </div><div id="metric-chart"></div></div>
+          <div class="research-insight" id="metric-insight" aria-live="polite"></div>
+        </section>
+        <div class="panel"><h2>Chỉ số mô hình chính</h2><div id="ordered-metrics"></div><p class="table-caption">Tìm trúng / số người dùng: số trường hợp dự đoán đúng trong 10 kết quả đầu trên tổng số người được đánh giá.</p></div><details class="disclosure"><summary>Ý nghĩa các chỉ số</summary>${metricLegend()}</details><details class="disclosure"><summary>Khoảng tin cậy của điểm thứ hạng</summary><div class="table-wrap"><table class="metrics-table"><thead><tr><th>Mô hình</th><th>NDCG@10</th><th>Khoảng tin cậy 95%</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${h(model(r.model).name)}</td><td>${decimal(r.ndcg10)}</td><td>${decimal(r.ndcg_ci_low)} – ${decimal(r.ndcg_ci_high)}</td></tr>`).join("")}</tbody></table></div><p class="table-caption">${h(state.study.evaluation.bootstrap)}</p></details><div class="notice notice-warning"><strong>Cấu hình hiện tại.</strong> H2 sử dụng LightGCN và TF-IDF/SVD, chưa triển khai MiniLM. H3 có kết quả trùng mô hình đối chứng theo nội dung.</div><details class="disclosure"><summary>Cấu hình phụ và chênh lệch chỉ số</summary><div>${metricsTable(
           data.rows.filter(
             (r) => !state.bootstrap.default_models.includes(r.model),
           ),
@@ -473,8 +537,22 @@ async function results() {
       const order = $("#metrics-order");
       const renderTable = () => {
         state.metricOrder = order.value;
-        const sorted = [...rows].sort((a, b) => b[state.metricOrder] - a[state.metricOrder]);
-        $("#ordered-metrics").innerHTML = metricsTable(sorted, false, state.metricOrder);
+        const sorted = [...data.rows].sort((a, b) => b[state.metricOrder] - a[state.metricOrder]);
+        const view = metricViews[state.metricOrder];
+        const best = sorted[0][state.metricOrder];
+        const leaders = sorted.filter((row) => row[state.metricOrder] === best);
+        const reference = rows.find((row) => row.model === "content")[state.metricOrder];
+        const difference = best - reference;
+        const delta = state.metricOrder === "ndcg10"
+          ? signedDelta(difference) : `${signedDelta(difference * 100, 2)} điểm %`;
+        $("#metric-chart-title").textContent = `So sánh ${view.label}`;
+        $("#metric-chart").innerHTML = bars(sorted, state.metricOrder);
+        $("#metric-insight").innerHTML = `
+          <p>${leaders.length > 1 ? "Đồng hạng cao nhất" : "Cao nhất"} · ${view.title}</p>
+          <strong>${view.format(best)}</strong>
+          <p>${h(leaders.map((row) => model(row.model).short).join(" · "))}</p>
+          <p class="research-insight-delta">${delta} so với mốc nội dung</p>`;
+        $("#ordered-metrics").innerHTML = metricsTable(coreRows(sorted), false, state.metricOrder);
       };
       order.addEventListener("change", renderTable);
       renderTable();
@@ -540,7 +618,13 @@ async function discussion() {
       "Nhận xét và hướng cải tiến",
       "Ưu điểm, hạn chế và đề xuất cải tiến của ba hướng nghiên cứu.",
     ) +
-    `<div id="discussion-evidence">${loading()}</div><div class="two-col">${discussionData.map((x) => `<article class="discussion-card"><span class="model-family">${h(x.family)}</span><h3>${h(x.title)}</h3><div class="discussion-block"><strong>Điểm mạnh về thiết kế</strong><p>${h(x.strength)}</p></div><div class="discussion-block"><strong>Hạn chế</strong><p>${h(x.limit)}</p></div><div class="discussion-block"><strong>Hướng cải tiến</strong><p>${h(x.next)}</p></div></article>`).join("")}</div><div class="section-heading"><div><h2>Nội dung phát triển tiếp theo</h2><p></p></div><span class="section-tag">ĐỊNH HƯỚNG NGHIÊN CỨU</span></div><div class="priority-list">${[
+    `<section id="discussion-evidence" class="panel research-evidence">${loading()}</section>
+    <div class="section-heading"><div><h2>Nhận xét từng mô hình</h2></div></div>
+    <div class="research-review-list">${discussionData.map((x, index) => `
+      <details class="panel research-review"${index === 0 ? " open" : ""}>
+        <summary><span class="research-reference">${h(x.family)}</span><strong>${h(x.title)}</strong></summary>
+        <dl><div><dt>Điểm mạnh</dt><dd>${h(x.strength)}</dd></div><div><dt>Hạn chế</dt><dd>${h(x.limit)}</dd></div><div><dt>Cải tiến</dt><dd>${h(x.next)}</dd></div></dl>
+      </details>`).join("")}</div><div class="section-heading"><div><h2>Thứ tự ưu tiên cải tiến</h2></div></div><div class="priority-list">${[
       [
         "01",
         "Chuẩn hóa dữ liệu và phương pháp đánh giá",
@@ -579,9 +663,16 @@ async function discussion() {
       .filter((r) => ["m1", "m2", "m3"].includes(r.model))
       .sort((a, b) => b.ndcg10 - a.ndcg10)[0];
     const coldText = cold.rows.find((r) => r.model === "content");
-    $("#discussion-evidence").innerHTML =
-      `<div class="study-strip"><strong>Kết quả thực nghiệm ${h(state.bootstrap.run_id)}</strong><span>Đánh giá toàn bộ ${num(state.bootstrap.audit.catalog)} sản phẩm · Đánh giá trên tập tương tác đã lưu.</span></div><div class="stats"><div class="stat"><div class="stat-label">Nội dung · Tỷ lệ tìm trúng</div><div class="stat-value">${pct(text.recall10)}</div><small>NDCG ${decimal(text.ndcg10)}</small></div><div class="stat"><div class="stat-label">${h(model(bestH1.model).short)} · Tỷ lệ tìm trúng sản phẩm đã học</div><div class="stat-value">${pct(bestH1.recall10)}</div><small>${bestH1.users} sản phẩm đã có trong tập huấn luyện</small></div><div class="stat"><div class="stat-label">Nội dung · Tỷ lệ tìm trúng sản phẩm chưa học</div><div class="stat-value">${pct(coldText.recall10)}</div><small>${coldText.users} sản phẩm chưa có trong tập huấn luyện</small></div><div class="stat"><div class="stat-label">Trọng số đồ thị của H2 kết hợp</div><div class="stat-value">${num(state.bootstrap.audit.h2_graph_weight, 2)}</div><small>Tập xác thực chọn trọng số đồ thị bằng 0</small></div></div>`;
-  } catch (err) {
+    $("#discussion-evidence").innerHTML = `
+      <div><h2>Bằng chứng từ toàn danh mục</h2>
+        <p>Đối chứng nội dung tìm trúng ${num(text.hits10)} trên ${num(text.users)} hồ sơ. Trọng số đồ thị trong H2 kết hợp là ${num(state.bootstrap.audit.h2_graph_weight, 2)}.</p>
+        <a class="inline-link" href="#results">Đối chiếu kết quả →</a>
+      </div>
+      <div>${scoreTiles([
+        ["Nội dung · toàn tập", pct(text.recall10), `NDCG ${decimal(text.ndcg10)}`],
+        [`${model(bestH1.model).short} · nhóm đã học`, pct(bestH1.recall10), `${num(bestH1.users)} hồ sơ`],
+        ["Nội dung · nhóm chưa học", pct(coldText.recall10), `${num(coldText.users)} hồ sơ`],
+      ])}</div>`;  } catch (err) {
     if (generation === state.generation)
       $("#discussion-evidence").innerHTML = errorBlock(err);
   }
@@ -599,7 +690,7 @@ async function methodology() {
     ) +
     `
   <section class="panel research-method"><h2>Quy trình thực nghiệm và vận hành</h2>
-    <div class="method-grid">${methodEntries(study.evaluation.workflow)}</div>
+    <ol class="research-workflow">${study.evaluation.workflow.map(({ title, description }) => `<li><h3>${h(title)}</h3><p>${h(description)}</p></li>`).join("")}</ol>
     <details class="disclosure"><summary>Hai cách chọn tập ứng viên</summary><div class="method-grid">${methodEntries(study.evaluation.protocols)}</div></details>
     <details class="disclosure"><summary>Cách tính ba chỉ số tại Top 10</summary>${metricLegend()}<p class="table-caption">${h(study.evaluation.bootstrap)}</p></details>
   </section>
@@ -613,7 +704,9 @@ async function methodology() {
     .join(
       "",
     )}</tbody></table></div><p class="table-caption">Tập huấn luyện gốc có ${num(a.raw_train_rows)} tương tác; ${a.excluded_ambiguous_train_rows} dòng đã được loại do mốc thời gian không phù hợp. Danh mục chung có ${num(data.catalog_items)} sản phẩm.</p></div>
-  <div class="data-breakdown"><div class="panel"><h3>Sản phẩm thực tế trong tập kiểm tra</h3><dl class="study-counts"><dt>Đã có tương tác huấn luyện</dt><dd>${num(data.warm_targets)} / ${a.users}</dd><dt>Chưa có tương tác huấn luyện</dt><dd>${num(data.cold_targets)} / ${a.users}</dd></dl></div><div class="panel"><h3>Lịch sử trước thời điểm kiểm tra</h3><dl class="study-counts">${data.history_groups.map((x) => `<dt>${h(x.label)}</dt><dd>${num(x.users)} người</dd>`).join("")}</dl></div></div>
+  <div class="data-breakdown"><div class="panel"><h3>Sản phẩm thực tế trong tập kiểm tra</h3>
+    <div class="research-distribution" aria-hidden="true"><span style="width:${data.warm_targets / a.users * 100}%"></span></div>
+    <dl class="study-counts"><dt>Đã có tương tác huấn luyện</dt><dd>${num(data.warm_targets)} / ${num(a.users)}</dd><dt>Chưa có tương tác huấn luyện</dt><dd>${num(data.cold_targets)} / ${num(a.users)}</dd></dl></div><div class="panel"><h3>Lịch sử trước thời điểm kiểm tra</h3><dl class="study-counts">${data.history_groups.map((x) => `<dt>${h(x.label)}</dt><dd>${num(x.users)} người</dd>`).join("")}</dl></div></div>
   <div class="section-heading"><div><h2>Cấu trúc từng hướng nghiên cứu</h2><p>${h(study.execution.description)}</p></div></div>
   <div class="model-definitions">${study.directions
     .map(
@@ -1079,6 +1172,8 @@ function render() {
   const [route, direction] = (location.hash.slice(1) || "experiment").split("/");
   state.route = Object.hasOwn(routes, route) ? route : "overview";
   $("#view-title").textContent = routes[state.route];
+  $("#main").classList.toggle("research-workspace", state.route !== "store");
+  $("#main").dataset.view = state.route;
   $$("[data-nav]").forEach((el) => {
     if (el.dataset.nav === state.route) el.setAttribute("aria-current", "page");
     else el.removeAttribute("aria-current");
