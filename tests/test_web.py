@@ -35,6 +35,27 @@ class ResearchWebTests(unittest.TestCase):
                 ids=[x['item_id'] for x in row['top10']]
                 self.assertEqual(len(ids),len(set(ids)))
                 self.assertEqual(result['target']['item_id'] in ids,row['hit10'])
+    def test_direction_comparison_covers_full_cohort_and_matches_case(self):
+        for protocol, candidate_count in [("full_catalog", 2934), ("sampled100", 100)]:
+            with self.subTest(protocol=protocol):
+                response = self.client.get("/api/direction-comparison", params={"protocol": protocol})
+                self.assertEqual(response.status_code, 200)
+                data = response.json()
+                self.assertEqual(data["candidate_count"], candidate_count)
+                self.assertEqual(len({profile["id"] for profile in data["profiles"]}), 646)
+                models = {row["id"]: row["model"] for row in data["directions"]}
+                self.assertEqual(set(models), {"h1", "h2", "h3"})
+                for row in data["directions"]:
+                    hits = sum(profile["ranks"][row["id"]] <= data["top_k"] for profile in data["profiles"])
+                    self.assertEqual(hits, row["hits"])
+                    self.assertAlmostEqual(hits / data["users"], row["recall"])
+                for profile in (data["profiles"][0], data["profiles"][-1]):
+                    case = self.client.post("/api/experiments", json={
+                        "profile_id": profile["id"], "protocol": protocol, "models": list(models.values()),
+                    }).json()
+                    rank_by_model = {row["model"]: row["rank"] for row in case["results"]}
+                    self.assertEqual(profile["ranks"], {key: rank_by_model[value] for key, value in models.items()})
+
     def test_invalid_requests(self):
         for payload in [{'profile_id':'unknown'}, {'profile_id':'KH-0001','models':['../../secret']},
                         {'profile_id':'KH-0001','models':['m1','m1']}, {'profile_id':'KH-0001','models':[]},

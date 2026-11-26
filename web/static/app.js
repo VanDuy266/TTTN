@@ -184,6 +184,112 @@ function overview() {
       }
     });
 }
+async function compareDirections(container, protocol) {
+  container.innerHTML = loading("Đang đối chiếu toàn bộ hồ sơ…");
+  const request = Symbol();
+  container.comparisonRequest = request;
+  try {
+    const data = await api(`/api/direction-comparison?protocol=${protocol}`);
+    if (!container.isConnected || container.comparisonRequest !== request) return;
+    const best = Math.max(...data.directions.map((direction) => direction.hits));
+    const leaders = data.directions.filter((direction) => direction.hits === best);
+    const leaderNames = leaders.map(({ id }) => id.toUpperCase()).join(", ");
+    container.innerHTML = `
+      <p class="benchmark-result"><strong>${best === 0 ? "Chưa có hướng nào tìm trúng."
+        : `${leaderNames} ${leaders.length > 1 ? "đồng hạng dẫn đầu" : "dẫn đầu"}: ${num(best)}/${num(data.users)} hồ sơ trúng Top ${data.top_k}.`}</strong>
+        Mỗi hồ sơ được xếp hạng trên ${num(data.candidate_count)} sản phẩm.
+      </p>
+      ${scoreTiles(data.directions.map(({ id, name, hits, recall, ndcg }) => [
+        `${id.toUpperCase()} · ${name}`,
+        `${num(hits)} / ${num(data.users)}`,
+        `${pct(recall)} trúng Top ${data.top_k} · NDCG ${decimal(ndcg)}`,
+      ]))}
+      <p class="table-caption">So sánh ba mô hình đại diện theo số hồ sơ trúng Top 10. Biến thể H1 được chọn trên tập xác thực.${state.study.directions.find((direction) => direction.id === "h3").collapses_to_content ? " H3 có cùng điểm với mốc TF-IDF/SVD ở lần chạy này." : ""}</p>
+      <div class="direction-profile-controls">
+        <div><label for="direction-profile-search">Tìm mã hồ sơ</label><input type="search" id="direction-profile-search" placeholder="Ví dụ KH-0020"></div>
+        <div><label for="direction-hit-filter">Lọc theo kết quả Top 10</label><select id="direction-hit-filter">
+          <option value="all">Tất cả ${num(data.users)} hồ sơ</option>
+          <option value="any">Có ít nhất một hướng trúng</option>
+          ${data.directions.map(({ id, hits }) => `<option value="${id}">${id.toUpperCase()} tìm trúng (${num(hits)})</option>`).join("")}
+          <option value="none">Cả ba hướng đều trượt</option>
+        </select></div>
+      </div>
+      <div id="direction-profile-table"></div>`;
+
+    let page = 0;
+    const size = 20;
+    const search = $("#direction-profile-search", container);
+    const filter = $("#direction-hit-filter", container);
+    const table = $("#direction-profile-table", container);
+    const ids = data.directions.map(({ id }) => id);
+    const matches = (profile) => {
+      if (!profile.id.toLowerCase().includes(search.value.trim().toLowerCase())) return false;
+      const mode = filter.value;
+      if (mode === "all") return true;
+      const hits = ids.some((id) => profile.ranks[id] <= data.top_k);
+      if (mode === "any") return hits;
+      if (mode === "none") return !hits;
+      return profile.ranks[mode] <= data.top_k;
+    };
+    const renderPage = () => {
+      const rows = data.profiles.filter(matches);
+      const offset = page * size;
+      const visible = rows.slice(offset, offset + size);
+      table.innerHTML = `
+        <p class="profile-feedback" role="status">${rows.length ? `${num(offset + 1)}–${num(offset + visible.length)} / ${num(rows.length)} hồ sơ phù hợp` : "Không có hồ sơ phù hợp."}</p>
+        ${visible.length ? `<div class="table-wrap" tabindex="0" role="region" aria-label="Kết quả Top 10 theo hồ sơ">
+          <table class="metrics-table direction-profile-table">
+            <thead><tr><th scope="col">Hồ sơ</th>${ids.map((id) => `<th scope="col">${id.toUpperCase()}</th>`).join("")}</tr></thead>
+            <tbody>${visible.map((profile) => `<tr><th scope="row"><button type="button" class="ranking-link" data-direction-profile="${h(profile.id)}">${h(profile.id)} <span aria-hidden="true">→</span></button></th>
+              ${ids.map((id) => {
+                const rank = profile.ranks[id];
+                const hit = rank <= data.top_k;
+                return `<td><span class="direction-hit ${hit ? "is-hit" : ""}">${hit ? "Trúng" : "Trượt"}</span><small>Hạng ${num(rank)}</small></td>`;
+              }).join("")}</tr>`).join("")}</tbody>
+          </table></div>` : ""}
+        ${rows.length > size ? `<div class="direction-pager">
+          <button type="button" class="btn btn-outline btn-small" data-direction-page="-1"${page === 0 ? " disabled" : ""}>Trang trước</button>
+          <span>Trang ${page + 1}/${Math.ceil(rows.length / size)}</span>
+          <button type="button" class="btn btn-outline btn-small" data-direction-page="1"${offset + size >= rows.length ? " disabled" : ""}>Trang sau</button>
+        </div>` : ""}`;
+    };
+    const reset = () => { page = 0; renderPage(); };
+    search.oninput = reset;
+    filter.onchange = reset;
+    table.onclick = async (event) => {
+      const pager = event.target.closest("[data-direction-page]");
+      const profile = event.target.closest("[data-direction-profile]");
+      if (pager) {
+        page += Number(pager.dataset.directionPage);
+        renderPage();
+        const next = $(`[data-direction-page="${pager.dataset.directionPage}"]:not(:disabled)`, table);
+        (next || $(".table-wrap", table))?.focus({ preventScroll: true });
+      }
+      if (profile) {
+        state.preset = "all";
+        $$(".preset", $("#experiment-form")).forEach((button) => {
+          const active = button.dataset.value === "all";
+          button.classList.toggle("active", active);
+          button.setAttribute("aria-pressed", String(active));
+        });
+        state.query = state.profile = profile.dataset.directionProfile;
+        $("#profile-search").value = state.query;
+        clearTimeout(searchTimer);
+        $('[data-group="all"]').click();
+        await loadProfiles();
+        if (container.isConnected && container.comparisonRequest === request && $("#profile-select").value === profile.dataset.directionProfile)
+          $("#experiment-form").requestSubmit();
+      }
+    };
+    renderPage();
+  } catch (error) {
+    if (container.comparisonRequest === request) {
+      container.innerHTML = errorBlock(error, "retry-directions");
+      $("button", container).onclick = () => compareDirections(container, protocol);
+    }
+  }
+}
+
 function experiment() {
   if (
     state.case &&
@@ -195,9 +301,18 @@ function experiment() {
   $("#main").innerHTML =
     heading(
       "So sánh dự đoán",
-      "Chọn hướng nghiên cứu, hồ sơ và tập ứng viên để xem mô hình nào đưa sản phẩm thực tế vào Top 10.",
+      "So sánh H1, H2 và H3 trên toàn tập. Mở một hồ sơ để xem danh sách gợi ý cụ thể.",
     ) +
-    `<form id="experiment-form" class="panel experiment-controls">
+    `<section class="panel direction-cohort" aria-labelledby="direction-cohort-title">
+      <div class="metrics-panel-head">
+        <h2 id="direction-cohort-title">So sánh H1, H2, H3 trên ${num(b.audit.users)} hồ sơ</h2>
+        <div><label for="direction-protocol">Tập ứng viên mỗi hồ sơ</label><select id="direction-protocol">${protocolOptions(state.protocol)}</select></div>
+      </div>
+      <button class="btn btn-outline btn-small" id="direction-jump-case" type="button">Thử dự đoán từng hồ sơ ↓</button>
+      <div id="direction-cohort-results"></div>
+    </section>
+    <div class="section-heading"><h2>Thử dự đoán từng hồ sơ</h2></div>
+    <form id="experiment-form" class="panel experiment-controls">
       <fieldset>
         <legend>Hướng nghiên cứu</legend>
         <div class="direction-tabs" role="group" aria-label="Hướng nghiên cứu">
@@ -264,8 +379,16 @@ function experiment() {
   $("#experiment-protocol").addEventListener("change", (e) => {
     state.protocol = e.target.value;
     $("#protocol-note").textContent = b.protocols[state.protocol];
+    $("#direction-protocol").value = state.protocol;
     invalidateCase();
+    compareDirections($("#direction-cohort-results"), state.protocol);
   });
+  $("#direction-protocol").onchange = (event) => {
+    $("#experiment-protocol").value = event.target.value;
+    $("#experiment-protocol").dispatchEvent(new Event("change"));
+  };
+  compareDirections($("#direction-cohort-results"), state.protocol);
+  $("#direction-jump-case").onclick = () => $("#profile-search").focus();
   $$("input[name=model]").forEach((el) =>
     el.addEventListener("change", () => {
       state.selected = $$("input[name=model]:checked").map((x) => x.value);

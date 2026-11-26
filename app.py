@@ -124,6 +124,43 @@ def metrics(request:Request,protocol:Literal['full_catalog','sampled100']='full_
             'contrasts':[r for r in data.contrasts if r['protocol']==protocol] if cohort=='all' else [],
             'ci_note':'Bootstrap 95% theo người dùng, 500 lần, seed 42; một seed huấn luyện; chưa hiệu chỉnh nhiều phép so sánh.'}
 
+@app.get("/api/direction-comparison")
+def direction_comparison(request: Request, protocol: Literal["full_catalog", "sampled100"] = "full_catalog"):
+    data = lab(request)
+    h3 = next(direction for direction in data.study["directions"] if direction["id"] == "h3")
+    directions = dict(h1=h3["selected_h1"], h2="h2", h3="h3")
+    targets = np.array([profile["target"] for profile in data.profiles])
+    candidates = (np.arange(len(data.catalog)) if protocol == "full_catalog" else
+                  np.array([sorted(profile["candidates"]) for profile in data.profiles]))
+    ranks = {}
+    for direction, model in directions.items():
+        matrix = data.arrays[model]
+        scores = matrix if protocol == "full_catalog" else np.take_along_axis(matrix, candidates, axis=1)
+        target_scores = matrix[np.arange(len(targets)), targets, None]
+        # Match the case endpoint: higher score first, then earlier catalog index for a tie.
+        ahead = (scores > target_scores) | ((scores == target_scores) & (candidates < targets[:, None]))
+        ranks[direction] = (ahead.sum(axis=1) + 1).tolist()
+
+    metrics = {row["model"]: row for row in data.metrics
+               if row["protocol"] == protocol and row["cohort"] == "all"}
+    return {
+        "protocol": protocol,
+        "top_k": data.manifest["top_k"],
+        "users": len(targets),
+        "candidate_count": candidates.shape[-1],
+        "directions": [
+            {"id": direction, "model": model, "name": data.models[model]["name"],
+             "hits": metrics[model]["hits10"], "recall": metrics[model]["recall10"],
+             "ndcg": metrics[model]["ndcg10"]}
+            for direction, model in directions.items()
+        ],
+        "profiles": [
+            {"id": profile["profile"], "ranks": {direction: values[i] for direction, values in ranks.items()}}
+            for i, profile in enumerate(data.profiles)
+        ],
+    }
+
+
 @app.get('/api/training')
 def training(request:Request):
     with (ROOT/'artifacts/training.csv').open() as f:rows=list(csv.DictReader(f))
