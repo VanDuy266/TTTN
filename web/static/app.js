@@ -71,6 +71,43 @@ async function getMetrics(protocol = "full_catalog", cohort = "all") {
 function heading(title, description) {
   return `<div class="page-heading"><div><h1>${h(title)}</h1><p>${h(description)}</p></div></div>`;
 }
+function pageGuide(view) {
+  const { users, catalog } = state.bootstrap.audit;
+  const guides = {
+    overview: [
+      ["Đề tài thử gì?", "Web kiểm tra xem các mô hình có đưa sản phẩm người dùng đã chọn vào 10 gợi ý đầu hay không."],
+      ["Xem theo thứ tự nào?", "Chạy thử một hồ sơ trong So sánh dự đoán, xem kết quả toàn tập ở Đánh giá mô hình, rồi tạo đơn thử ở Cửa hàng mô phỏng."],
+    ],
+    experiment: [
+      ["Hướng nào tìm trúng nhiều hơn?", "Đọc số hồ sơ trúng Top 10 của H1, H2 và H3. Chọn Lọc theo kết quả Top 10 để xem các hồ sơ mà từng hướng tìm trúng."],
+      [`${num(users)} hồ sơ và 100 ứng viên là gì?`, `${num(users)} là số hồ sơ kiểm tra. Mỗi hồ sơ được xếp hạng trên 100 sản phẩm lấy mẫu hoặc toàn bộ ${num(catalog)} sản phẩm, tùy lựa chọn của bạn.`],
+      ["Xem một ví dụ cụ thể", "Bấm mã hồ sơ trong bảng. Web sẽ mở sản phẩm thực tế, thứ hạng và 10 gợi ý của từng mô hình."],
+    ],
+    results: [
+      ["Chọn cùng một phạm vi", "Chọn tập ứng viên và nhóm người dùng trước. So sánh các cột mô hình trên cùng một biểu đồ."],
+      ["Đọc ba chỉ số", "Recall@10 đếm tỷ lệ hồ sơ trúng Top 10. NDCG@10 cho điểm cao hơn khi hạng gần đầu. Độ phủ cho biết có bao nhiêu phần danh mục xuất hiện trong các gợi ý."],
+      ["Đọc chênh lệch", "Khung bên cạnh biểu đồ cho biết ai dẫn đầu và hơn mốc nội dung bao nhiêu. Chênh lệch 0 nghĩa là kết quả bằng mốc theo chỉ số đang xem."],
+    ],
+    discussion: [
+      ["Bằng chứng đến từ đâu?", "Khung đầu trang lấy số liệu đánh giá trên toàn danh mục và tách nhóm sản phẩm đã có hoặc chưa có trong tập huấn luyện."],
+      ["Cần đọc gì để góp ý?", "Mở từng mô hình để xem điểm mạnh, hạn chế và cách cải tiến. Cuối trang là thứ tự ưu tiên của nhóm."],
+    ],
+    method: [
+      ["Dữ liệu được dùng thế nào?", "Tập huấn luyện để học, tập xác thực để chọn cấu hình, tập kiểm tra để đo kết quả cuối. Khi bấm trên web, hệ thống xếp hạng từ điểm đã lưu."],
+      ["Tìm thuật toán ở đâu?", "Mở Cấu trúc từng hướng nghiên cứu để xem đầu vào, cách xử lý, đầu ra và thông số của H1, H2 hoặc H3."],
+    ],
+    store: [
+      ["Muốn chạy gợi ý bằng H3?", "Chọn hồ sơ KH-…, để trống Sản phẩm quan tâm và tắt A/B mô phỏng. Bấm Xem gợi ý rồi tìm dòng Xếp hạng từ điểm đã lưu."],
+      ["Muốn thử một đơn hàng?", "Mở Chi tiết, ghi số tồn, thêm 1 món rồi chọn Tạo đơn thử. Bấm Đối chiếu đơn và tồn kho để xem số tồn giảm 1."],
+    ],
+  };
+  return `<section class="page-guide" aria-label="Hướng dẫn sử dụng trang">
+    <h2>Đọc và thao tác</h2><dl>${guides[view].map(([question, answer]) => `
+      <div><dt>${h(question)}</dt><dd>${h(answer)}</dd></div>
+    `).join("")}</dl>
+  </section>`;
+}
+
 function loading(text = "Đang đọc kết quả đã kiểm chứng…") {
   return `<div class="loading-inline" role="status"><span class="spinner"></span>${h(text)}</div>`;
 }
@@ -154,6 +191,7 @@ function overview() {
         <a href="#results" class="inline-link">Mở bảng đánh giá →</a>
       </div>
     </section>
+    ${pageGuide("overview")}
     ${scoreTiles([
       ["Hồ sơ kiểm tra", num(a.users)],
       ["Sản phẩm trong danh mục", num(a.catalog)],
@@ -303,7 +341,7 @@ function experiment() {
       "So sánh dự đoán",
       "So sánh H1, H2 và H3 trên toàn tập. Mở một hồ sơ để xem danh sách gợi ý cụ thể.",
     ) +
-    `<section class="panel direction-cohort" aria-labelledby="direction-cohort-title">
+    `${pageGuide("experiment")}<section class="panel direction-cohort" aria-labelledby="direction-cohort-title">
       <div class="metrics-panel-head">
         <h2 id="direction-cohort-title">So sánh H1, H2, H3 trên ${num(b.audit.users)} hồ sơ</h2>
         <div><label for="direction-protocol">Tập ứng viên mỗi hồ sơ</label><select id="direction-protocol">${protocolOptions(state.protocol)}</select></div>
@@ -612,7 +650,7 @@ async function results() {
       "Kết quả thực nghiệm",
       "Mỗi người dùng có một sản phẩm thực tế để đối chiếu. Dự đoán tìm trúng khi sản phẩm đó nằm trong 10 gợi ý đầu.",
     ) +
-    `<div class="result-controls"><div><label for="metrics-protocol">Phạm vi đánh giá</label><select id="metrics-protocol">${protocolOptions(state.protocol)}</select></div><div><label for="metrics-cohort">Nhóm sản phẩm thực tế</label><select id="metrics-cohort">${options(
+    `${pageGuide("results")}<div class="result-controls"><div><label for="metrics-protocol">Phạm vi đánh giá</label><select id="metrics-protocol">${protocolOptions(state.protocol)}</select></div><div><label for="metrics-cohort">Nhóm sản phẩm thực tế</label><select id="metrics-cohort">${options(
       [
         ["all", "Tất cả người dùng"],
         ["warm", "Đã có trong tập huấn luyện"],
@@ -741,7 +779,7 @@ async function discussion() {
       "Nhận xét và hướng cải tiến",
       "Ưu điểm, hạn chế và đề xuất cải tiến của ba hướng nghiên cứu.",
     ) +
-    `<section id="discussion-evidence" class="panel research-evidence">${loading()}</section>
+    `${pageGuide("discussion")}<section id="discussion-evidence" class="panel research-evidence">${loading()}</section>
     <div class="section-heading"><div><h2>Nhận xét từng mô hình</h2></div></div>
     <div class="research-review-list">${discussionData.map((x, index) => `
       <details class="panel research-review"${index === 0 ? " open" : ""}>
@@ -812,6 +850,7 @@ async function methodology() {
       "Đầu vào, cách xử lý, đầu ra và kết quả hiện có của ba hướng.",
     ) +
     `
+  ${pageGuide("method")}
   <section class="panel research-method"><h2>Quy trình thực nghiệm và vận hành</h2>
     <ol class="research-workflow">${study.evaluation.workflow.map(({ title, description }) => `<li><h3>${h(title)}</h3><p>${h(description)}</p></li>`).join("")}</ol>
     <details class="disclosure"><summary>Hai cách chọn tập ứng viên</summary><div class="method-grid">${methodEntries(study.evaluation.protocols)}</div></details>
@@ -969,6 +1008,7 @@ async function storefront() {
       </div>
       <div class="store-hero-image"><img src="/static/beauty-editorial.webp" alt="" width="1440" height="960" fetchpriority="high"></div>
     </section>
+    ${pageGuide("store")}
     <div id="store-workspace" tabindex="-1"></div>`;
   $("#store-start").onclick = () => ($("[data-store-category]") || $("#store-profile") || $("#store-workspace")).focus();
   $("#store-ops-link").onclick = () => ($("#store-ops-title") || $("#store-workspace")).focus();

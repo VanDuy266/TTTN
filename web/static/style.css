@@ -3877,3 +3877,46 @@ input::placeholder {
 #profile-search {
   scroll-margin-top: 90px;
 }
+
+.page-guide {
+  border: 1px solid #d7e4ee;
+  border-radius: 12px;
+  background: #f7fbfe;
+  padding: 13px 16px;
+  margin-bottom: 16px;
+}
+
+.research-overview-hero + .page-guide {
+  margin-top: 16px;
+}
+
+.page-guide h2 {
+  margin: 0 0 9px;
+  font: 750 .95rem/1.35 system-ui, sans-serif;
+  color: #173e5a;
+}
+
+.page-guide dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  gap: 8px 14px;
+  margin: 0;
+}
+
+.page-guide dl > div {
+  border-left: 2px solid #91b8d0;
+  padding-left: 10px;
+}
+
+.page-guide dt {
+  font-weight: 700;
+  font-size: .87em;
+  color: #173e5a;
+}
+
+.page-guide dd {
+  margin: 2px 0 0;
+  font-size: .85em;
+  line-height: 1.48;
+  color: #435d71;
+}
